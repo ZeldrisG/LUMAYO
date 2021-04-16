@@ -20,5 +20,5 @@ from LumayoApp import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('Inicio/', views.Home, name="Home"),
+    path('inicio/', views.Home, name="Home"),
 ]
