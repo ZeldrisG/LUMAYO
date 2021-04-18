@@ -5,3 +5,7 @@ from django.shortcuts import render, HttpResponse
 def Home(request):
 
     return render(request, "LumayoApp/home.html")
+
+def admin_perfil(request):
+    
+    return render(request, "LumayoApp/administrar-perfil.html")

@@ -23,4 +23,5 @@ from LumayoApp import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('inicio/', views.Home, name="Home"),
+    path('admin-perfil/', views.admin_perfil, name="Administar Perfil"),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
