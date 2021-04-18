@@ -6,6 +6,9 @@ def Home(request):
     
     return render(request, "LumayoApp/home.html")
 
+def admin_perfil(request):
+    
+    return render(request, "LumayoApp/administrar-perfil.html")
 
 
 def crear_administrador(request):
@@ -17,3 +20,7 @@ def crear_administrador(request):
 def login(request):
 
     return render(request, "LumayoApp/login.html")
+
+def admin_libro(request):
+    
+    return render(request, "LumayoApp/administrar-libro.html")

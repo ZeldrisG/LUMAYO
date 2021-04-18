@@ -76,14 +76,29 @@ WSGI_APPLICATION = 'Lumayo.wsgi.application'
 
 DATABASES = {
     'default': {
+<<<<<<< HEAD
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'lumayodb',
         'USER': 'postgres',
         'PASSWORD': '1088354080Luba*',
         'HOST': '127.0.0.1',
         'PORT': '60318',
+=======
+        # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        # 'NAME': 'dtnlu4i3mje63',
+        # 'USER': 'fajfwtiwrggxwg',
+        # 'PASSWORD': '247g',
+        # 'HOST': '2c9103807a28a398b0e2d7b74e56f78635416f3ff16de716897df0c02b36ad3e',
+        # 'PORT': '5432',
+>>>>>>> 420da03546ea398c5d68754c918133c96d552ba0
     }
 }
+
+import dj_database_url
+
+db_from_env = dj_database_url.config(default='postgres://fajfwtiwrggxwg:2c9103807a28a398b0e2d7b74e56f78635416f3ff16de716897df0c02b36ad3e@ec2-54-235-108-217.compute-1.amazonaws.com:5432/dtnlu4i3mje63')
+DATABASES['default'].update(db_from_env)
+
 
 
 # Password validation
