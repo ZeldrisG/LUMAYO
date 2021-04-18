@@ -5,9 +5,7 @@
 
 .body-bg {
 
-    background: linear-gradient(124.68deg, #a2d1e3, #3f51b5); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
-    width: 100vh;
+    background: linear-gradient(124.68deg, #a2d1e3, #3f51b5);
 }
 
 .card{
@@ -22,9 +20,3 @@
     transform: scale(1.05);
     box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
 }
-
-#footer {
-    position: relative;
-    width: 100%;
-    height: 205px;
-   }

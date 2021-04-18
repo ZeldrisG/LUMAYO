@@ -20,3 +20,7 @@ def crear_administrador(request):
 def login(request):
 
     return render(request, "LumayoApp/login.html")
+
+def admin_libro(request):
+    
+    return render(request, "LumayoApp/administrar-libro.html")
