@@ -1,5 +1,8 @@
 /* Sticky footer styles
 -------------------------------------------------- */
+
+
+
 html {
     position: relative;
     min-height: 100%;
@@ -39,3 +42,12 @@ html {
     box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
 }
 
+.btn-primary{
+    background-color: #3f51b5;
+    border-color: #3F51B5;
+}
+
+.btn-primary:hover{
+    background-color: #303F9F;
+    border-color: #303F9F
+}
