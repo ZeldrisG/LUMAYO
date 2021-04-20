@@ -15,6 +15,9 @@ def crear_administrador(request):
 
     return render(request, "LumayoApp/crear-administrador.html")
 
+def eliminar_admin(request):
+
+    return render(request, "LumayoApp/eliminar-administrador.html")
 
 
 def login(request):
