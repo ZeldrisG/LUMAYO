@@ -1,4 +1,8 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, redirect
+
+from django.contrib import messages
+#from models import Clientes
+from django.contrib.auth.models import User, auth
 
 # Create your views here.
 
@@ -21,8 +25,20 @@ def eliminar_admin(request):
 
 
 def login(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
 
-    return render(request, "LumayoApp/login.html")
+        user = auth.authenticate(username=username, password=password)
+
+        if user is not None:
+            auth.login(request, user)
+            return redirect('Administar Libro')
+        else:
+            messages.info(request, 'Credenciales incorrectas')
+            return redirect('login')
+    else:
+        return render(request, "LumayoApp/login.html")
 
 def admin_libro(request):
     
