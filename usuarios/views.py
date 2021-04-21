@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from usuarios.forms import FormularioLogin
+from django.contrib import auth, messages
 
 def login(request):
     if request.method == 'POST':
@@ -17,7 +18,7 @@ def login(request):
                 return redirect('Administar Libro')
             else:
                 messages.info(request, 'Credenciales incorrectas')
-                return redirect('login2')
+                return redirect('login')
     else:
         miFormulario = FormularioLogin()
     return render(request, "usuarios/login/login.html", {'form': miFormulario})
