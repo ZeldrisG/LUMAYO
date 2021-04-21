@@ -1,23 +1,24 @@
 from django import forms
-from django.contrib.auth.models import User
+from django.contrib.auth.forms import AuthenticationForm
 
-class FormularioLogin(forms.ModelForm):
-    class Meta:
-        model = User
-        fields = ['username', 'password']
+class FormularioLogin(AuthenticationForm):
+    username = forms.CharField(
+        label='',
+        widget=forms.TextInput(
+            attrs = {
+                'placeholder': 'username or email',
+                'class': 'form-control'
+            }
+        )
+    )
 
-        widgets = {
-            'username' : forms.TextInput(
-				attrs={
-					'class': 'form-control'
-					}
-				),
-            'password' : forms.PasswordInput(
-                attrs={
-					'class': 'form-control'
-					}
-            )
-        }
+    password = forms.CharField(
+        label='', 
+        widget=forms.PasswordInput(
+            attrs = {
+                'placeholder': 'password',
+                'class': 'form-control'
 
-    # username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Usuario'}))
-
+            }
+        )
+    )

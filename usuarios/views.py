@@ -1,23 +1,21 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from usuarios.forms import FormularioLogin
+from django.contrib.auth.views import  LoginView, LogoutView
 
-def login(request):
-    if request.method == 'POST':
+class Login_Vista(LoginView):
+    template_name = 'usuarios/login/login.html'
+    authentication_form = FormularioLogin
 
-        miFormulario = FormularioLogin(request.POST)
-
-        if miFormulario.is_valid():
-            username = miFormulario.cleaned_data['username']
-            password = miFormulario.cleaned_data['password']
-
-            user = auth.authenticate(username=username, password=password)
-
-            if user is not None:
-                auth.login(request, user)
-                return redirect('Administar Libro')
-            else:
-                messages.info(request, 'Credenciales incorrectas')
-                return redirect('login2')
-    else:
-        miFormulario = FormularioLogin()
-    return render(request, "usuarios/login/login.html", {'form': miFormulario})
+    
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect('admin_perfil')
+        return super(Login_Vista, self).dispatch(request, *args, **kwargs)
+    
+    
+    def get_context_data(self, **kwargs):
+        context = super(Login_Vista, self).get_context_data(**kwargs)
+        context['title'] = 'Iniciar Sesion'
+        return context
+    
+    
