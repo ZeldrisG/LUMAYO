@@ -21,5 +21,5 @@ from django.conf.urls.static import static
 from usuarios import views
 
 urlpatterns = [
-    path('', views.login, name="login2"),
+    path('', views.login, name="login"),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
