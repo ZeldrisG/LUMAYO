@@ -24,7 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('inicio/', views.Home, name="Home"),
     path('admin-perfil/', views.admin_perfil, name="Administar Perfil"),
-    path('crear-administrador/', views.crear_administrador, name="crear_administrador"),
+    path('crear-admin/', views.crear_admin, name="crear_admin"),
     path('login/', views.login, name="login"),
     path('admin-libro/', views.admin_libro, name="Administar Libro"),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

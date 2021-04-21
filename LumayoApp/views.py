@@ -15,9 +15,9 @@ def admin_perfil(request):
     return render(request, "LumayoApp/administrar-perfil.html")
 
 
-def crear_administrador(request):
+def crear_admin(request):
 
-    return render(request, "LumayoApp/crear-administrador.html")
+    return render(request, "LumayoApp/crear-admin.html")
 
 
 
