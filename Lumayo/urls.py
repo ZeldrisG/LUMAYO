@@ -11,7 +11,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('inicio/', views.Home, name="inicio"),
     path('admin-perfil/', views.admin_perfil, name="admin_perfil"),
-    path('crear-administrador/', views.crear_administrador, name="crear_admin"),
+    path('crear-administrador/', views.crear_admin, name="crear_admin"),
     path('login/', include('usuarios.urls'), name="login"),
     path('admin-libro/', views.admin_libro, name="admin_libro"),
     path('gestionar-admin/', views.gestionar_admin, name="Gestionar-admin"),
