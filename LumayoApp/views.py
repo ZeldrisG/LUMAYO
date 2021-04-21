@@ -23,23 +23,6 @@ def eliminar_admin(request):
 
     return render(request, "LumayoApp/eliminar-administrador.html")
 
-
-def login(request):
-    if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-
-        user = auth.authenticate(username=username, password=password)
-
-        if user is not None:
-            auth.login(request, user)
-            return redirect('Administar Libro')
-        else:
-            messages.info(request, 'Credenciales incorrectas')
-            return redirect('login')
-    else:
-        return render(request, "LumayoApp/login.html")
-
 def admin_libro(request):
     
     return render(request, "LumayoApp/administrar-libro.html")

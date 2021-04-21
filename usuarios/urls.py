@@ -14,18 +14,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 
-from LumayoApp import views
+from usuarios import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('inicio/', views.Home, name="Home"),
-    path('admin-perfil/', views.admin_perfil, name="Administar Perfil"),
-    path('crear-administrador/', views.crear_administrador, name="crear_administrador"),
-    path('login/', include('usuarios.urls'), name="login"),
-    path('admin-libro/', views.admin_libro, name="Administar Libro"),
-    path('eliminar-admin/', views.eliminar_admin, name="Eliminar Administrador"),
+    path('', views.login, name="login2"),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
