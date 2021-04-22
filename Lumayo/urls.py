@@ -13,7 +13,8 @@ urlpatterns = [
     path('admin-perfil/', views.admin_perfil, name="admin_perfil"),
     path('crear-administrador/', views.crear_admin, name="crear_admin"),
     path('login/', include('usuarios.urls'), name="login"),
-    path('admin-libro/', views.admin_libro, name="admin_libro"),
+    path('admin-libro/', include('libros.urls'), name="admin_libro"),
+    path('add-libro/', include('libros.urls'), name="add_libro"),
     path('gestionar-admin/', views.gestionar_admin, name="Gestionar_admin"),
 
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

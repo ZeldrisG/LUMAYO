@@ -9,7 +9,7 @@ class Login_Vista(LoginView):
     
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            return redirect('admin-perfil')
+            return redirect('admin_perfil')
         return super(Login_Vista, self).dispatch(request, *args, **kwargs)
     
     
