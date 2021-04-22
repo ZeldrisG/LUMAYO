@@ -16,5 +16,7 @@ urlpatterns = [
     path('admin-libro/', include('libros.urls'), name="admin_libro"),
     path('add-libro/', include('libros.urls'), name="add_libro"),
     path('gestionar-admin/', views.gestionar_admin, name="Gestionar_admin"),
+    path('eliminar-admin/', views.eliminar_admin, name="Eliminar Administrador"),
+    path('completar-perfil/', include('usuarios.urls'), name="completar_perfil"),
 
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

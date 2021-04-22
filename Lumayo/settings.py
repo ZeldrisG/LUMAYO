@@ -37,10 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'widget_tweaks',
     'LumayoApp',
     'usuarios',
-    'libros'
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
@@ -137,3 +136,6 @@ LOGIN_REDIRECT_URL = 'admin_perfil'
 
 LOGOUT_REDIRECT_URL = 'login'
 
+MEDIA_ROOT = BASE_DIR / 'media'
+
+MEDIA_URL = '/media/'

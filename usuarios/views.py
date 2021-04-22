@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect
-from usuarios.forms import FormularioLogin
+from usuarios.forms import FormularioLogin, FormularioCompletarPerfil
 from django.contrib.auth.views import  LoginView, LogoutView
+from django.views.generic.edit import UpdateView
+from usuarios.models import Clientes
+from django.urls import reverse_lazy
 
 class Login_Vista(LoginView):
     template_name = 'usuarios/login/login.html'
@@ -18,4 +21,10 @@ class Login_Vista(LoginView):
         context['title'] = 'Iniciar Sesion'
         return context
     
-    
+
+class CompletarPerfil_Vista(UpdateView):
+    model = Clientes
+    form_class = FormularioCompletarPerfil
+    template_name = 'usuarios/completar-perfil.html'
+    success_url = reverse_lazy('admin_perfil')
+   
