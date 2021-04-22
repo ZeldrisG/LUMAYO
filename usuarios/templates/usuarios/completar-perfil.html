@@ -1,0 +1,31 @@
+{% extends 'LumayoApp/base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+
+
+{% block content %}
+
+   <h1> completar perfil</h1>
+   <div class="container"> 
+       <div class="row">
+           <form method="POST">
+            {% csrf_token %}
+           {% if form %}
+                {% for campos in form %} 
+            <div class="col-6">
+                {{ campos.label }}
+           </div>
+           <div class="col-6">
+            {{ campos|add_class:'form-control' }}
+            </div>
+                {% endfor %}
+           {% endif %}
+           <div class="col">
+            <input type="submit" name="completar-submit" id="completar-submit" tabindex="4" class="form-control btn btn-primary" value="guardar">
+           </div>
+        </form>
+       </div>
+   </div>
+  
+{% endblock content %}
+

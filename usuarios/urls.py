@@ -9,5 +9,6 @@ from usuarios import views
 urlpatterns = [
     path('', views.Login_Vista.as_view(), name="login"),
     path('logout/', views.LogoutView.as_view(), name="logout"),
+    path('<pk>/completar-perfil/', views.CompletarPerfil_Vista.as_view(), name="completar_perfil"),
 
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
