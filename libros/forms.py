@@ -8,7 +8,6 @@ class AddLibroForm(forms.ModelForm):
         fields = '__all__'
         widgets = {
                     'fec_publicacion': forms.DateInput(
-                        format=('%Y-%m-%d'),
                         attrs={'class': 'form-control', 
                             'placeholder': 'Select a date',
                             'type': 'date'

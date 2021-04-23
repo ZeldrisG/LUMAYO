@@ -10,19 +10,26 @@ LISTA_IDIOMAS = (('Español', 'Español'),
                  ('Coreano', 'Coreano'),
                  )
 
+# class Genero(models.Model):
+#     nombre = models.CharField(max_length=50)
+#     libro = models.ManyToManyField(Libro)
+
+#     def __str__(self):
+#         return self.nombre
 
 class Libro(models.Model):
-    id = models.IntegerField(primary_key = True)
+    id = models.AutoField(primary_key=True)
     issn = models.CharField(max_length=8)
     titulo = models.CharField(max_length=110)
     autor = models.CharField(max_length=50)
     editorial = models.CharField(max_length=50)
     fec_publicacion = models.DateField(auto_now=False, auto_now_add=False)
-    estado = models.CharField(max_length=9, choices=ESTADO_lIBRO, default='Nuevo')
+    estado = models.CharField(max_length=50, choices=ESTADO_lIBRO, default='Nuevo')
     existencias = models.IntegerField()
-    idioma = models.CharField(max_length=9, choices=LISTA_IDIOMAS, default='Nuevo')
+    idioma = models.CharField(max_length=50, choices=LISTA_IDIOMAS, default='Español')
     num_pags = models.IntegerField()
     precio = models.IntegerField()
-    portada = models.ImageField(upload_to = 'libros/portadas')
- 
+    portada = models.ImageField(upload_to = 'libros/portadas', default = 'libros/portadas/noimg.svg')
+
+    
         

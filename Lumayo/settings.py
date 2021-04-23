@@ -37,9 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'widget_tweaks',
     'LumayoApp',
     'usuarios',
-    'widget_tweaks',
+    'libros',
+    
 ]
 
 MIDDLEWARE = [

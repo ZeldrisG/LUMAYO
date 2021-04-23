@@ -15,6 +15,7 @@ urlpatterns = [
     path('login/', include('usuarios.urls'), name="login"),
     path('admin-libro/', include('libros.urls'), name="admin_libro"),
     path('add-libro/', include('libros.urls'), name="add_libro"),
+    path('list-libro/', include('libros.urls'), name="list_libro"),
     path('gestionar-admin/', views.gestionar_admin, name="Gestionar_admin"),
     path('eliminar-admin/', views.eliminar_admin, name="Eliminar Administrador"),
     path('completar-perfil/', include('usuarios.urls'), name="completar_perfil"),
