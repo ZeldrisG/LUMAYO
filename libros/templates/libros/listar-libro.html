@@ -28,8 +28,8 @@
                             <td>{{ libro.autor }}</td>
                             <td>{{ libro.existencias }}</td>
                             <td>
-                                <a class="btn btn-primary" href="#">Editar</a>
-                                <a class="btn btn-danger" href="#">Eliminar</a>
+                                <a class="btn btn-primary" href="{% url 'editar_libro' libro.id %}">Editar</a>
+                                <a class="btn btn-danger" href="{% url 'eliminar_libro' libro.id %}">Eliminar</a>
                             </td>
                         </tr>
                     {% endfor %}

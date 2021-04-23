@@ -8,10 +8,10 @@ from libros import views
 
 urlpatterns = [
     path('', views.admin_libro, name="admin_libro"),
-    path('add-libro/', views.Add_Libro.as_view(), name="add_libro"),
-    path('list-libro/', views.LibroList.as_view(), name="list_libro"),
-    path('<pk>/update-libro/', views.LibroUpdate.as_view(), name="up_libro"),
-    path('<pk>/delete-libro/', views.LibroDelete.as_view(), name="del_libro"),
+    path('agregar/', views.Agregar_Libro.as_view(), name="agregar_libro"),
+    path('listar/', views.Listar_Libro.as_view(), name="listar_libro"),
+    path('editar/<slug:pk>/', views.Editar_Libro.as_view(), name="editar_libro"),
+    path('eliminar/<slug:pk>/', views.Eliminar_Libro.as_view(), name="eliminar_libro"),
 
 
 

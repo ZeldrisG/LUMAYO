@@ -1,7 +1,7 @@
 from django import forms
 from libros.models import Libro
 
-class AddLibroForm(forms.ModelForm):
+class Agregar_Libro_Form(forms.ModelForm):
 
     class Meta:
         model = Libro
