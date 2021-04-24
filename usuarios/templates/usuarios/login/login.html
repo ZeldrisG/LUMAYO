@@ -21,7 +21,7 @@
             <div class="col-12 p-2" >
                 <img src="{% static 'LumayoApp/img/login.svg' %}" class="img-fluid">
             </div>
-            <form action="{% url 'login' %}" method="POST">
+            <form action="{% url 'usuarios:login' %}" method="POST">
                 {% csrf_token %}
 
                 {% for field in form %}
