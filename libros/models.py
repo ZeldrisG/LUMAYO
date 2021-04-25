@@ -29,7 +29,7 @@ class Libro(models.Model):
     idioma = models.CharField(max_length=50, choices=LISTA_IDIOMAS, default='Español')
     num_pags = models.IntegerField()
     precio = models.IntegerField()
-    portada = models.ImageField(upload_to = 'libros/portadas', default = 'libros/portadas/noimg.svg')
+    portada = models.ImageField(upload_to = 'libros/portadas')
 
     
         

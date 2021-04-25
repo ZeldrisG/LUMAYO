@@ -37,7 +37,9 @@ class CompletarPerfil_Vista(UpdateView):
     template_name = 'usuarios/completar-perfil.html'
     success_url = reverse_lazy('usuarios:admin-perfil')
 
-    # def get_object(self):
-    #     print (self.request.user.username)
-    #     return self.request.user.id
+    def get_object(self):
+        print (self.request.user)
+        return self.request.user
+
+ 
    

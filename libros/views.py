@@ -28,6 +28,7 @@ class Agregar_Libro(CreateView):
 
     def form_invalid(self, form):
         print ("form is invalid")
+        print(form)
         print(self.request.FILES)
         return HttpResponse("form is invalid.. this is just an HttpResponse object")
  

@@ -7,18 +7,31 @@
 {% block content %}
 <h1>Agregar libro</h1>
     <div class="container">
-        <form method="POST">
+        <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {% if form %}
             <div class="row">
                 <div class="col-6">
-                    <div class="card ">
-                        <img class="card-img-top" src="{% static 'LumayoApp/img/uplibro.svg' %}" alt="Card image cap">
-                        <h5 class="card-header">Seleccione una foto del libro</h5>
-                        <div class="card-body">
-                            {{ form.portada }}
+                    <div class="media">
+                        {% if form.portada %}
+                            <img src="{{ form.portada.url }}" class="rounded-circle" height="50"/>
+                        {% else %}
+                            <img src="{% static 'img/Avatar.png' %}" class="rounded-circle" height="50"/>
+                        {% endif %}
+    
+                        <div class="media-body">
+                            <h5 class="ml-4">@{{ form.nombre }} | {{ form.apellido }}</h5>
+                            <p class="ml-4">
+                                {{ form.portada }}
+                            </p>
                         </div>
-                      </div>
+                    </div>
+    
+                    {% for error in form.portada.errors %}
+                    <div class="alert alert-danger">
+                        <b>Picture: </b>{{ error }}
+                    </div>
+                    {% endfor %}
                 </div>
                 <div class="col-6">
                     <div class="row">
