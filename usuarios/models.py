@@ -7,11 +7,12 @@ PREFERENCIAS = [('terror', 'terror'),('drama','drama'),( 'ficcion','ficcion' )]
 
 class UsuarioManager(BaseUserManager):
 
-    def _create_user(self, username, email, password,is_staff, is_superuser, **extra_fields):        
+    def _create_user(self, username, email, password,is_staff,is_admin, is_superuser, **extra_fields):        
         usuario = self.model(
             username = username,
             email = self.normalize_email(email),
             is_staff = is_staff,
+            is_admin = is_admin,
             is_superuser = is_superuser,
             **extra_fields
             )
@@ -19,12 +20,12 @@ class UsuarioManager(BaseUserManager):
         usuario.save(using=self.db)
         return usuario
 
-    def create_user(self, username, email, password = None, **extra_fields):        
-        return self._create_user(username, email, password, False, False, **extra_fields)
+    def create_user(self, username, email, password, **extra_fields):        
+        return self._create_user(username, email, password, False, False, False, **extra_fields)
     
 
-    def create_superuser(self, username, email, password = None, **extra_fields):        
-        return self._create_user(username, email, password, True, True, **extra_fields)
+    def create_superuser(self, username, email, password, **extra_fields):        
+        return self._create_user(username, email, password, True, False, True, **extra_fields)
     
 
 
@@ -34,6 +35,8 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField('Correo electronico', unique=True, max_length=254)
     is_active = models.BooleanField(default = True)
     is_staff = models.BooleanField(default = False)
+    is_admin = models.BooleanField(default = False)
+
 
     objects = UsuarioManager()
 
@@ -46,33 +49,37 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
 
 
 
-class DatosBasicos(models.Model):
+
+
+class Perfil(models.Model):
+    usuario = models.OneToOneField(Usuario,on_delete=models.CASCADE)
     DNI = models.IntegerField(primary_key=True)
-    nombres = models.CharField(max_length=50)
-    apellidos = models.CharField(max_length=50)
-    direccion = models.CharField(max_length=50)
-    lugar_nac = models.CharField(max_length=20)
-    fecha_nac = models.DateField()
+    nombres = models.CharField(max_length=50, blank=True)
+    apellidos = models.CharField(max_length=50, blank=True)
+    direccion = models.CharField(max_length=50, blank=True)
+    lugar_nac = models.CharField(max_length=20, blank=True)
+    fecha_nac = models.DateField(null = True)
     genero=models.CharField(
         max_length=20,
         choices= GENERO,
         default= 'O'
     )
-    foto = models.ImageField(upload_to = 'usuarios/fotos')
+    foto = models.ImageField(upload_to = 'usuarios/fotos',blank=True)
 
-    class Meta:
-        abstract = True
-    
 
-class Admin(Usuario, DatosBasicos):
-    def __str__(self):
-        return f'Administrador {self.username}'
 
-    
+# class Cliente(Usuario, DatosBasicos):
+#     user = models.OneToOneField(Usuario, on_delete=models.CASCADE)
+#     preferencias = models.CharField(
+#         max_length=20,
+#         choices= PREFERENCIAS,
+#         default= 'terror'
+#     )
 
-class Clientes(Usuario, DatosBasicos):
-    preferencias = models.CharField(
-        max_length=20,
-        choices= PREFERENCIAS,
-        default= 'terror'
-    )
+# class Admin(Usuario, DatosBasicos):
+#     user = models.OneToOneField(Usuario, on_delete=models.CASCADE)
+#     preferencias = models.CharField(
+#         max_length=20,
+#         choices= PREFERENCIAS,
+#         default= 'terror'
+#     )

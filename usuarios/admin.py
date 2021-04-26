@@ -1,5 +1,5 @@
 from django.contrib import admin
-from usuarios.models import Clientes,Admin,Usuario
+from usuarios.models import Usuario
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 #Register your models here.
 
@@ -39,5 +39,5 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
 #         return form
 
-admin.site.register(Admin)
-admin.site.register(Clientes)
+admin.site.register(Usuario)
+

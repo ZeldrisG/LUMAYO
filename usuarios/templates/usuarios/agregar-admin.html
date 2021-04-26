@@ -1,0 +1,49 @@
+{% extends 'LumayoApp/base.html' %}
+{% load widget_tweaks %}
+
+{% load static %}
+
+
+{% block content %}
+<h1>Agregar Administrador</h1>
+    <div class="container">
+        <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% if form %}
+            <div class="row">
+                <div class="col-6">
+
+                </div>
+                <div class="col-6">
+                    <div class="row">
+
+                        {% for campos in form %}
+
+                            
+                            {% if campos != form.foto %}
+                                <div class="form-floating mb-3 col-6">
+                                    {{ campos|add_class:'form-control'|attr:"id:floatingInput"|attr:"placeholder:campos.label" }}
+                                    <label for="floatingInput" class="mb-2 mx-2">{{ campos.label }}</label>
+                                </div>
+                            {% endif %}
+                                
+
+                            
+                            
+                        {% endfor %}
+                            
+                        <div class="col">
+                            <input type="submit" name="add-admin-submit" id="add-admin-submit" tabindex="4" class="form-control btn btn-primary" value="guardar">
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </form> 
+    </div>
+  
+{% endblock content %}
+
+
+  
