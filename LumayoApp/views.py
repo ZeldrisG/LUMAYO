@@ -10,9 +10,6 @@ def Home(request):
     
     return render(request, "LumayoApp/home.html")
 
-def admin_perfil(request):
-    
-    return render(request, "LumayoApp/administrar-perfil.html")
 
 
 def crear_admin(request):

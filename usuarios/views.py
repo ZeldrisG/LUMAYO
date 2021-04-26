@@ -27,4 +27,9 @@ class CompletarPerfil_Vista(UpdateView):
     form_class = FormularioCompletarPerfil
     template_name = 'usuarios/completar-perfil.html'
     success_url = reverse_lazy('admin_perfil')
-   
+    slug_url_kwarg = 'slug'
+
+def admin_perfil(request):
+    
+    return render(request, "usuarios/administrar-perfil.html")
+ 
