@@ -11,7 +11,6 @@ def Home(request):
     return render(request, "LumayoApp/home.html")
 
 
-
 def crear_admin(request):
 
     return render(request, "LumayoApp/crear-admin.html")

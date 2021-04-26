@@ -1,6 +1,7 @@
 from django import forms
-from django.contrib.auth.forms import AuthenticationForm
-from usuarios.models import Clientes
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UserChangeForm
+
+from usuarios.models import Usuario, Perfil
 
 class FormularioLogin(AuthenticationForm):
     username = forms.CharField(
@@ -29,7 +30,36 @@ class FormularioLogin(AuthenticationForm):
         model = Clientes
         fields = [] """
 
-class FormularioCompletarPerfil(forms.ModelForm):
+# class FormularioCompletarPerfil(forms.ModelForm):
+#     class Meta:
+#         model = Usuario
+#         fields = '__all__'
+#         #fields = ('DNI','email', 'username', 'nombres', 'apellidos', 'direccion', 'lugar_nac', 'fecha_nac', 'genero', 'foto')
+#         widgets = {
+#                     'fecha_nac': forms.DateInput(
+#                         attrs={'class': 'form-control', 
+#                             'placeholder': 'Select a date',
+#                             'type': 'date'
+#                             }),
+#         }
+
+
+class FormularioPerfil(forms.ModelForm):
+    
     class Meta:
-        model = Clientes
-        fields = '__all__'
+        model = Perfil
+        fields = ('DNI', 'nombres', 'apellidos', 'direccion', 'lugar_nac', 'fecha_nac', 'genero', 'foto')
+        widgets = {
+                    'fecha_nac': forms.DateInput(
+                        attrs={'class': 'form-control', 
+                            'placeholder': 'Select a date',
+                            'type': 'date'
+                            }),
+        }
+
+
+class FormularioUsuario(UserCreationForm):
+    email = forms.EmailField(help_text='Requerido. Agrega un email valido', max_length=60)
+    class Meta:
+        model = Usuario
+        fields = ('email', 'username')

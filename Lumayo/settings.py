@@ -132,11 +132,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
+AUTH_USER_MODEL = 'usuarios.Usuario'
+
 STATIC_URL = '/static/'
 
-LOGIN_REDIRECT_URL = 'admin_perfil'
+LOGIN_REDIRECT_URL = 'usuarios:admin-perfil'
 
-LOGOUT_REDIRECT_URL = 'login'
+LOGOUT_REDIRECT_URL = 'usuarios:login'
 
 MEDIA_ROOT = BASE_DIR / 'media'
 

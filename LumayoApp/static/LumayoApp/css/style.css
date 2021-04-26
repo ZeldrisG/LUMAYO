@@ -51,3 +51,8 @@ html {
     background-color: #303F9F;
     border-color: #303F9F
 }
+
+.img-ajustable{
+  object-fit: fill;
+  height: 100%;
+}

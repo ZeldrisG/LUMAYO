@@ -5,33 +5,14 @@
 
 
 {% block content %}
-<h1>Agregar libro</h1>
+<h1>Agregar Administrador</h1>
     <div class="container">
         <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {% if form %}
             <div class="row">
                 <div class="col-6">
-                    <div class="media">
-                        {% if form.portada %}
-                            <img src="{{ form.portada.url }}" class="rounded-circle" height="50"/>
-                        {% else %}
-                            <img src="{% static 'img/Avatar.png' %}" class="rounded-circle" height="50"/>
-                        {% endif %}
-    
-                        <div class="media-body">
-                            <h5 class="ml-4">@{{ form.nombre }} | {{ form.apellido }}</h5>
-                            <p class="ml-4">
-                                {{ form.portada }}
-                            </p>
-                        </div>
-                    </div>
-    
-                    {% for error in form.portada.errors %}
-                    <div class="alert alert-danger">
-                        <b>Picture: </b>{{ error }}
-                    </div>
-                    {% endfor %}
+
                 </div>
                 <div class="col-6">
                     <div class="row">
@@ -39,7 +20,7 @@
                         {% for campos in form %}
 
                             
-                            {% if campos != form.portada and campos != form.id %}
+                            {% if campos != form.foto %}
                                 <div class="form-floating mb-3 col-6">
                                     {{ campos|add_class:'form-control'|attr:"id:floatingInput"|attr:"placeholder:campos.label" }}
                                     <label for="floatingInput" class="mb-2 mx-2">{{ campos.label }}</label>
@@ -52,7 +33,7 @@
                         {% endfor %}
                             
                         <div class="col">
-                            <input type="submit" name="add-libro-submit" id="add-libro-submit" tabindex="4" class="form-control btn btn-primary" value="guardar">
+                            <input type="submit" name="add-admin-submit" id="add-admin-submit" tabindex="4" class="form-control btn btn-primary" value="guardar">
                         </div>
 
                     </div>
