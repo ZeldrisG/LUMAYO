@@ -1,0 +1,40 @@
+{% extends 'LumayoApp/base.html' %}
+
+{% load static %}
+
+
+{% block content %}
+
+    <div class="container justify-content-center p-5 mt-5 mb-5">
+        <div class="row">
+            <div class="col">
+                <div class="card h-100" style="width: 18rem;">
+                    <img src="{% static 'LumayoApp/img/completar-perfil.svg' %}" class="card-img-top p-2" alt="...">
+                    <div class="card-body d-grid">
+                      <a href="#" class="btn btn-primary">Completar Perfil</a>
+                    </div>
+                  </div>
+            </div>
+            <div class="col">
+              <div class="card h-100" style="width: 18rem;">
+                <img src="{% static 'LumayoApp/img/editar-perfil.svg' %}" class="card-img-top p-2" alt="...">
+                <div class="card-body d-grid ">
+                  <a href="#" class="btn btn-primary">Editar Perfil </a>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card h-100" style="width: 18rem;">
+                <img src="{% static 'LumayoApp/img/dar-de-baja.svg' %}" class="card-img-top mt-4 p-2" alt="...">
+                <div class="card-body d-grid">
+                  <a href="#" class="btn btn-primary">Dar de baja</a>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+  
+{% endblock content %}
+
+
+  
