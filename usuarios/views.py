@@ -5,6 +5,7 @@ from django.views.generic.edit import UpdateView,CreateView
 from django.views.generic.base import TemplateView
 from usuarios.models import Usuario, Perfil
 from django.urls import reverse_lazy
+from django.contrib.auth import update_session_auth_hash
 
 class Login_Vista(LoginView):
     template_name = 'usuarios/login/login.html'
@@ -41,7 +42,8 @@ class CompletarPerfil_Vista(UpdateView):
     
 
     template_name = 'usuarios/completar-perfil.html'
-    success_url = reverse_lazy('usuarios:admin-perfil')
+    success_url = reverse_lazy('usuarios:registro')
+    
 
     def get_object(self):
         print (self.request.user)
@@ -76,6 +78,12 @@ class CompletarPerfil_Vista(UpdateView):
         print(form.errors)
         print(self.request)
         return HttpResponse("form is invalid.. this is just an HttpResponse object")
+    
+    def form_valid(self, form):
+        solicitud = form.save(commit = False)
+        form.save()
+        update_session_auth_hash(self.request, self.request.user)
+        return super().form_valid(form)
 
 
 
@@ -95,4 +103,27 @@ class Agregar_Admin(CreateView):
         print(self.request)
         return HttpResponse("form is invalid.. this is just an HttpResponse object")
  
+<<<<<<< HEAD
    
+=======
+
+class Registro(CreateView):
+    model=Perfil
+    form_class=FormularioPerfil
+    template_name='usuarios/perfil-usuario.html'
+    success_url = reverse_lazy('usuarios:registro')
+
+    def form_valid(self, form):
+        print (self.request.user)
+        usuario = Usuario.objects.get(username=self.request.user)
+        solicitud = form.save(commit = False)
+        solicitud.usuario = usuario
+        form.save()
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        print ("form is invalid")
+        print(form)
+        print(self.request.FILES)
+        return HttpResponse("form is invalid.. this is just an HttpResponse object")
+>>>>>>> 23f6fe90cdd33dacc657e5e81d0fdb1a76a384cd
