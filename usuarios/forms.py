@@ -58,7 +58,7 @@ class FormularioPerfil(forms.ModelForm):
         }
 
 
-class FormularioUsuario(UserCreationForm):
+class FormularioUsuario(forms.ModelForm):
     email = forms.EmailField(help_text='Requerido. Agrega un email valido', max_length=60)
     class Meta:
         model = Usuario

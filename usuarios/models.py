@@ -44,8 +44,7 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = ['email']
 
     def __str__(self):
-        return f'Usuario {self.username}'
-
+        return self.username
 
 
 
