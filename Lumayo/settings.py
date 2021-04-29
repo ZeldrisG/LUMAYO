@@ -136,7 +136,7 @@ AUTH_USER_MODEL = 'usuarios.Usuario'
 
 STATIC_URL = '/static/'
 
-LOGIN_REDIRECT_URL = 'usuarios:admin-perfil'
+LOGIN_REDIRECT_URL = 'usuarios:loader'
 
 LOGOUT_REDIRECT_URL = 'usuarios:login'
 

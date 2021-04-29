@@ -13,7 +13,11 @@ urlpatterns = [
     path('completar-perfil/', views.CompletarPerfil_Vista.as_view(), name="completar-perfil"),
     path('modulo-root/', views.Modulo_Root.as_view(), name="modulo-root"),
     path('agregar-admin/', views.Agregar_Admin.as_view(), name="agregar-admin"),
+    path('listar-admin/', views.Listar_Admin.as_view(), name="listar-admin"),
+    path('eliminar-admin/<slug:pk>/', views.Eliminar_Admin.as_view(), name="eliminar-admin"),
     path('registro/', views.Registro.as_view(), name="registro"),
+    path('loader/', views.Loader.as_view(), name="loader"),
+
 
 
 

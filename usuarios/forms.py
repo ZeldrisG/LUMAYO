@@ -63,3 +63,16 @@ class FormularioUsuario(forms.ModelForm):
     class Meta:
         model = Usuario
         fields = ('email', 'username')
+
+
+class FormularioUsuarioAdmin(UserCreationForm):
+    email = forms.EmailField(help_text='Requerido. Agrega un email valido', max_length=60)    
+    class Meta:
+        model = Usuario
+        fields = ('username', 'email',)
+        widgets = {
+                    'password': forms.PasswordInput(
+                        attrs={'class': 'form-control', 
+                            'placeholder': 'Contraseña',
+                            }),   
+        }

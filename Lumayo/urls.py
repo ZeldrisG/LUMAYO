@@ -9,7 +9,7 @@ from LumayoApp import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('inicio/', views.Home, name="inicio"),
+    path('', views.Home, name="inicio"),
     path('admin-perfil/', include('usuarios.urls', namespace='admin-perfil')),
     path('crear-administrador/', views.crear_admin, name="crear-admin"),
     path('admin-libro/', include('libros.urls', namespace='admin-libro')),

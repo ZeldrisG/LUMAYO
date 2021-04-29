@@ -12,8 +12,7 @@
 
     <!-- style css e iconos-->
     <link rel="stylesheet" href="{% static 'LumayoApp/css/style.css' %}">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-    rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Outlined" rel="stylesheet">
     <!-- style css e iconos-->
 
 
@@ -24,50 +23,8 @@
 <body class="wrapper body-bg" >
     
     <!-- navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
-        <div class="container-fluid">
-
-          <div class="row row-nav">
-            <div class="col-2">
-              <a class="navbar-brand" href="#">
-                <img src="{% static 'LumayoApp/img/logo.webp' %}" width="50"  alt="Logo Lumayo">
-                  LUMAYO</a>
+    {% include "LumayoApp/barra-navegacion.html" %}
     
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-            </div>
-            <div class="col-6">
-              <form class="d-flex justify-content-end">
-                <input class="form-control me-2" type="search" placeholder="Titulo, ISSN, Editorial..." aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Buscar</button>
-              </form>
-            </div>
-            <div  class="col-4 collapse navbar-collapse text-end" id="navbarSupportedContent">
-              <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                  <a class="nav-link" aria-current="page" href="#">Inicio</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Tienda</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Nosotros</a>
-                </li>
-                <li class="nav-item">
-                  <!-- <a class="nav-link" href="#">Contactanos</a> -->
-                </li>
-                <li class="nav-item">
-                  <a class="btn btn-success text-center" href="#">Iniciar Sesion</a>
-                </li>
-                <li class="nav-item">
-                  <a class="btn btn-indigo" href="#">Registrate!</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </nav>
     <!-- /navbar -->
 
 
