@@ -103,9 +103,6 @@ class Agregar_Admin(CreateView):
         print(self.request)
         return HttpResponse("form is invalid.. this is just an HttpResponse object")
  
-<<<<<<< HEAD
-   
-=======
 
 class Registro(CreateView):
     model=Perfil
@@ -126,4 +123,3 @@ class Registro(CreateView):
         print(form)
         print(self.request.FILES)
         return HttpResponse("form is invalid.. this is just an HttpResponse object")
->>>>>>> 23f6fe90cdd33dacc657e5e81d0fdb1a76a384cd

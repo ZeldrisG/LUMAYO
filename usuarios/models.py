@@ -20,8 +20,8 @@ class UsuarioManager(BaseUserManager):
         usuario.save(using=self.db)
         return usuario
 
-    def create_user(self, username, email, password, **extra_fields):        
-        return self._create_user(username, email, password, False, False, False, **extra_fields)
+    def create_user(self, username, email, password, is_admin, **extra_fields):        
+        return self._create_user(username, email, password, False, is_admin, False, **extra_fields)
     
 
     def create_superuser(self, username, email, password, **extra_fields):        
@@ -42,6 +42,9 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email']
+
+    def getTipo(self):
+        return self.is_admin
 
     def __str__(self):
         return self.username
