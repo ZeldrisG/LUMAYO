@@ -68,7 +68,7 @@ class Perfil(models.Model):
     )
     foto = models.ImageField(upload_to = 'usuarios/fotos',blank=True)
 
-
+    REQUIRED_FIELDS = ['DNI','nombres']
 
 # class Cliente(Usuario, DatosBasicos):
 #     user = models.OneToOneField(Usuario, on_delete=models.CASCADE)

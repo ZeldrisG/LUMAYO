@@ -1,45 +1,51 @@
 from django.shortcuts import render, redirect,HttpResponse
-from usuarios.forms import FormularioLogin, FormularioPerfil, FormularioUsuario
 from django.contrib.auth.views import  LoginView, LogoutView
-from django.views.generic.edit import UpdateView,CreateView
+from django.views.generic.edit import UpdateView, CreateView, DeleteView
+from django.views.generic import ListView
 from django.views.generic.base import TemplateView
-from usuarios.models import Usuario, Perfil
 from django.urls import reverse_lazy
 from django.contrib.auth import update_session_auth_hash
+import time
+
+from usuarios.models import Usuario, Perfil
+from usuarios.forms import FormularioLogin, FormularioPerfil, FormularioUsuario, FormularioUsuarioAdmin
+from usuarios.mixins import RootLoginMixin, AdminLoginMixin
+
+
 
 class Login_Vista(LoginView):
     template_name = 'usuarios/login/login.html'
     authentication_form = FormularioLogin
 
-    
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            return redirect('usuarios:admin-perfil')
+            if self.request.user.is_superuser:
+                return redirect('usuarios:modulo-root')
+            elif self.request.user.is_admin:
+                return redirect('usuarios:admin-perfil')                    
         return super().dispatch(request, *args, **kwargs)
-    
     
     def get_context_data(self, **kwargs):
         context = super(Login_Vista, self).get_context_data(**kwargs)
         context['title'] = 'Iniciar Sesion'
         return context
     
-class Modulo_Root(TemplateView):
+class Modulo_Root(RootLoginMixin, TemplateView):
     model = Usuario
     template_name = 'usuarios/modulo-root.html'
 
 
-class Admin_Perfil(TemplateView):
+class Admin_Perfil(AdminLoginMixin, TemplateView):
     model = Usuario
     template_name = 'usuarios/administrar-perfil.html'
 
 
 
-class CompletarPerfil_Vista(UpdateView):
+class CompletarPerfil_Vista(AdminLoginMixin, UpdateView):
     model = Usuario
     second_model = Perfil
     form_class = FormularioUsuario
     second_form_class = FormularioPerfil
-    
 
     template_name = 'usuarios/completar-perfil.html'
     success_url = reverse_lazy('usuarios:registro')
@@ -87,14 +93,40 @@ class CompletarPerfil_Vista(UpdateView):
 
 
 
-class Agregar_Admin(CreateView):
+class EditarPerfil(AdminLoginMixin, UpdateView):
     model = Usuario
-    form_class = FormularioPerfil
+    second_model = Perfil
+    form_class = FormularioUsuario
+    second_form_class = FormularioPerfil
+
+    template_name = 'usuarios/editar-perfil.html'
+    success_url = reverse_lazy('usuarios:admin-perfil')
+    
+
+    def get_context_data(self, **kwargs):
+
+        context = super(EditarPerfil, self).get_context_data(**kwargs)
+        pk = self.kwargs.get('pk', 0)
+        usuario= self.model.objects.get(id=pk)
+        perfil = self.second_model.objects.get(usuario_id=usuario_id)
+        if 'form' not in context:
+            context['form'] = self.form_class(self.request.GET)
+        if 'form2' not in context:
+            context['form2'] = self.second_form_class(instance = perfil)
+        return context
+
+
+
+class Agregar_Admin(RootLoginMixin, CreateView):
+    model = Usuario
+    form_class = FormularioUsuarioAdmin
     template_name = 'usuarios/agregar-admin.html'
     success_url = reverse_lazy('usuarios:modulo-root')
 
     def form_valid(self, form):
-        form.save()
+        user = form.save(commit = False)
+        user.is_admin = True
+        user.save()
         return super().form_valid(form)
 
     def form_invalid(self, form):
@@ -104,11 +136,24 @@ class Agregar_Admin(CreateView):
         return HttpResponse("form is invalid.. this is just an HttpResponse object")
  
 
-class Registro(CreateView):
+class Listar_Admin(RootLoginMixin, ListView):
+    model = Usuario
+    template_name = 'usuarios/listar-admin.html'
+    success_url = reverse_lazy('usuarios:listar-admin')
+
+class Eliminar_Admin(RootLoginMixin, DeleteView):
+    model = Usuario
+    template_name = 'usuarios/eliminar-admin.html'
+    success_url = reverse_lazy('usuarios:listar-admin')
+
+
+
+
+class Registro(AdminLoginMixin, CreateView):
     model=Perfil
     form_class=FormularioPerfil
     template_name='usuarios/perfil-usuario.html'
-    success_url = reverse_lazy('usuarios:registro')
+    success_url = reverse_lazy('usuarios:admin-perfil')
 
     def form_valid(self, form):
         print (self.request.user)
@@ -123,3 +168,16 @@ class Registro(CreateView):
         print(form)
         print(self.request.FILES)
         return HttpResponse("form is invalid.. this is just an HttpResponse object")
+
+
+class Loader(TemplateView):
+    model = Usuario
+    template_name = 'usuarios/loader.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            if self.request.user.is_superuser:
+                return redirect('usuarios:modulo-root')
+            elif self.request.user.is_admin:
+                return redirect('usuarios:admin-perfil')                    
+        return super().dispatch(request, *args, **kwargs)
