@@ -35,7 +35,7 @@ class Modulo_Root(RootLoginMixin, TemplateView):
     template_name = 'usuarios/modulo-root.html'
 
 
-class Admin_Perfil(TemplateView):
+class Admin_Perfil(AdminLoginMixin, TemplateView):
     model = Usuario
     template_name = 'usuarios/administrar-perfil.html'
 
@@ -56,29 +56,29 @@ class CompletarPerfil_Vista(UpdateView):
         print(self.request.user.perfil)
         return self.request.user
 
-    # def get_context_data(self, **kwargs):
-    #     context = super(CompletarPerfil_Vista, self).get_context_data(**kwargs)
-    #     pk = self.kwargs.get('pk', 0)
-    #     if 'form' not in context:
-    #         context['form'] = self.form_class(self.request.GET)
-    #     if 'form2' not in context:
-    #         context['form2'] = self.second_form_class(self.request.GET)
-    #     return context
-    
-    # def post(self, request, *args, **kwargs):
-    #     self.object = self.get_object
-    #     form = self.form_class(request.POST)
-    #     form2 = self.second_form_class(request.POST)
+        # def get_context_data(self, **kwargs):
+        #     context = super(CompletarPerfil_Vista, self).get_context_data(**kwargs)
+        #     pk = self.kwargs.get('pk', 0)
+        #     if 'form' not in context:
+        #         context['form'] = self.form_class(self.request.GET)
+        #     if 'form2' not in context:
+        #         context['form2'] = self.second_form_class(self.request.GET)
+        #     return context
+        
+        # def post(self, request, *args, **kwargs):
+        #     self.object = self.get_object
+        #     form = self.form_class(request.POST)
+        #     form2 = self.second_form_class(request.POST)
 
-    #     if form.is_valid() and form2.is_valid():
-    #         solicitud  = form2.save(commit=False)
-    #         solicitud.usuario = self.model
-    #         solicitud.save()
-    #         return redirect(self.get_success_url())
-    #     else:
-    #         print ("form is invalid")
-    #         print(form.errors)
-    #         return self.render_to_response(self.get_context_data(form=form, form2=form2))
+        #     if form.is_valid() and form2.is_valid():
+        #         solicitud  = form2.save(commit=False)
+        #         solicitud.usuario = self.model
+        #         solicitud.save()
+        #         return redirect(self.get_success_url())
+        #     else:
+        #         print ("form is invalid")
+        #         print(form.errors)
+        #         return self.render_to_response(self.get_context_data(form=form, form2=form2))
 
     def form_invalid(self, form):
         print ("form is invalid")
@@ -87,11 +87,47 @@ class CompletarPerfil_Vista(UpdateView):
         return HttpResponse("form is invalid.. this is just an HttpResponse object")
     
     def form_valid(self, form):
-        solicitud = form.save(commit = False)
         form.save()
-        update_session_auth_hash(self.request, self.request.user)
+        #update_session_auth_hash(self.request, self.request.user)
         return super().form_valid(form)
 
+
+
+class EditarPerfil(AdminLoginMixin, UpdateView):
+    model = Usuario
+    second_model = Perfil
+    form_class = FormularioUsuario
+    second_form_class = FormularioPerfil
+
+    template_name = 'usuarios/editar-perfil.html'
+    success_url = reverse_lazy('usuarios:admin-perfil')
+    
+    def get_object(self):
+        print (self.request.user)
+        return self.request.user
+
+    def get_context_data(self, **kwargs):
+        context = super(EditarPerfil, self).get_context_data(**kwargs)
+        datos = Perfil.objects.get(usuario_id = self.request.user.id)
+        formulario = FormularioPerfil(instance=datos)
+        context['form2'] = formulario
+        return context
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object
+        usuario = self.model.objects.get(id=request.user.id)
+        perfil = Perfil.objects.get(usuario_id=request.user.id)
+        form = self.form_class(request.POST, instance = usuario)
+        form2 = self.second_form_class(request.POST, request.FILES, instance= perfil)
+
+        if form.is_valid() and form2.is_valid():
+            form.save()
+            form2.save()
+            return redirect(self.get_success_url())
+        else:
+            print ("form is invalid")
+            print(form.errors)
+            return self.render_to_response(self.get_context_data(form=form, form2=form2))
 
 
 class Agregar_Admin(RootLoginMixin, CreateView):
@@ -118,7 +154,7 @@ class Listar_Admin(RootLoginMixin, ListView):
     template_name = 'usuarios/listar-admin.html'
     success_url = reverse_lazy('usuarios:listar-admin')
 
-class Eliminar_Admin(DeleteView):
+class Eliminar_Admin(RootLoginMixin, DeleteView):
     model = Usuario
     template_name = 'usuarios/eliminar-admin.html'
     success_url = reverse_lazy('usuarios:listar-admin')
@@ -126,11 +162,11 @@ class Eliminar_Admin(DeleteView):
 
 
 
-class Registro(CreateView):
+class Registro(AdminLoginMixin, CreateView):
     model=Perfil
     form_class=FormularioPerfil
     template_name='usuarios/perfil-usuario.html'
-    success_url = reverse_lazy('usuarios:registro')
+    success_url = reverse_lazy('usuarios:admin-perfil')
 
     def form_valid(self, form):
         print (self.request.user)

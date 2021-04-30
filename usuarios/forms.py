@@ -56,6 +56,11 @@ class FormularioPerfil(forms.ModelForm):
                             'type': 'date'
                             }),
         }
+    
+    """ def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user')
+        super(FormularioPerfil, self).__init__(*args, **kwargs)
+        self.fields["journalname"].queryset = Perfil.objects.filter(journalusername=user) """
 
 
 class FormularioUsuario(forms.ModelForm):

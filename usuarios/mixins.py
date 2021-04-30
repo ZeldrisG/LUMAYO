@@ -17,7 +17,7 @@ class AdminLoginMixin(object):
 class ClienteLoginMixin(object):
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            if not request.user.is_admin:
+            if not request.user.is_admin and not request.user.is_superuser:
                 return super().dispatch(request, *args, **kwargs)
         return redirect('inicio')
 
