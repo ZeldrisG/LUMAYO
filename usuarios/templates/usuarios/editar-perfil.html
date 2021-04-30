@@ -6,63 +6,53 @@
 {% block content %}
 
    <div class="container m-4">
+    <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
     <h2> Editar perfil</h2>
-
-       <div class="row">
-
+        <div class="row">
             <div class="col-6 m-0">
-                <section>
-                    <img src="{% static 'LumayoApp/img/completar-perfil.jpg' %}" class="img-ajustable" alt="">
-                </section>
+                <div class="media">
+                    {% if form2.foto %}
+                        <img src="{{ form2.foto.url }}" class="rounded-circle" height="50"/>
+                    {% else %}
+                        <img src="{% static 'img/Avatar.png' %}" class="rounded-circle" height="50"/>
+                    {% endif %}
+                    <div class="media-body">
+                        <h5 class="ml-4">@{{ form2.nombre }} | {{ form2.apellido }}</h5>
+                        <p class="ml-4">
+                            {{ form2.foto }}
+                        </p>
+                    </div>
+                </div>
             </div>
-
             <div class="col-6 bg-light p-3">
-               <h3> Editar Perfil</h3>
-
+                <h3> Editar Perfil</h3>
                 <div class="row">
-                    <form method="POST">
-                        {% csrf_token %}
                         {% if form %}
-                            {% for campos in form  %} 
-            
+                            {% for campos in form  %}
                                 <div class="form-floating mb-3 col-12">
                                     {{ campos|add_class:'form-control'|attr:"id:floatingInput"|attr:"placeholder:campos.label" }}
                                     <label for="floatingInput" class="mb-2 mx-2">{{ campos.label }}</label>
                                 </div>
-                            
                             {% endfor %}
-                            
-            
-                            <!-- <div class="col">
-                                <input type="submit" name="completar-submit" id="completar-submit" tabindex="4" class="form-control btn btn-primary my-2" value="guardar">
-                            </div> -->
-            
                         {% endif %}
                         {% if form2 %}
-                            {% for campos in form2  %} 
-            
-                                <div class="form-floating mb-3 col-12">
-                                    {{ campos|add_class:'form-control'|attr:"id:floatingInput"|attr:"placeholder:campos.label" }}
-                                    <label for="floatingInput" class="mb-2 mx-2">{{ campos.label }}</label>
-                                </div>
-                            
+                            {% for campos in form2  %}
+                                {% if campos != form2.foto %}
+                                    <div class="form-floating mb-3 col-12">
+                                        {{ campos|add_class:'form-control'|attr:"id:floatingInput"|attr:"placeholder:campos.label" }}
+                                        <label for="floatingInput" class="mb-2 mx-2">{{ campos.label }}</label>
+                                    </div>
+                                {% endif %}
                             {% endfor %}
-                            
-            
-                            
-            
                         {% endif %}
-
                         <div class="col">
                             <input type="submit" name="completar-submit" id="completar-submit" tabindex="4" class="form-control btn btn-primary my-2" value="guardar">
                         </div>
-                       
-                    </form>
                 </div>
             </div>
-
-       </div>
+        </div>
+    </form>
    </div>
-  
 {% endblock content %}
 

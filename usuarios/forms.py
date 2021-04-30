@@ -70,13 +70,6 @@ class FormularioUsuario(forms.ModelForm):
         fields = ('email', 'username')
 
 
-class FormularioUsuario2(UserChangeForm):
-    email = forms.EmailField(help_text='Requerido. Agrega un email valido', max_length=60)
-    password = None
-    class Meta:
-        model = Usuario
-        fields = ('email', 'username')
-
 class FormularioUsuarioAdmin(UserCreationForm):
     email = forms.EmailField(help_text='Requerido. Agrega un email valido', max_length=60)    
     class Meta:

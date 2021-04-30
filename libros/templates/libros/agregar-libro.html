@@ -18,7 +18,6 @@
                         {% else %}
                             <img src="{% static 'img/Avatar.png' %}" class="rounded-circle" height="50"/>
                         {% endif %}
-    
                         <div class="media-body">
                             <h5 class="ml-4">@{{ form.nombre }} | {{ form.apellido }}</h5>
                             <p class="ml-4">
@@ -26,7 +25,6 @@
                             </p>
                         </div>
                     </div>
-    
                     {% for error in form.portada.errors %}
                     <div class="alert alert-danger">
                         <b>Picture: </b>{{ error }}
@@ -35,34 +33,21 @@
                 </div>
                 <div class="col-6">
                     <div class="row">
-
                         {% for campos in form %}
-
-                            
                             {% if campos != form.portada and campos != form.id %}
                                 <div class="form-floating mb-3 col-6">
                                     {{ campos|add_class:'form-control'|attr:"id:floatingInput"|attr:"placeholder:campos.label" }}
                                     <label for="floatingInput" class="mb-2 mx-2">{{ campos.label }}</label>
                                 </div>
                             {% endif %}
-                                
-
-                            
-                            
                         {% endfor %}
-                            
                         <div class="col">
                             <input type="submit" name="add-libro-submit" id="add-libro-submit" tabindex="4" class="form-control btn btn-primary" value="guardar">
                         </div>
-
                     </div>
                 </div>
             </div>
             {% endif %}
         </form> 
     </div>
-  
 {% endblock content %}
-
-
-  

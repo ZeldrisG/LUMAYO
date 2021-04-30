@@ -8,7 +8,7 @@ from django.contrib.auth import update_session_auth_hash
 import time
 
 from usuarios.models import Usuario, Perfil
-from usuarios.forms import FormularioLogin, FormularioPerfil, FormularioUsuario, FormularioUsuarioAdmin, FormularioUsuario2
+from usuarios.forms import FormularioLogin, FormularioPerfil, FormularioUsuario, FormularioUsuarioAdmin
 from usuarios.mixins import RootLoginMixin, AdminLoginMixin
 
 
@@ -95,7 +95,7 @@ class CompletarPerfil_Vista(AdminLoginMixin, UpdateView):
 class EditarPerfil(AdminLoginMixin, UpdateView):
     model = Usuario
     second_model = Perfil
-    form_class = FormularioUsuario2
+    form_class = FormularioUsuario
     second_form_class = FormularioPerfil
 
     template_name = 'usuarios/editar-perfil.html'
@@ -108,7 +108,6 @@ class EditarPerfil(AdminLoginMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super(EditarPerfil, self).get_context_data(**kwargs)
         datos = Perfil.objects.get(usuario_id = self.request.user.id)
-        print (datos)
         formulario = FormularioPerfil(instance=datos)
         context['form2'] = formulario
         return context
@@ -118,7 +117,7 @@ class EditarPerfil(AdminLoginMixin, UpdateView):
         usuario = self.model.objects.get(id=request.user.id)
         perfil = Perfil.objects.get(usuario_id=request.user.id)
         form = self.form_class(request.POST, instance = usuario)
-        form2 = self.second_form_class(request.POST, instance= perfil)
+        form2 = self.second_form_class(request.POST, request.FILES, instance= perfil)
 
         if form.is_valid() and form2.is_valid():
             form.save()
