@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from Lumayo import settings
+
 
 GENERO = [('M', 'masculino'),('F', 'femenino'), ('O', 'otro')]
 PREFERENCIAS = [('terror', 'terror'),('drama','drama'),( 'ficcion','ficcion' )]
@@ -54,7 +56,7 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
 
 
 class Perfil(models.Model):
-    usuario = models.OneToOneField(Usuario,on_delete=models.CASCADE)
+    usuario = models.OneToOneField(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
     DNI = models.IntegerField(primary_key=True)
     nombres = models.CharField(max_length=50, blank=True)
     apellidos = models.CharField(max_length=50, blank=True)
@@ -66,6 +68,8 @@ class Perfil(models.Model):
         choices= GENERO,
         default= 'O'
     )
+
+
     foto = models.ImageField(upload_to = 'usuarios/fotos',blank=True)
 
     REQUIRED_FIELDS = ['DNI','nombres']

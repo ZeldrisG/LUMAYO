@@ -16,4 +16,6 @@ urlpatterns = [
     path('gestionar-admin/', views.gestionar_admin, name="gestionar-admin"),
     path('eliminar-admin/', views.eliminar_admin, name="eliminar-Administrador"),
 
-]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+]
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
