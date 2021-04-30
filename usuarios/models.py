@@ -66,6 +66,8 @@ class Perfil(models.Model):
         choices= GENERO,
         default= 'O'
     )
+
+
     foto = models.ImageField(upload_to = 'usuarios/fotos',blank=True)
 
     REQUIRED_FIELDS = ['DNI','nombres']

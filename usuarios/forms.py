@@ -56,6 +56,11 @@ class FormularioPerfil(forms.ModelForm):
                             'type': 'date'
                             }),
         }
+    
+    """ def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user')
+        super(FormularioPerfil, self).__init__(*args, **kwargs)
+        self.fields["journalname"].queryset = Perfil.objects.filter(journalusername=user) """
 
 
 class FormularioUsuario(forms.ModelForm):
@@ -64,6 +69,13 @@ class FormularioUsuario(forms.ModelForm):
         model = Usuario
         fields = ('email', 'username')
 
+
+class FormularioUsuario2(UserChangeForm):
+    email = forms.EmailField(help_text='Requerido. Agrega un email valido', max_length=60)
+    password = None
+    class Meta:
+        model = Usuario
+        fields = ('email', 'username')
 
 class FormularioUsuarioAdmin(UserCreationForm):
     email = forms.EmailField(help_text='Requerido. Agrega un email valido', max_length=60)    
