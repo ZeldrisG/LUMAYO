@@ -17,7 +17,7 @@ urlpatterns = [
     path('eliminar-admin/<slug:pk>/', views.Eliminar_Admin.as_view(), name="eliminar-admin"),
     path('registro/', views.Registro.as_view(), name="registro"),
     path('loader/', views.Loader.as_view(), name="loader"),
-    path('editar-perfil/<slug:pk>/', views.EditarPerfil.as_view(), name="editar-perfil"),
+    path('editar-perfil/', views.EditarPerfil.as_view(), name="editar-perfil"),
 
 
 

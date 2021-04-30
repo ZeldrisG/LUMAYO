@@ -102,17 +102,21 @@ class EditarPerfil(AdminLoginMixin, UpdateView):
     template_name = 'usuarios/editar-perfil.html'
     success_url = reverse_lazy('usuarios:admin-perfil')
     
+    def get_object(self):
+        print (self.request.user)
+        return self.request.user
 
     def get_context_data(self, **kwargs):
 
         context = super(EditarPerfil, self).get_context_data(**kwargs)
-        pk = self.kwargs.get('pk', 0)
-        usuario= self.model.objects.get(id=pk)
-        perfil = self.second_model.objects.get(usuario_id=usuario_id)
+        #pk = self.kwargs.get('pk')
         if 'form' not in context:
-            context['form'] = self.form_class(self.request.GET)
+            context['form'] = self.form_class(self.request.user.id)
         if 'form2' not in context:
-            context['form2'] = self.second_form_class(instance = perfil)
+            datos = Perfil.objects.get(usuario_id = self.request.user.id)
+            context['form2'] = self.second_form_class(self.request.user)
+        print (self.request.user.id)
+        print (self.request.user)
         return context
 
 
