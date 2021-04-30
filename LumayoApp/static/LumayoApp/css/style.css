@@ -56,3 +56,17 @@ html {
   object-fit: fill;
   height: 100%;
 }
+
+.material-icons-outlined {
+	font-size: 21px;
+	line-height: 16px;
+	vertical-align: middle;
+	margin-top: -2px;
+}
+
+.avatar {
+  vertical-align: middle;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}

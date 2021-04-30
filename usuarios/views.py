@@ -41,6 +41,7 @@ class Admin_Perfil(TemplateView):
 
 
 
+
 class CompletarPerfil_Vista(UpdateView):
     model = Usuario
     second_model = Perfil
@@ -49,10 +50,10 @@ class CompletarPerfil_Vista(UpdateView):
 
     template_name = 'usuarios/completar-perfil.html'
     success_url = reverse_lazy('usuarios:registro')
-    
 
     def get_object(self):
         print (self.request.user)
+        print(self.request.user.perfil)
         return self.request.user
 
     # def get_context_data(self, **kwargs):

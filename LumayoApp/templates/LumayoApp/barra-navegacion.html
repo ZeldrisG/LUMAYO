@@ -23,17 +23,18 @@
             {% if user.is_authenticated %}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <!-- <img src="/examples/images/avatar/2.jpg" class="avatar" alt="Avatar"> -->
-                        <span class="material-icons-outlined">
-                            account_circle
-                        </span>
+                        {% if request.user.perfil.foto %}
+                            <img src="{{ request.user.perfil.foto.url }}" class="avatar" alt="Avatar">
+                        {% else %}
+                            <img src="{% static 'LumayoApp/img/avatar.svg' %}" class="avatar" alt="Avatar">
+                        {% endif %}
                         {{ user.get_username|upper }}
                         <b class="caret"></b>
                     </a>
 
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <li><a class="dropdown-item" href="{% url 'usuarios:admin-perfil' %}">
-                                <span class="material-icons-outlined">
+                                <span class="material-icons-outlined me-1">
                                     perm_identity
                                 </span>Perfil</a>
                             </li>
@@ -41,7 +42,7 @@
                         <div class="dropdown-divider"></div>
                         <li>
                             <a href="{% url 'usuarios:logout' %}" class="dropdown-item">
-                                <span class="material-icons-outlined">
+                                <span class="material-icons-outlined me-1">
                                     logout
                                 </span>
                                 Cerrar sesion
