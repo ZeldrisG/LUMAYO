@@ -18,6 +18,7 @@ urlpatterns = [
     path('registro/', views.Registro.as_view(), name="registro"),
     path('loader/', views.Loader.as_view(), name="loader"),
     path('editar-perfil/', views.EditarPerfil.as_view(), name="editar-perfil"),
+    path('modulo-admin/', views.Modulo_Admin.as_view(), name="modulo-admin"),
 
 
 

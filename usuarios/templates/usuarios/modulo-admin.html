@@ -4,14 +4,16 @@
 
 
 {% block content %}
-
-    <div class="container justify-content-center p-5 mt-5 mb-5">
+      <div class="text-center mt-5 ">
+         <h2> <strong>Bienvenido</strong></h2>
+      </div>
+      <div class="container justify-content-center p-5 mt-5 mb-5">
         <div class="row">
             <div class="col">
                 <div class="card h-100" style="width: 18rem;">
                     <img src="{% static 'LumayoApp/img/completar-perfil.svg' %}" class="card-img-top p-2" alt="...">
                     <div class="card-body d-grid">
-                      <a href="{% url 'usuarios:completar-perfil' %}" class="btn btn-primary">Completar Perfil</a>
+                      <a href="{% url 'libros:admin-libro' %}" class="btn btn-primary">Administrar Libros</a>
                     </div>
                   </div>
             </div>
@@ -19,7 +21,7 @@
               <div class="card h-100" style="width: 18rem;">
                 <img src="{% static 'LumayoApp/img/editar-perfil.svg' %}" class="card-img-top p-2" alt="...">
                 <div class="card-body d-grid ">
-                  <a href="{% url 'usuarios:editar-perfil' %}" class="btn btn-primary">Editar Perfil</a>
+                  <a href="#" class="btn btn-primary">Administrar Noticias</a>
                 </div>
               </div>
             </div>
@@ -27,12 +29,11 @@
               <div class="card h-100" style="width: 18rem;">
                 <img src="{% static 'LumayoApp/img/dar-de-baja.svg' %}" class="card-img-top mt-4 p-2" alt="...">
                 <div class="card-body d-grid">
-                  <a href="#" class="btn btn-primary">Cambiar contraseña</a>
+                  <a href="{% url 'usuarios:admin-perfil' %}" class="btn btn-primary">Administrar Perfil</a>
                 </div>
               </div>
             </div>
         </div>
-        <a class="btn btn-primary mt-5" href="{% url 'usuarios:modulo-admin' %}">Volver</a>
     </div>
   
 {% endblock content %}

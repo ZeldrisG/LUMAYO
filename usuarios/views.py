@@ -40,6 +40,11 @@ class Admin_Perfil(AdminLoginMixin, TemplateView):
     template_name = 'usuarios/administrar-perfil.html'
 
 
+class Modulo_Admin(AdminLoginMixin, TemplateView):
+    model = Usuario
+    template_name = 'usuarios/modulo-admin.html'
+
+
 
 
 class CompletarPerfil_Vista(UpdateView):
@@ -192,5 +197,5 @@ class Loader(TemplateView):
             if self.request.user.is_superuser:
                 return redirect('usuarios:modulo-root')
             elif self.request.user.is_admin:
-                return redirect('usuarios:admin-perfil')                    
+                return redirect('usuarios:modulo-admin')                    
         return super().dispatch(request, *args, **kwargs)
