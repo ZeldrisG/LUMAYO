@@ -57,8 +57,6 @@ class CompletarPerfil_Vista(UpdateView):
     success_url = reverse_lazy('usuarios:registro')
 
     def get_object(self):
-        print (self.request.user)
-        print(self.request.user.perfil)
         return self.request.user
 
         # def get_context_data(self, **kwargs):
@@ -176,6 +174,7 @@ class Registro(AdminLoginMixin, CreateView):
     def form_valid(self, form):
         print (self.request.user)
         usuario = Usuario.objects.get(username=self.request.user)
+        form = self.form_class(self.request.POST, self.request.FILES)
         solicitud = form.save(commit = False)
         solicitud.usuario = usuario
         form.save()
