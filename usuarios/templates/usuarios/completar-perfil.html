@@ -17,7 +17,7 @@
             </div>
 
             <div class="col-6 bg-light p-3">
-               <h3> Cambiar nombre de usuario y contraseña</h3>
+               <h3> Cambiar nombre de usuario y/o e-mail </h3>
 
                 <div class="row">
                     <form method="POST">
@@ -33,7 +33,8 @@
                             {% endfor %}
             
                             <div class="col">
-                                <input type="submit" name="completar-submit" id="completar-submit" tabindex="4" class="form-control btn btn-primary my-2" value="guardar">
+                                <input type="submit" name="completar-submit" id="completar-submit" tabindex="4" class="form-control btn btn-primary my-2" value="Guardar">
+                                <a class="form-control btn btn-secondary" href="{% url 'usuarios:admin-perfil'  %}">Cancelar</a>
                             </div>
             
                         {% endif %}
@@ -43,6 +44,7 @@
             </div>
 
        </div>
+      
    </div>
   
 {% endblock content %}
