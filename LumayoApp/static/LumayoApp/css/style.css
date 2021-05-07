@@ -26,7 +26,7 @@ html {
 
 .body-bg {
 
-    background: linear-gradient(124.68deg, #a2d1e3, #3f51b5);
+    background: linear-gradient(124.68deg, #b0d5e4, #616fbb);
 }
 
 .card{
@@ -69,4 +69,60 @@ html {
   width: 40px;
   height: 40px;
   border-radius: 50%;
+}
+
+
+.icon-size{
+  font-size: 1.5rem;
+}
+
+.card{
+  border-radius: 5px;
+}
+
+.icon-size-card{
+    position: relative;
+    right: -65%;
+    top:10%;
+    font-size: 7.5rem;
+    line-height: 0;
+    opacity: .3;
+    color:rgba(255,255,255,1);
+    z-index: 0;
+}
+
+.bg-cherry {
+  background: linear-gradient(170deg, #f09 0%, #493240 100%);
+  color: #fff;
+}
+
+.bg-blue {
+  background: linear-gradient(170deg, #01E4F8 0%, #1D3EDE 100%);
+  color: #fff;
+}
+
+.bg-green {
+  background: linear-gradient(170deg, #B4EC51 0%, #429321 100%);
+  color: #fff;
+}
+
+.bg-violet {
+  background: linear-gradient(170deg, #C86DD7 0%, #3023AE 100%);
+  color: #fff;
+}
+
+.ico-card{
+  position:absolute;
+  top: 0;
+  left:0;
+  bottom:0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.mx-10{
+  margin-left: 125px;
+  margin-right: 125px;
 }
