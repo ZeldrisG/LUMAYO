@@ -13,9 +13,9 @@
             <div class="col-6 m-0">
                 <div class="media">
                     {% if form2.foto %}
-                        <img src="{{ request.user.perfil.foto.url }}"/>
+                        <img src="{{ form2.foto.url }}" class="rounded-circle" height="50"/>
                     {% else %}
-                        <img src="{% static 'img/Avatar.png' %}"/>
+                        <img src="{% static 'img/Avatar.png' %}" class="rounded-circle" height="50"/>
                     {% endif %}
                     <div class="media-body">
                         <h5 class="ml-4">@{{ form2.nombre }} | {{ form2.apellido }}</h5>

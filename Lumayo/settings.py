@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = ')x7&gvjgrejwcrcwbr8&6+as7=3md_lvgu*lg!)5b1^@)s4(k#'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -135,6 +135,10 @@ USE_TZ = True
 AUTH_USER_MODEL = 'usuarios.Usuario'
 
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
 
 LOGIN_REDIRECT_URL = 'usuarios:loader'
 
