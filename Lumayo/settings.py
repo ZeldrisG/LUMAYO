@@ -82,19 +82,19 @@ WSGI_APPLICATION = 'Lumayo.wsgi.application'
 
 DATABASES = {
     'default': {
-        # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        # 'NAME': 'dtnlu4i3mje63',
-        # 'USER': 'fajfwtiwrggxwg',
-        # 'PASSWORD': '247g',
-        # 'HOST': '2c9103807a28a398b0e2d7b74e56f78635416f3ff16de716897df0c02b36ad3e',
-        # 'PORT': '5432',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'dtnlu4i3mje63',
+        'USER': 'fajfwtiwrggxwg',
+        'PASSWORD': '2c9103807a28a398b0e2d7b74e56f78635416f3ff16de716897df0c02b36ad3e',
+        'HOST': 'ec2-54-235-108-217.compute-1.amazonaws.com',
+        'PORT': '5432',
     }
 }
 
-import dj_database_url
+# import dj_database_url
 
-db_from_env = dj_database_url.config(default='postgres://fajfwtiwrggxwg:2c9103807a28a398b0e2d7b74e56f78635416f3ff16de716897df0c02b36ad3e@ec2-54-235-108-217.compute-1.amazonaws.com:5432/dtnlu4i3mje63')
-DATABASES['default'].update(db_from_env)
+# db_from_env = dj_database_url.config(default='postgres://fajfwtiwrggxwg:2c9103807a28a398b0e2d7b74e56f78635416f3ff16de716897df0c02b36ad3e@ec2-54-235-108-217.compute-1.amazonaws.com:5432/dtnlu4i3mje63')
+# DATABASES['default'].update(db_from_env)
 
 
 
