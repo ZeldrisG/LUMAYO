@@ -8,7 +8,7 @@
           </button>
 
             <a class="navbar-brand" href="#">
-                <img src="{% static 'LumayoApp/img/logo.webp' %}" width="50"  alt="Logo Lumayo">
+                <img src="{% static 'img/logo.webp' %}" width="50"  alt="Logo Lumayo">
                  LUMAYO
             </a>
            
@@ -26,7 +26,7 @@
                         {% if request.user.perfil.foto %}
                             <img src="{{ request.user.perfil.foto.url }}" class="avatar" alt="Avatar">
                         {% else %}
-                            <img src="{% static 'LumayoApp/img/avatar.svg' %}" class="avatar" alt="Avatar">
+                            <img src="{% static 'img/avatar.svg' %}" class="avatar" alt="Avatar">
                         {% endif %}
                         {{ user.get_username|upper }}
                         <b class="caret"></b>
