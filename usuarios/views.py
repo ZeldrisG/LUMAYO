@@ -40,6 +40,11 @@ class Admin_Perfil(AdminLoginMixin, TemplateView):
     template_name = 'usuarios/administrar-perfil.html'
 
 
+class Modulo_Admin(AdminLoginMixin, TemplateView):
+    model = Usuario
+    template_name = 'usuarios/modulo-admin.html'
+
+
 
 
 class CompletarPerfil_Vista(UpdateView):
@@ -52,8 +57,6 @@ class CompletarPerfil_Vista(UpdateView):
     success_url = reverse_lazy('usuarios:registro')
 
     def get_object(self):
-        print (self.request.user)
-        print(self.request.user.perfil)
         return self.request.user
 
         # def get_context_data(self, **kwargs):
@@ -171,6 +174,7 @@ class Registro(AdminLoginMixin, CreateView):
     def form_valid(self, form):
         print (self.request.user)
         usuario = Usuario.objects.get(username=self.request.user)
+        form = self.form_class(self.request.POST, self.request.FILES)
         solicitud = form.save(commit = False)
         solicitud.usuario = usuario
         form.save()
@@ -192,5 +196,5 @@ class Loader(TemplateView):
             if self.request.user.is_superuser:
                 return redirect('usuarios:modulo-root')
             elif self.request.user.is_admin:
-                return redirect('usuarios:admin-perfil')                    
+                return redirect('usuarios:modulo-admin')                    
         return super().dispatch(request, *args, **kwargs)

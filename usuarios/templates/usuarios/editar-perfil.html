@@ -47,9 +47,11 @@
                             {% endfor %}
                         {% endif %}
                         <div class="col">
-                            <input type="submit" name="completar-submit" id="completar-submit" tabindex="4" class="form-control btn btn-primary my-2" value="guardar">
+                            <input type="submit" name="completar-submit" id="completar-submit" tabindex="4" class="form-control btn btn-primary my-2" value="Guardar">
+                            <a class="form-control btn btn-secondary" href="{% url 'usuarios:admin-perfil'  %}">Cancelar</a>
                         </div>
                 </div>
+                
             </div>
         </div>
     </form>
