@@ -144,7 +144,7 @@ STATICFILES_DIRS = [
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-LOGIN_REDIRECT_URL = 'usuarios:loader'
+LOGIN_REDIRECT_URL = 'usuarios:usuarios'
 
 LOGOUT_REDIRECT_URL = 'usuarios:login'
 
