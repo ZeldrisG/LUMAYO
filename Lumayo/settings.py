@@ -25,7 +25,7 @@ SECRET_KEY = ')x7&gvjgrejwcrcwbr8&6+as7=3md_lvgu*lg!)5b1^@)s4(k#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'whitenoise.runserver_nostatic',
     'widget_tweaks',
     'LumayoApp',
     'usuarios',
@@ -46,6 +47,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -80,19 +82,19 @@ WSGI_APPLICATION = 'Lumayo.wsgi.application'
 
 DATABASES = {
     'default': {
-        # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        # 'NAME': 'dtnlu4i3mje63',
-        # 'USER': 'fajfwtiwrggxwg',
-        # 'PASSWORD': '247g',
-        # 'HOST': '2c9103807a28a398b0e2d7b74e56f78635416f3ff16de716897df0c02b36ad3e',
-        # 'PORT': '5432',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'dtnlu4i3mje63',
+        'USER': 'fajfwtiwrggxwg',
+        'PASSWORD': '2c9103807a28a398b0e2d7b74e56f78635416f3ff16de716897df0c02b36ad3e',
+        'HOST': 'ec2-54-235-108-217.compute-1.amazonaws.com',
+        'PORT': '5432',
     }
 }
 
-import dj_database_url
+# import dj_database_url
 
-db_from_env = dj_database_url.config(default='postgres://fajfwtiwrggxwg:2c9103807a28a398b0e2d7b74e56f78635416f3ff16de716897df0c02b36ad3e@ec2-54-235-108-217.compute-1.amazonaws.com:5432/dtnlu4i3mje63')
-DATABASES['default'].update(db_from_env)
+# db_from_env = dj_database_url.config(default='postgres://fajfwtiwrggxwg:2c9103807a28a398b0e2d7b74e56f78635416f3ff16de716897df0c02b36ad3e@ec2-54-235-108-217.compute-1.amazonaws.com:5432/dtnlu4i3mje63')
+# DATABASES['default'].update(db_from_env)
 
 
 
@@ -136,6 +138,12 @@ AUTH_USER_MODEL = 'usuarios.Usuario'
 
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
+
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
 LOGIN_REDIRECT_URL = 'usuarios:loader'
 
 LOGOUT_REDIRECT_URL = 'usuarios:login'
@@ -143,3 +151,31 @@ LOGOUT_REDIRECT_URL = 'usuarios:login'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 MEDIA_URL = '/media/'
+
+ADMINS = [
+    ('luba', 'l.narvaez@utp.edu.co'),
+    ('mao', 'mauroalternativo519@gmail.com')
+]
+
+import os
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'WARNING',
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
+            'propagate': False,
+        },
+    },
+}
