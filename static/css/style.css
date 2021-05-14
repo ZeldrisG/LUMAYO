@@ -71,6 +71,12 @@ height: 40px;
 border-radius: 50%;
 }
 
+.avatar2 {
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  }
+
 
 .icon-size{
 font-size: 1.5rem;
@@ -92,22 +98,22 @@ border-radius: 5px;
 }
 
 .bg-cherry {
-background: linear-gradient(170deg, #f09 0%, #493240 100%);
+background: linear-gradient(170deg, #ff00996e 0%, #303F9F 100%);
 color: #fff;
 }
 
 .bg-blue {
-background: linear-gradient(170deg, #01E4F8 0%, #1D3EDE 100%);
+background: linear-gradient(170deg, #01E4F8 0%, #303F9F 100%);
 color: #fff;
 }
 
 .bg-green {
-background: linear-gradient(170deg, #B4EC51 0%, #429321 100%);
+background: linear-gradient(170deg, #c3cfe2 0%, #303F9F 100%);
 color: #fff;
 }
 
 .bg-violet {
-background: linear-gradient(170deg, #C86DD7 0%, #3023AE 100%);
+background: linear-gradient(170deg, #C86DD7 0%, #303F9F 100%);
 color: #fff;
 }
 
@@ -125,4 +131,8 @@ overflow: hidden;
 .mx-10{
 margin-left: 125px;
 margin-right: 125px;
+}
+
+.a-footer{
+  text-decoration: none;
 }
