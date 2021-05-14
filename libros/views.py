@@ -45,7 +45,7 @@ class Editar_Libro(UpdateView):
     model = Libro
     form_class = Agregar_Libro_Form
     template_name = 'libros/actualizar-libro.html'
-    success_url = reverse_lazy('libros:admin-libro')
+    success_url = reverse_lazy('libros:listar-libro')
 
     def form_valid(self, form):
         form.save()

@@ -11,25 +11,13 @@
         {% csrf_token %}
         {% if form %}
             <div class="row">
-                <div class="col-6">
-                    <div class="media">
-                        {% if form.portada %}
-                            <img src="{{ form.portada.url }}" class="rounded-circle" height="50"/>
-                        {% else %}
-                            <img src="{% static 'img/Avatar.png' %}" class="rounded-circle" height="50"/>
-                        {% endif %}
-                        <div class="media-body">
-                            <h5 class="ml-4">@{{ form.nombre }} | {{ form.apellido }}</h5>
-                            <p class="ml-4">
-                                {{ form.portada }}
-                            </p>
-                        </div>
+                <div class="col-6 m-0 text-center ">
+                    <div class="container pt-3 text-center">
+                        <img src="{% static 'img/agregarlibro2.png' %}" height="70%" width="70%"/>
                     </div>
-                    {% for error in form.portada.errors %}
-                    <div class="alert alert-danger">
-                        <b>Picture: </b>{{ error }}
-                    </div>
-                    {% endfor %}
+                        <p class="py-5">
+                            {{ form.portada }} 
+                        </p>
                 </div>
                 <div class="col-6">
                     <div class="row">

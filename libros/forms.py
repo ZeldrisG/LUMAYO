@@ -12,4 +12,8 @@ class Agregar_Libro_Form(forms.ModelForm):
                             'placeholder': 'Select a date',
                             'type': 'date'
                             }),
+                    
+                    'portada': forms.FileInput(
+                        attrs={'class': 'form-control',
+                            }),
 }
