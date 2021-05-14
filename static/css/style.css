@@ -71,6 +71,12 @@ height: 40px;
 border-radius: 50%;
 }
 
+.avatar2 {
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  }
+
 
 .icon-size{
 font-size: 1.5rem;
@@ -125,4 +131,8 @@ overflow: hidden;
 .mx-10{
 margin-left: 125px;
 margin-right: 125px;
+}
+
+.a-footer{
+  text-decoration: none;
 }

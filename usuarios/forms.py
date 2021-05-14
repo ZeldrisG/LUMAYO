@@ -55,6 +55,9 @@ class FormularioPerfil(forms.ModelForm):
                             'placeholder': 'Select a date',
                             'type': 'date'
                             }),
+                    'foto': forms.FileInput(
+                        attrs={'class': 'form-control',
+                            }),
         }
     
     """ def __init__(self, *args, **kwargs):
