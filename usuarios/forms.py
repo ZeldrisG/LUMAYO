@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth import (authenticate)
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UserChangeForm
 
 from usuarios.models import Usuario, Perfil
@@ -8,8 +9,7 @@ class FormularioLogin(AuthenticationForm):
         label='',
         widget=forms.TextInput(
             attrs = {
-                'placeholder': 'username or email',
-                'class': 'form-control'
+                'placeholder': 'Nombre de usuario',
             }
         )
     )
@@ -18,12 +18,28 @@ class FormularioLogin(AuthenticationForm):
         label='', 
         widget=forms.PasswordInput(
             attrs = {
-                'placeholder': 'password',
-                'class': 'form-control'
-
+                'placeholder': 'Contraseña',
             }
         )
     )
+
+    # def clean(self, *args, **kwargs):
+    #     username = self.cleaned_data.get('username')
+    #     password = self.cleaned_data.get('password')
+
+    #     if username and password:
+    #         print(username, password)
+    #         self.user_cache = authenticate(self.request, username=username, password=password)
+    #         if not self.user_cache:
+    #             raise forms.ValidationError('Este usuario no existe!...')
+    #         if not self.user_cache.check_password(password):
+    #             raise forms.ValidationError('Contraseña incorrecta!...')
+    #         if not self.user_cache.is_active:
+    #             raise forms.ValidationError('Este usuario no esta activo!...')
+        
+    #     return super(FormularioLogin, self).clean(*args, kwards)
+
+
 
 """ class FormularioRegistro(UserCreationForms):
     class Meta:

@@ -26,13 +26,6 @@ class Agregar_Libro(CreateView):
         form.save()
         return super().form_valid(form)
 
-    def form_invalid(self, form):
-        print ("form is invalid")
-        print(form)
-        print(self.request.FILES)
-        return HttpResponse("form is invalid.. this is just an HttpResponse object")
- 
-
 
 class Listar_Libro(ListView):
     model = Libro
@@ -50,11 +43,6 @@ class Editar_Libro(UpdateView):
     def form_valid(self, form):
         form.save()
         return super().form_valid(form)
-
-    def form_invalid(self, form):
-        print ("form is invalid")
-        print(self.request.FILES)
-        return HttpResponse("form is invalid.. this is just an HttpResponse object")
 
 
 class Eliminar_Libro(DeleteView):

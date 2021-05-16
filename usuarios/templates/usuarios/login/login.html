@@ -1,4 +1,5 @@
 {% extends 'LumayoApp/base.html' %}
+{% load widget_tweaks %}
 
 {% load static %}
 
@@ -18,7 +19,7 @@
             
             {% if form.errors %}
 
-                <div class="alert alert-warning" role="alert">
+                <div class="alert alert-danger" role="alert">
                         {% for error in form.errors.values %} 
                           <p>{{ error }}</p>
                         {% endfor %}
@@ -32,8 +33,7 @@
                 {% for field in form %}
 
                 <div class="form-group my-4">
-                    {{ field.errors }}
-                    {{ field }}
+                    {{ field|add_class:'form-control' }}
                 </div>
                 {% endfor %}
 
@@ -54,12 +54,6 @@
                     </div>
                 </div>
             </form>
-
-            <div>
-                {% for message in messages %}
-                <h3> {{message}} </h3>
-                {% endfor %}
-            </div>
         </div>
     </div>
 </div>

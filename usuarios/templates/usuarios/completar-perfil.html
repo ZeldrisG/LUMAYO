@@ -10,25 +10,34 @@
 
        <div class="row">
 
-            <div class="col-6 m-0">
+            <div class="col-md-12 col-lg-6 m-0">
                 <section>
                     <img src="{% static 'img/completar-perfil.jpg' %}" class="img-ajustable" alt="">
                 </section>
             </div>
 
-            <div class="col-6 bg-light p-3">
+            <div class="col-md-12 col-lg-6 bg-light p-3">
                <h3> Cambiar nombre de usuario y/o e-mail </h3>
 
                 <div class="row">
                     <form method="POST">
                         {% csrf_token %}
                         {% if form %}
-                            {% for campos in form %} 
-            
-                                <div class="form-floating mb-3 col-12">
-                                    {{ campos|add_class:'form-control'|attr:"id:floatingInput"|attr:"placeholder:campos.label" }}
-                                    <label for="floatingInput" class="mb-2 mx-2">{{ campos.label }}</label>
-                                </div>
+                        {{ form.non_field_errors}}
+                        {% for campos in form %}
+
+                            <div class="form-floating mb-3 col-12">
+                                {{ campos|add_class:'form-control'|attr:"id:floatingInput"|attr:"placeholder:campos.label" }}
+                                <label for="floatingInput" class="mb-2 mx-2">{{ campos.label }}</label>
+                                {% if campos.errors %}
+                                <span class="alert alert-danger d-flex align-items-center mt-2 p-1">
+                                    {% for error in campos.errors %}
+                                    <i class="bi bi-exclamation-triangle-fill ms-1"></i>
+                                        <div class="ms-2">{{ error }}</div>
+                                    {% endfor %}
+                                </span>
+                                {% endif %}
+                            </div>
                             
                             {% endfor %}
             

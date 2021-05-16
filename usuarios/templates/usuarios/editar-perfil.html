@@ -10,35 +10,53 @@
     {% csrf_token %}
     
         <div class="row">
-            <div class="col-6 m-0 text-center pt-5">
+            <div class="col-md-12 col-lg-6 m-0 text-center pt-5">
                 <h2> Editar perfil</h2>
                 <div class="container pt-5 text-center">
                     {% if form2.foto %}
-                        <img src="{{ request.user.perfil.foto.url }}" class="avatar2" alt="Avatar"/>
+                        <img src="{{ request.user.perfil.foto.url }}" class="avatar2" alt="{{ request.user.username }}"/>
                     {% else %}
-                        <img src="{% static 'img/Avatar.png' %}"/>
+                        <img src="{% static 'img/Avatar.png' %}" class="avatar2" alt="{{ request.user.username }}/>
                     {% endif %}
                 </div>
                     <p class="py-5">
                         {{ form2.foto }} 
                     </p>
-            </div>
-            <div class="col-6 bg-light p-3">
+                </div>
+            <div class="col-md-12 col-lg-6 bg-light p-3">
                 <div class="row">
                         {% if form %}
-                            {% for campos in form  %}
+                        {{ form.non_field_errors}}
+                        {% for campos in form %}
                                 <div class="form-floating mb-3 col-12">
                                     {{ campos|add_class:'form-control'|attr:"id:floatingInput"|attr:"placeholder:campos.label" }}
                                     <label for="floatingInput" class="mb-2 mx-2">{{ campos.label }}</label>
+                                    {% if campos.errors %}
+                                    <span class="alert alert-danger d-flex align-items-center mt-2 p-1">
+                                        {% for error in campos.errors %}
+                                        <i class="bi bi-exclamation-triangle-fill ms-1"></i>
+                                            <div class="ms-2">{{ error }}</div>
+                                        {% endfor %}
+                                    </span>
+                                    {% endif %}
                                 </div>
                             {% endfor %}
                         {% endif %}
                         {% if form2 %}
-                            {% for campos in form2  %}
+                            {{ form.non_field_errors}}
+                            {% for campos in form2 %}
                                 {% if campos != form2.foto %}
                                     <div class="form-floating mb-3 col-12">
                                         {{ campos|add_class:'form-control'|attr:"id:floatingInput"|attr:"placeholder:campos.label" }}
                                         <label for="floatingInput" class="mb-2 mx-2">{{ campos.label }}</label>
+                                        {% if campos.errors %}
+                                        <span class="alert alert-danger d-flex align-items-center mt-2 p-1">
+                                            {% for error in campos.errors %}
+                                            <i class="bi bi-exclamation-triangle-fill ms-1"></i>
+                                                <div class="ms-2">{{ error }}</div>
+                                            {% endfor %}
+                                        </span>
+                                        {% endif %}
                                     </div>
                                 {% endif %}
                             {% endfor %}

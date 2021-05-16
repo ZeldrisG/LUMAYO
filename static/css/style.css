@@ -142,3 +142,11 @@ margin-right: 125px;
   height: 400px;
   
   }
+
+.div-img{
+  height:70%;
+}
+.img-div{
+  width:70%;
+  object-fit:cover;
+}

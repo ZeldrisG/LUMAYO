@@ -82,12 +82,6 @@ class CompletarPerfil_Vista(UpdateView):
         #         print ("form is invalid")
         #         print(form.errors)
         #         return self.render_to_response(self.get_context_data(form=form, form2=form2))
-
-    def form_invalid(self, form):
-        print ("form is invalid")
-        print(form.errors)
-        print(self.request)
-        return HttpResponse("form is invalid.. this is just an HttpResponse object")
     
     def form_valid(self, form):
         form.save()
@@ -145,12 +139,6 @@ class Agregar_Admin(RootLoginMixin, CreateView):
         user.save()
         return super().form_valid(form)
 
-    def form_invalid(self, form):
-        print ("form is invalid")
-        print(form.errors)
-        print(self.request)
-        return HttpResponse("form is invalid.. this is just an HttpResponse object")
- 
 
 class Listar_Admin(RootLoginMixin, ListView):
     model = Usuario
@@ -161,8 +149,6 @@ class Eliminar_Admin(RootLoginMixin, DeleteView):
     model = Usuario
     template_name = 'usuarios/eliminar-admin.html'
     success_url = reverse_lazy('usuarios:listar-admin')
-
-
 
 
 class Registro(AdminLoginMixin, CreateView):
@@ -179,12 +165,6 @@ class Registro(AdminLoginMixin, CreateView):
         solicitud.usuario = usuario
         form.save()
         return super().form_valid(form)
-
-    def form_invalid(self, form):
-        print ("form is invalid")
-        print(form)
-        print(self.request.FILES)
-        return HttpResponse("form is invalid.. this is just an HttpResponse object")
 
 
 class Loader(TemplateView):

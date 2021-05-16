@@ -11,7 +11,7 @@
         {% csrf_token %}
         {% if form %}
             <div class="row">
-                <div class="col-6 m-0 text-center pt-2">
+                <div class="col-md-12 col-lg-6 m-0 text-center pt-2">
                     <div class="container pt-2 text-center">
                         {% if form.portada %}
                             <img src="{{ libro.portada.url }}"  class="libros" alt="Foto portada"/>
@@ -19,20 +19,34 @@
                             <img src="{% static 'img/agregarlibro2.png' %}"/>
                         {% endif %}
                     </div>
-                        <p class="py-3">
+                        <p class="pt-3">
                             {{ form.portada }} 
                         </p>
+                        {% if form.portada.errors %}
+                        <span class="alert alert-danger d-flex align-items-center p-1">
+                            {% for error in form.portada.errors %}
+                            <i class="bi bi-exclamation-triangle-fill ms-1"></i>
+                                <div class="ms-2">{{ error }}</div>
+                            {% endfor %}
+                        </span>
+                        {% endif %}
                 </div>
-                <div class="col-6">
+                <div class="col-md-12 col-lg-6">
                     <div class="row">
-
+                        {{ form.non_field_errors }}
                         {% for campos in form %}
-
-                            
                             {% if campos != form.portada and campos != form.id %}
                                 <div class="form-floating mb-3 col-6">
                                     {{ campos|add_class:'form-control'|attr:"id:floatingInput"|attr:"placeholder:campos.label" }}
                                     <label for="floatingInput" class="mb-2 mx-2">{{ campos.label }}</label>
+                                    {% if campos.errors %}
+                                    <span class="alert alert-danger d-flex align-items-center mt-2 p-1">
+                                        {% for error in campos.errors %}
+                                            <i class="bi bi-exclamation-triangle-fill ms-1"></i>
+                                            <div class="ms-2">{{ error }}</div>
+                                        {% endfor %}
+                                    </span>
+                                    {% endif %}
                                 </div>
                             {% endif %}
                                 
