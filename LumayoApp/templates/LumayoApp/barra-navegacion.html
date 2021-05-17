@@ -1,5 +1,5 @@
 {% load static %}
-
+{% block content %}
 <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
     <div class="container-fluid mx-10 p-0">
 
@@ -12,8 +12,8 @@
                  LUMAYO
             </a>
            
-            <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Titulo, ISSN, Editorial..." aria-label="Search">
+            <form class="d-flex" method="GET" action="{% url 'libros:buscar-libro' %}">
+                <input id="buscar" name="buscar" class="form-control me-2" type="search" placeholder="Titulo, ISSN, Editorial..." aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Buscar</button>
             </form>
 
@@ -59,3 +59,4 @@
         </div>
     </div>
 </nav>
+{% endblock content %}

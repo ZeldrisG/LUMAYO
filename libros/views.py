@@ -1,6 +1,7 @@
 from django.shortcuts import render,HttpResponse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, TemplateView
+from django.db.models import Q
 from django.urls import reverse_lazy
 from django.contrib.sessions.models import Session
 
@@ -32,6 +33,23 @@ class Listar_Libro(ListView):
     template_name = 'libros/listar-libro.html'
     success_url = reverse_lazy('libros:listar-libro')
 
+    def get_queryset(self):
+        libro = self.model.objects.all()
+        busqueda = self.request.GET.get("buscar")
+        if busqueda:
+            object_list = libro.filter(
+                    Q(issn__icontains = busqueda) |
+                    Q(titulo__icontains = busqueda) |
+                    Q(autor__icontains = busqueda) |
+                    Q(editorial__icontains = busqueda)
+                ).distinct()
+
+            context = {
+                'object_list' : object_list
+            }
+            return object_list
+    
+
 
 
 class Editar_Libro(UpdateView):
@@ -49,3 +67,28 @@ class Eliminar_Libro(DeleteView):
     model = Libro
     template_name = 'libros/eliminar-libro.html'
     success_url = reverse_lazy('libros:listar-libro')
+
+
+class Buscar_Libro(ListView):
+    model = Libro
+    template_name = 'libros/listar-libro.html'
+    success_url = reverse_lazy('libros:listar-libro')
+
+    def get_queryset(self):
+        libro = self.model.objects.all()
+        busqueda = self.request.GET.get("buscar")
+        if busqueda:
+            object_list = libro.filter(
+                    Q(issn__icontains = busqueda) |
+                    Q(titulo__icontains = busqueda) |
+                    Q(autor__icontains = busqueda) |
+                    Q(editorial__icontains = busqueda)
+                ).distinct()
+
+            context = {
+                'object_list' : object_list
+            }
+            return object_list
+
+
+
