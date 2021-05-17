@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect,HttpResponse
+from django.shortcuts import render, redirect
 from django.contrib.auth.views import  LoginView, LogoutView
 from django.views.generic.edit import UpdateView, CreateView, DeleteView
 from django.views.generic import ListView
@@ -121,10 +121,10 @@ class EditarPerfil(AdminLoginMixin, UpdateView):
             form.save()
             form2.save()
             return redirect(self.get_success_url())
-        else:
-            print ("form is invalid")
-            print(form.errors)
-            return self.render_to_response(self.get_context_data(form=form, form2=form2))
+        # else:
+        #     print ("form is invalid")
+        #     print(form.errors)
+        #     return self.render_to_response(self.get_context_data(form=form, form2=form2))
 
 
 class Agregar_Admin(RootLoginMixin, CreateView):
