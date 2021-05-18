@@ -6,8 +6,8 @@
 
 {% block content %}
 <h1>Lista de Libros</h1>
-    <div class="container text-center mb-3">
-        <table class="table">
+    <div class="table-responsive text-center mb-3">
+        <table class="table table-hover">
                                 
             <thead class="table-light">
               <tr>
@@ -38,8 +38,9 @@
                 {% endif %}
             </tbody>
           </table>
-          <a class="btn btn-secondary" href="{% url 'libros:admin-libro'  %}">Volver</a>
     </div>
+    <a class="btn btn-secondary" href="{% url 'libros:admin-libro'  %}">Volver</a>
+
   
 {% endblock content %}
 
