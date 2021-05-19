@@ -6,7 +6,7 @@
 
 {% block content %}
 <h1>Lista de Libros</h1>
-    <div class="table-responsive text-center mb-3">
+    <div class="table-responsive text-center m-1 p-1">
         <table class="table table-hover">
                                 
             <thead class="table-light">
@@ -39,7 +39,7 @@
             </tbody>
           </table>
     </div>
-    <a class="btn btn-secondary" href="{% url 'libros:admin-libro'  %}">Volver</a>
+    <a class="btn btn-secondary mb-3" href="{% url 'libros:admin-libro'  %}">Volver</a>
 
   
 {% endblock content %}
