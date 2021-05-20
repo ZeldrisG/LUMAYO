@@ -19,6 +19,7 @@ urlpatterns = [
     path('registro/', views.Registro.as_view(), name="registro"),
     path('editar-perfil/', views.EditarPerfil.as_view(), name="editar-perfil"),
     path('modulo-admin/', views.Modulo_Admin.as_view(), name="modulo-admin"),
+    path('registro-cliente/', views.Registro_Cliente.as_view(), name="registro-cliente"),
 
 
 

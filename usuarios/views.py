@@ -176,5 +176,20 @@ class Loader(TemplateView):
             if self.request.user.is_superuser:
                 return redirect('usuarios:modulo-root')
             elif self.request.user.is_admin:
-                return redirect('usuarios:modulo-admin')                    
+                return redirect('usuarios:modulo-admin')
+            elif not self.request.user.is_admin:
+                return redirect('inicio')
         return super().dispatch(request, *args, **kwargs)
+
+
+class Registro_Cliente(CreateView):
+    model = Usuario
+    form_class = FormularioUsuarioAdmin
+    template_name = 'usuarios/registro-cliente.html'
+    success_url = reverse_lazy('usuarios:login')
+
+    def form_valid(self, form):
+        user = form.save(commit = False)
+        user.is_admin = False
+        user.save()
+        return super().form_valid(form)
