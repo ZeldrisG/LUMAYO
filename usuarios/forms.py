@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth import (authenticate)
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UserChangeForm
 
-from usuarios.models import Usuario, Perfil
+from usuarios.models import Usuario, Perfil, Preferencia
 
 class FormularioLogin(AuthenticationForm):
     username = forms.CharField(
@@ -100,3 +100,21 @@ class FormularioUsuarioAdmin(UserCreationForm):
                             'placeholder': 'Contraseña',
                             }),   
         }
+
+class FormularioUsuarioCliente(UserCreationForm):
+    email = forms.EmailField(help_text='Requerido. Agrega un email valido', max_length=60)    
+    class Meta:
+        model = Usuario
+        fields = ('username', 'email',)
+        widgets = {
+                    'password': forms.PasswordInput(
+                        attrs={'class': 'form-control', 
+                            'placeholder': 'Contraseña',
+                            }),   
+        }
+
+
+class FormularioPreferencias(forms.ModelForm):
+    class Meta:
+        model = Preferencia
+        fields = '__all__'

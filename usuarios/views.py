@@ -8,7 +8,7 @@ from django.contrib.auth import update_session_auth_hash
 import time
 
 from usuarios.models import Usuario, Perfil
-from usuarios.forms import FormularioLogin, FormularioPerfil, FormularioUsuario, FormularioUsuarioAdmin
+from usuarios.forms import FormularioLogin, FormularioPerfil, FormularioUsuario, FormularioUsuarioAdmin, FormularioUsuarioCliente
 from usuarios.mixins import RootLoginMixin, AdminLoginMixin
 
 
@@ -35,7 +35,7 @@ class Modulo_Root(RootLoginMixin, TemplateView):
     template_name = 'usuarios/modulo-root.html'
 
 
-class Admin_Perfil(AdminLoginMixin, TemplateView):
+class Admin_Perfil(TemplateView):
     model = Usuario
     template_name = 'usuarios/administrar-perfil.html'
 
@@ -47,48 +47,34 @@ class Modulo_Admin(AdminLoginMixin, TemplateView):
 
 
 
-class CompletarPerfil_Vista(UpdateView):
+class CompletarPerfil_Vista(AdminLoginMixin, UpdateView):
     model = Usuario
-    second_model = Perfil
     form_class = FormularioUsuario
-    second_form_class = FormularioPerfil
 
     template_name = 'usuarios/completar-perfil.html'
     success_url = reverse_lazy('usuarios:registro')
 
     def get_object(self):
         return self.request.user
-
-        # def get_context_data(self, **kwargs):
-        #     context = super(CompletarPerfil_Vista, self).get_context_data(**kwargs)
-        #     pk = self.kwargs.get('pk', 0)
-        #     if 'form' not in context:
-        #         context['form'] = self.form_class(self.request.GET)
-        #     if 'form2' not in context:
-        #         context['form2'] = self.second_form_class(self.request.GET)
-        #     return context
-        
-        # def post(self, request, *args, **kwargs):
-        #     self.object = self.get_object
-        #     form = self.form_class(request.POST)
-        #     form2 = self.second_form_class(request.POST)
-
-        #     if form.is_valid() and form2.is_valid():
-        #         solicitud  = form2.save(commit=False)
-        #         solicitud.usuario = self.model
-        #         solicitud.save()
-        #         return redirect(self.get_success_url())
-        #     else:
-        #         print ("form is invalid")
-        #         print(form.errors)
-        #         return self.render_to_response(self.get_context_data(form=form, form2=form2))
     
     def form_valid(self, form):
         form.save()
-        #update_session_auth_hash(self.request, self.request.user)
         return super().form_valid(form)
 
+class Registro(AdminLoginMixin, CreateView):
+    model=Perfil
+    form_class=FormularioPerfil
+    template_name='usuarios/perfil-usuario.html'
+    success_url = reverse_lazy('usuarios:admin-perfil')
 
+    def form_valid(self, form):
+        print (self.request.user)
+        usuario = Usuario.objects.get(username=self.request.user)
+        form = self.form_class(self.request.POST, self.request.FILES)
+        solicitud = form.save(commit = False)
+        solicitud.usuario = usuario
+        form.save()
+        return super().form_valid(form)
 
 class EditarPerfil(AdminLoginMixin, UpdateView):
     model = Usuario
@@ -151,22 +137,6 @@ class Eliminar_Admin(RootLoginMixin, DeleteView):
     success_url = reverse_lazy('usuarios:listar-admin')
 
 
-class Registro(AdminLoginMixin, CreateView):
-    model=Perfil
-    form_class=FormularioPerfil
-    template_name='usuarios/perfil-usuario.html'
-    success_url = reverse_lazy('usuarios:admin-perfil')
-
-    def form_valid(self, form):
-        print (self.request.user)
-        usuario = Usuario.objects.get(username=self.request.user)
-        form = self.form_class(self.request.POST, self.request.FILES)
-        solicitud = form.save(commit = False)
-        solicitud.usuario = usuario
-        form.save()
-        return super().form_valid(form)
-
-
 class Loader(TemplateView):
     model = Usuario
     template_name = 'usuarios/loader.html'
@@ -193,3 +163,71 @@ class Registro_Cliente(CreateView):
         user.is_admin = False
         user.save()
         return super().form_valid(form)
+
+
+# Completar, editar perfil cliente
+class CompletarPerfil_Vista_Cliente(UpdateView):
+    model = Usuario
+    form_class = FormularioUsuario
+
+    template_name = 'usuarios/completar-perfil.html'
+    success_url = reverse_lazy('usuarios:registro-perfil-cliente')
+
+    def get_object(self):
+        return self.request.user
+    
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
+
+class Registro_Perfil_Cliente(CreateView):
+    model=Perfil
+    form_class=FormularioPerfil
+    template_name='usuarios/perfil-usuario.html'
+    success_url = reverse_lazy('libros:admin-perfil')
+
+    def form_valid(self, form):
+        print (self.request.user)
+        usuario = Usuario.objects.get(username=self.request.user)
+        form = self.form_class(self.request.POST, self.request.FILES)
+        solicitud = form.save(commit = False)
+        solicitud.usuario = usuario
+        form.save()
+        return super().form_valid(form)
+
+
+class EditarPerfilCliente(UpdateView):
+    model = Usuario
+    second_model = Perfil
+    form_class = FormularioUsuario
+    second_form_class = FormularioPerfil
+
+    template_name = 'usuarios/editar-perfil.html'
+    success_url = reverse_lazy('usuarios:admin-perfil')
+    
+    def get_object(self):
+        print (self.request.user)
+        return self.request.user
+
+    def get_context_data(self, **kwargs):
+        context = super(EditarPerfil, self).get_context_data(**kwargs)
+        datos = Perfil.objects.get(usuario_id = self.request.user.id)
+        formulario = FormularioPerfil(instance=datos)
+        context['form2'] = formulario
+        return context
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object
+        usuario = self.model.objects.get(id=request.user.id)
+        perfil = Perfil.objects.get(usuario_id=request.user.id)
+        form = self.form_class(request.POST, instance = usuario)
+        form2 = self.second_form_class(request.POST, request.FILES, instance= perfil)
+
+        if form.is_valid() and form2.is_valid():
+            form.save()
+            form2.save()
+            return redirect(self.get_success_url())
+        # else:
+        #     print ("form is invalid")
+        #     print(form.errors)
+        #     return self.render_to_response(self.get_context_data(form=form, form2=form2))

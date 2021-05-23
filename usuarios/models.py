@@ -53,8 +53,6 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
 
 
 
-
-
 class Perfil(models.Model):
     usuario = models.OneToOneField(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
     DNI = models.IntegerField(primary_key=True)
@@ -89,3 +87,18 @@ class Perfil(models.Model):
 #         choices= PREFERENCIAS,
 #         default= 'terror'
 #     )
+
+
+
+
+
+
+
+    
+class Preferencia(models.Model):
+    usuario = models.OneToOneField(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
+    preferencia=models.CharField(
+        max_length=20,
+        choices= PREFERENCIAS,
+        default= 'terror'
+    )
