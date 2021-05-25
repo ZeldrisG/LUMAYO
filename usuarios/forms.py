@@ -117,4 +117,4 @@ class FormularioUsuarioCliente(UserCreationForm):
 class FormularioPreferencias(forms.ModelForm):
     class Meta:
         model = Preferencia
-        fields = '__all__'
+        fields = ('preferencia',)

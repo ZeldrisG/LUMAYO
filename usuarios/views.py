@@ -7,8 +7,8 @@ from django.urls import reverse_lazy
 from django.contrib.auth import update_session_auth_hash
 import time
 
-from usuarios.models import Usuario, Perfil
-from usuarios.forms import FormularioLogin, FormularioPerfil, FormularioUsuario, FormularioUsuarioAdmin, FormularioUsuarioCliente
+from usuarios.models import Preferencia, Usuario, Perfil
+from usuarios.forms import FormularioLogin, FormularioPerfil, FormularioUsuario, FormularioUsuarioAdmin, FormularioUsuarioCliente, FormularioPreferencias
 from usuarios.mixins import RootLoginMixin, AdminLoginMixin
 
 
@@ -182,18 +182,42 @@ class CompletarPerfil_Vista_Cliente(UpdateView):
 
 class Registro_Perfil_Cliente(CreateView):
     model=Perfil
+    second_model = Preferencia
     form_class=FormularioPerfil
+    second_form_class = FormularioPreferencias
+
     template_name='usuarios/perfil-usuario.html'
     success_url = reverse_lazy('libros:admin-perfil')
 
-    def form_valid(self, form):
+    def get_object(self):
+        #print (self.request.user)
+        return self.request.user
+
+    def form_valid(self, form, form2):
         print (self.request.user)
         usuario = Usuario.objects.get(username=self.request.user)
-        form = self.form_class(self.request.POST, self.request.FILES)
+        form = self.form_class(self.request.POST)
+        form2 = self.second_form_class(self.request.POST)
         solicitud = form.save(commit = False)
+        solicitud2 = form2.save(commit = False)
         solicitud.usuario = usuario
+        solicitud2.usuario = usuario
         form.save()
-        return super().form_valid(form)
+        form2.save()
+        return super().form_valid(form, form2)
+    
+    def get_context_data(self, *args, **kwargs):
+        return {'form': self.form_class, 'form2': self.second_form_class}
+
+    """ def post(self, request, *args, **kwargs):
+        self.object = self.get_object
+        form = self.form_class(request.POST)
+        form2 = self.second_form_class(request.POST, request.FILES)
+
+        if form.is_valid() and form2.is_valid():
+            form.save()
+            form2.save()
+            return redirect(self.get_success_url()) """
 
 
 class EditarPerfilCliente(UpdateView):
