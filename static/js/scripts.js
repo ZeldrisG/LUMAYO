@@ -12,3 +12,7 @@ Array.prototype.slice.call(forms)
       form.classList.add('was-validated');
     }, false);
   });
+
+function back(){
+  window.history.back();
+}

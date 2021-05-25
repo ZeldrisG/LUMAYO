@@ -1,5 +1,6 @@
 from django.shortcuts import render,HttpResponse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic.detail import DetailView
 from django.views.generic import ListView, TemplateView
 from django.db.models import Q
 from django.urls import reverse_lazy
@@ -31,7 +32,6 @@ class Agregar_Libro(CreateView):
 class Listar_Libro(ListView):
     model = Libro
     template_name = 'libros/listar-libro.html'
-    success_url = reverse_lazy('libros:listar-libro')
 
 
 class Editar_Libro(UpdateView):
@@ -53,8 +53,8 @@ class Eliminar_Libro(DeleteView):
 
 class Buscar_Libro(ListView):
     model = Libro
-    template_name = 'libros/listar-libro.html'
-    success_url = reverse_lazy('libros:listar-libro')
+    template_name = 'libros/search.html'
+    success_url = reverse_lazy('libros:search')
 
     def get_queryset(self):
         libro = self.model.objects.all()
@@ -72,5 +72,6 @@ class Buscar_Libro(ListView):
             }
             return object_list
 
-
-
+class Post_Libro(DetailView):
+    model = Libro
+    template_name = 'libros/post-libro.html'
