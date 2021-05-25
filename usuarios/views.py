@@ -10,6 +10,7 @@ import time
 from usuarios.models import Usuario, Perfil
 from usuarios.forms import FormularioLogin, FormularioPerfil, FormularioUsuario, FormularioUsuarioAdmin
 from usuarios.mixins import RootLoginMixin, AdminLoginMixin
+from carrito.models import Carrito
 
 
 
@@ -160,6 +161,8 @@ class Registro(AdminLoginMixin, CreateView):
     def form_valid(self, form):
         print (self.request.user)
         usuario = Usuario.objects.get(username=self.request.user)
+        carrito = Carrito(usuario = usuario)
+        carrito.save()
         form = self.form_class(self.request.POST, self.request.FILES)
         solicitud = form.save(commit = False)
         solicitud.usuario = usuario
