@@ -89,14 +89,9 @@ class Perfil(models.Model):
 #     )
 
 
-
-
-
-
-
-    
 class Preferencia(models.Model):
-    usuario = models.OneToOneField(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
+    #usuario = models.OneToOneField(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
+    perfil = models.ForeignKey(Perfil, null=True, blank=True, on_delete=models.CASCADE)
     preferencia=models.CharField(
         max_length=20,
         choices= PREFERENCIAS,

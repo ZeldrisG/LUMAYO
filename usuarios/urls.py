@@ -20,6 +20,7 @@ urlpatterns = [
     path('editar-perfil/', views.EditarPerfil.as_view(), name="editar-perfil"),
     path('modulo-admin/', views.Modulo_Admin.as_view(), name="modulo-admin"),
     path('registro-cliente/', views.Registro_Cliente.as_view(), name="registro-cliente"),
+    path('completar-perfil-cliente/', views.CompletarPerfil_Vista_Cliente.as_view(), name="completar-perfil-cliente"),
     path('registro-perfil-cliente/', views.Registro_Perfil_Cliente.as_view(), name="registro-perfil-cliente"),
 
 

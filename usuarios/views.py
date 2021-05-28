@@ -5,6 +5,7 @@ from django.views.generic import ListView
 from django.views.generic.base import TemplateView
 from django.urls import reverse_lazy
 from django.contrib.auth import update_session_auth_hash
+from django.http import HttpResponseRedirect
 import time
 
 from usuarios.models import Preferencia, Usuario, Perfil
@@ -107,10 +108,9 @@ class EditarPerfil(AdminLoginMixin, UpdateView):
             form.save()
             form2.save()
             return redirect(self.get_success_url())
-        # else:
-        #     print ("form is invalid")
-        #     print(form.errors)
-        #     return self.render_to_response(self.get_context_data(form=form, form2=form2))
+        else:
+            print(form.errors)
+            return self.render_to_response(self.get_context_data(form=form, form2=form2))
 
 
 class Agregar_Admin(RootLoginMixin, CreateView):
@@ -187,39 +187,38 @@ class Registro_Perfil_Cliente(CreateView):
     second_form_class = FormularioPreferencias
 
     template_name='usuarios/perfil-usuario.html'
-    success_url = reverse_lazy('libros:admin-perfil')
+    success_url = reverse_lazy('usuarios:admin-perfil')
 
     def get_object(self):
         #print (self.request.user)
         return self.request.user
 
-    def form_valid(self, form, form2):
-        print (self.request.user)
-        usuario = Usuario.objects.get(username=self.request.user)
-        form = self.form_class(self.request.POST)
-        form2 = self.second_form_class(self.request.POST)
-        solicitud = form.save(commit = False)
-        solicitud2 = form2.save(commit = False)
-        solicitud.usuario = usuario
-        solicitud2.usuario = usuario
-        form.save()
-        form2.save()
-        return super().form_valid(form, form2)
+    def get_context_data(self, **kwargs):
+        context = super(Registro_Perfil_Cliente, self).get_context_data(**kwargs)
+        
+        if 'form2' not in context:
+            context['form2'] = self.second_form_class(self.request.GET)
+        return context
     
-    def get_context_data(self, *args, **kwargs):
-        return {'form': self.form_class, 'form2': self.second_form_class}
 
-    """ def post(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         self.object = self.get_object
-        form = self.form_class(request.POST)
-        form2 = self.second_form_class(request.POST, request.FILES)
+        form = self.form_class(request.POST, request.FILES)
+        form2 = self.second_form_class(request.POST)
 
         if form.is_valid() and form2.is_valid():
-            form.save()
-            form2.save()
-            return redirect(self.get_success_url()) """
-
-
+            usuario = Usuario.objects.get(username=self.request.user)
+            solicitud = form.save(commit = False)
+            solicitud.usuario = usuario
+            solicitud2 = form2.save(commit = False)
+            solicitud2.perfil = form.save()
+            solicitud2.save()
+            return HttpResponseRedirect(self.get_success_url())
+        else:
+            print ("form is invalid")
+            print(form.errors)
+            return self.render_to_response(self.get_context_data(form=form, form2=form2))
+    
 class EditarPerfilCliente(UpdateView):
     model = Usuario
     second_model = Perfil
