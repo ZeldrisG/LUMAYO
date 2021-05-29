@@ -222,10 +222,12 @@ class Registro_Perfil_Cliente(CreateView):
 class EditarPerfilCliente(UpdateView):
     model = Usuario
     second_model = Perfil
+    third_model = Preferencia
     form_class = FormularioUsuario
     second_form_class = FormularioPerfil
+    third_form_class = FormularioPreferencias
 
-    template_name = 'usuarios/editar-perfil.html'
+    template_name = 'usuarios/editar-perfil-cliente.html'
     success_url = reverse_lazy('usuarios:admin-perfil')
     
     def get_object(self):
@@ -233,22 +235,32 @@ class EditarPerfilCliente(UpdateView):
         return self.request.user
 
     def get_context_data(self, **kwargs):
-        context = super(EditarPerfil, self).get_context_data(**kwargs)
+        context = super(EditarPerfilCliente, self).get_context_data(**kwargs)
         datos = Perfil.objects.get(usuario_id = self.request.user.id)
+        datos2 = Preferencia.objects.get(perfil = datos.DNI)
         formulario = FormularioPerfil(instance=datos)
+        formulario2 = FormularioPreferencias(instance=datos2)
         context['form2'] = formulario
+        context['form3'] = formulario2
         return context
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object
         usuario = self.model.objects.get(id=request.user.id)
         perfil = Perfil.objects.get(usuario_id=request.user.id)
+        preferencia = Preferencia.objects.get(perfil=perfil.DNI)
         form = self.form_class(request.POST, instance = usuario)
         form2 = self.second_form_class(request.POST, request.FILES, instance= perfil)
+        form3 = self.third_form_class(request.POST, instance= preferencia)
+        print ("Form 1", form)
+        print ("Form 2", form2)
+        print ("Form 3", form3)
 
-        if form.is_valid() and form2.is_valid():
+
+        if form.is_valid() and form2.is_valid() and form3.is_valid():
             form.save()
             form2.save()
+            form3.save()
             return redirect(self.get_success_url())
         # else:
         #     print ("form is invalid")
