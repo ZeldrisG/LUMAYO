@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from Lumayo import settings
+from multiselectfield import MultiSelectField
 
 
 GENERO = [('M', 'Masculino'),('F', 'Femenino'), ('O', 'Otro')]
@@ -53,8 +54,6 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
 
 
 
-
-
 class Perfil(models.Model):
     usuario = models.OneToOneField(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
     DNI = models.IntegerField(primary_key=True)
@@ -89,3 +88,13 @@ class Perfil(models.Model):
 #         choices= PREFERENCIAS,
 #         default= 'terror'
 #     )
+
+
+class Preferencia(models.Model):
+    #usuario = models.OneToOneField(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
+    perfil = models.ForeignKey(Perfil, null=True, blank=True, on_delete=models.CASCADE)
+    preferencia=models.CharField(
+        max_length=20,
+        choices= PREFERENCIAS,
+        default= 'terror'
+    )

@@ -14,7 +14,11 @@
           <div class="card-body text-white">
                 <h3 class="display-5">Editar</h3>
                 <h4>Perfil</h4>
-                <a href="{% url 'usuarios:editar-perfil' %}" class="stretched-link"></a>
+                {% if user.is_admin %}
+                  <a href="{% url 'usuarios:editar-perfil' %}" class="stretched-link"></a>
+                {% else %}
+                  <a href="{% url 'usuarios:editar-perfil-cliente' %}" class="stretched-link"></a>
+                {% endif %}
           </div>
           <div class="ico-card">
             <i class="bi bi-person-check icon-size-card"></i>
@@ -25,9 +29,13 @@
         <div class="col-md-12 col-lg-6 my-4">
           <div class="card text-start bg-blue">
             <div class="card-body text-white">
-                  <h3 class="display-5">Completar</h3>
-                  <h4>Perfil</h4>
+                <h3 class="display-5">Completar</h3>
+                <h4>Perfil</h4>
+                {% if user.is_admin %}
                   <a href="{% url 'usuarios:completar-perfil' %}" class="stretched-link"></a>
+                {% else %}
+                  <a href="{% url 'usuarios:completar-perfil-cliente' %}" class="stretched-link"></a>
+                {% endif %}
             </div>
             <div class="ico-card">
               <i class="bi bi-person-lines-fill icon-size-card"></i>
