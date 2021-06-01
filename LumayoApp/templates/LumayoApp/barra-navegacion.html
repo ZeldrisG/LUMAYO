@@ -31,6 +31,10 @@
                         {{ user.get_username|upper }}
                         <b class="caret"></b>
                     </a>
+                    <a href="{% url 'carrito:listar-carrito'  %}"class="col-md-6 quantity-icon-wrapper">
+                        <img src="{% static 'img/cart4.svg' %}">
+                        
+                      </a>              
 
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <li><a class="dropdown-item" href="{% url 'usuarios:admin-perfil' %}">

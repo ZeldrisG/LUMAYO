@@ -5,4 +5,4 @@ class Agregar_Carrito_Form(forms.ModelForm):
 
     class Meta:
         model = Carrito
-        fields = 'libros'
+        fields = '__all__'
