@@ -60,6 +60,18 @@ body {
   border-color: #303F9F
 }
 
+.btn-orange{
+  background-color: #f06000;
+  border-color: #d88d02;
+}
+
+.btn-orange:hover{
+  background-color: #cf5504;
+  border-color: #ee9b00
+}
+
+
+
 .img-ajustable{
 object-fit: fill;
 height: 100%;
@@ -125,6 +137,11 @@ background: linear-gradient(170deg, #C86DD7 0%, #303F9F 100%);
 color: #fff;
 }
 
+.bg-orange {
+  background: orange;
+  color: #fff;
+  }
+
 .ico-card{
 position:absolute;
 top: 0;
@@ -164,4 +181,9 @@ overflow: hidden;
 
 .no-desbordar{
   overflow: hidden;
+}
+
+.imgCard-size{
+  width: auto;
+  height: 170;
 }
