@@ -13,6 +13,7 @@ urlpatterns = [
     path('usuarios/', include('usuarios.urls', namespace='usuarios')),
     path('crear-administrador/', views.crear_admin, name="crear-admin"),
     path('admin-libro/', include('libros.urls', namespace='admin-libro')),
+    path('reserva/', include('reserva.urls', namespace='reserva')),
     path('gestionar-admin/', views.gestionar_admin, name="gestionar-admin"),
     path('eliminar-admin/', views.eliminar_admin, name="eliminar-Administrador"),
 

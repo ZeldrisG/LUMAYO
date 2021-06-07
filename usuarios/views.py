@@ -11,6 +11,7 @@ import time
 from usuarios.models import Preferencia, Usuario, Perfil
 from usuarios.forms import FormularioLogin, FormularioPerfil, FormularioUsuario, FormularioUsuarioAdmin, FormularioUsuarioCliente, FormularioPreferencias
 from usuarios.mixins import RootLoginMixin, AdminLoginMixin
+from reserva.models import Reserva
 
 
 

@@ -1,4 +1,5 @@
 from django.shortcuts import render,HttpResponse
+from django.http import JsonResponse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.detail import DetailView
 from django.views.generic import ListView, TemplateView
@@ -72,6 +73,9 @@ class Buscar_Libro(ListView):
             }
             return object_list
 
+
 class Post_Libro(DetailView):
     model = Libro
     template_name = 'libros/post-libro.html'
+
+
