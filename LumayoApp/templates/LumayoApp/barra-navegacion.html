@@ -31,15 +31,12 @@
                         {{ user.get_username|upper }}
                         <b class="caret"></b>
                     </a>
-<<<<<<< HEAD
                     <a href="{% url 'carrito:listar-carrito'  %}"class="col-md-6 quantity-icon-wrapper">
                         <img src="{% static 'img/cart4.svg' %}">
                         
                       </a>              
 
-=======
                     
->>>>>>> 65327441494e92a8ae5bca979baee67394e8a251
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         {% if user.is_admin or not user.is_superuser %}
                             <li><a class="dropdown-item" href="{% url 'usuarios:admin-perfil' %}">
