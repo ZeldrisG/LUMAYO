@@ -1,0 +1,67 @@
+{% extends 'LumayoApp/base.html' %}
+{% load widget_tweaks %}
+
+{% load static %}
+
+
+{% block content %}
+<h1>Mis Reservas</h1>
+    <div class="table-responsive text-center m-1 p-1">
+        <table class="table table-hover">
+                                
+            <thead class="table-light">
+              <tr>
+                <th scope="col">Titulo del libro</th>
+                <th scope="col">Fecha de reservacion</th>
+                <th scope="col">Reservado hasta</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">OPCIONES</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% if object %}
+                    {% for libro in object %}
+                        <tr>
+                            <th scope="row">{{ libro.libro.titulo }}</th>
+                            <td>{{ libro.fec_reserva }}</td>
+                            <td>{{ libro.fec_reserva }}</td>
+                            <td>{{ libro.cantidad }}</td>
+                            <td>
+                                <a class="btn btn-primary" href="#">Comprar</a>
+                                <button id="btnEliminar" name="{{ libro.libro.titulo }}" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="{{ libro.libro.id }}">Cancelar Reserva</button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                        <h1>No hay registro de libros...</h1>
+                {% endif %}
+            </tbody>
+          </table>
+    </div>
+    <a class="btn btn-secondary mb-3" href="{% url 'libros:admin-libro'  %}">Volver</a>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Volver</button>
+        <button id="btnEliminarModal" type="button" class="btn btn-danger">Si, Cancelar Reserva</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+{% endblock content %}
+ 
+{% block extra_js %}
+    <script type="text/javascript" src="{% static "js/reserva/mis_reservas.js" %}"></script>
+{% endblock extra_js %}

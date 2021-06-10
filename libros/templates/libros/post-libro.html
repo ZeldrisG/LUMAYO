@@ -8,7 +8,7 @@
 {% block content %}
     <div class="container m-1">
         
-        <form method="post">
+       
         {% csrf_token %}
                 <div class="row">
                     <div class="col-sm-12 col-md-6 col-lg-4 text-center mb-2">
@@ -53,22 +53,27 @@
                             {{ object.precio|intcomma }}
                         </h3>
                         <div class="d-grid gap-4 col-6 mx-auto">
-
+                            <form method="post">
                             <input type="number" class="form-control" placeholder="Cantidad" min="1" max="{{ object.existencias }}">
+                            </form>
 
                             <a class="btn btn-primary" href="{% url 'usuarios:listar-admin' %}">Comprar</a>
 
-                            <div class="btn btn-orange" href="{% url 'usuarios:listar-admin' %}">Reservar</div>
+                            <button class="btn btn-orange" id="btnReservar" name="{{ object.id }}">Reservar</button>
 
                             <a class="btn btn-warning" href="{% url 'usuarios:listar-admin' %}">Añadir al carrito</a>
                         </div>
                     </div>
                 </div>
                 <button class="btn btn-secondary mt-3" onclick="back();">Volver</button>
-        </form>
+        
     </div>
   
 {% endblock content %}
+
+{% block extra_js %}
+    <script type="text/javascript" src="{% static "js/libros/post.js" %}"></script>
+{% endblock extra_js %}
 
 
   
