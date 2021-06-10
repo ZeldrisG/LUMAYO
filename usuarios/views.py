@@ -11,11 +11,8 @@ import time
 from usuarios.models import Preferencia, Usuario, Perfil
 from usuarios.forms import FormularioLogin, FormularioPerfil, FormularioUsuario, FormularioUsuarioAdmin, FormularioUsuarioCliente, FormularioPreferencias
 from usuarios.mixins import RootLoginMixin, AdminLoginMixin
-<<<<<<< HEAD
 from carrito.models import Carrito
-=======
 from reserva.models import Reserva
->>>>>>> 65327441494e92a8ae5bca979baee67394e8a251
 
 
 
