@@ -22,18 +22,18 @@
             <tbody>
                 {% if object_list %}
                 
-                    {% for carrito in object_list %}
+                    {% for libro in object_list %}
                         <tr>
-                            <th scope="row">{{ carrito.titulo }}</th>
-                            <td>{{ carrito.estado }}</td>
-                            <td>{{ carrito.precio }}</td>
+                            <th scope="row">{{ libro.titulo }}</th>
+                            <td>{{ libro.estado }}</td>
+                            <td>{{ libro.precio }}</td>
                             <form class="d-flex" method="GET" action="#">
                             <td>
-                                <input type="number" class="form-control" id="Cantidad" min="1" max="{{ carrito.existencias }}">
+                                <input type="number" class="form-control" id="Cantidad" min="1" max="{{ libro.existencias }}">
                             </td>
                             <td> 
-                                <button class="btn btn-primary" type="submit">Comprar</button>
-                                <a class="btn btn-danger " href="#">Eliminar</a>
+                                <button class="btn btn-primary" type="submit">Comprar</button> 
+                                <a class="btn btn-danger " href="{% url 'carrito:eliminar-libro-carrito' libro.id %}">Eliminar</a>
                             </td>
                             </form>
                             
