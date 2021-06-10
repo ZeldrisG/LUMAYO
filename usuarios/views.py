@@ -262,7 +262,7 @@ class EditarPerfilCliente(UpdateView):
             form2.save()
             form3.save()
             return redirect(self.get_success_url())
-        # else:
-        #     print ("form is invalid")
-        #     print(form.errors)
-        #     return self.render_to_response(self.get_context_data(form=form, form2=form2))
+        else:
+            print ("form is invalid")
+            print(form.errors)
+            return self.render_to_response(self.get_context_data(form=form, form2=form2, form3=form3))

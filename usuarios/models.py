@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from Lumayo import settings
-from multiselectfield import MultiSelectField
+
 
 
 GENERO = [('M', 'Masculino'),('F', 'Femenino'), ('O', 'Otro')]
@@ -57,10 +57,10 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
 class Perfil(models.Model):
     usuario = models.OneToOneField(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
     DNI = models.IntegerField(primary_key=True)
-    nombres = models.CharField(max_length=50, blank=True)
-    apellidos = models.CharField(max_length=50, blank=True)
-    direccion = models.CharField(max_length=50, blank=True)
-    lugar_nac = models.CharField(max_length=20, blank=True)
+    nombres = models.CharField(max_length=50)
+    apellidos = models.CharField(max_length=50)
+    direccion = models.CharField(max_length=50)
+    lugar_nac = models.CharField(max_length=20)
     fecha_nac = models.DateField(null = True)
     genero=models.CharField(
         max_length=20,
@@ -69,7 +69,7 @@ class Perfil(models.Model):
     )
 
 
-    foto = models.ImageField(upload_to = 'usuarios/fotos',blank=True)
+    foto = models.ImageField(upload_to = 'usuarios/fotos')
 
     REQUIRED_FIELDS = ['DNI','nombres']
 
