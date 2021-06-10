@@ -142,27 +142,6 @@ class Eliminar_Admin(RootLoginMixin, DeleteView):
     success_url = reverse_lazy('usuarios:listar-admin')
 
 
-<<<<<<< HEAD
-class Registro(AdminLoginMixin, CreateView):
-    model=Perfil
-    form_class=FormularioPerfil
-    template_name='usuarios/perfil-usuario.html'
-    success_url = reverse_lazy('usuarios:admin-perfil')
-
-    def form_valid(self, form):
-        print (self.request.user)
-        usuario = Usuario.objects.get(username=self.request.user)
-        carrito = Carrito(usuario = usuario)
-        carrito.save()
-        form = self.form_class(self.request.POST, self.request.FILES)
-        solicitud = form.save(commit = False)
-        solicitud.usuario = usuario
-        form.save()
-        return super().form_valid(form)
-
-
-=======
->>>>>>> 65327441494e92a8ae5bca979baee67394e8a251
 class Loader(TemplateView):
     model = Usuario
     template_name = 'usuarios/loader.html'
