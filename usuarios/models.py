@@ -3,7 +3,6 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 from Lumayo import settings
 
 
-
 GENERO = [('M', 'Masculino'),('F', 'Femenino'), ('O', 'Otro')]
 PREFERENCIAS = [('terror', 'terror'),('drama','drama'),( 'ficcion','ficcion' )]
 

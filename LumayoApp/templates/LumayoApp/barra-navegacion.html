@@ -31,12 +31,23 @@
                         {{ user.get_username|upper }}
                         <b class="caret"></b>
                     </a>
+                    <a href="{% url 'carrito:listar-carrito'  %}"class="col-md-6 quantity-icon-wrapper">
+                        <img src="{% static 'img/cart4.svg' %}">
+                        
+                      </a>              
+
                     
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         {% if user.is_admin or not user.is_superuser %}
                             <li><a class="dropdown-item" href="{% url 'usuarios:admin-perfil' %}">
                                 <i class="bi bi-person-lines-fill me-1 icon-size"></i>
                                 Perfil</a>
+                            </li>
+                        {% endif %}
+                        {% if not user.is_admin and not user.is_superuser %}
+                            <li><a class="dropdown-item" href="{% url 'reserva:mis-reservas' %}">
+                                <i class="bi bi-clock-history me-1 icon-size"></i>
+                                Reservas</a>
                             </li>
                         {% endif %}
                             <li>

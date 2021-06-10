@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'LumayoApp',
     'usuarios',
     'libros',
+    'carrito',
+    'reserva',
     
 ]
 
