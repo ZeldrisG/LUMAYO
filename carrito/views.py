@@ -13,28 +13,37 @@ class Añadir_Carrito(TemplateView):
     template_name = 'carrito/carrito.html'
 
     def dispatch(self, request, *args, **kwargs):
-        libro = Libro.objects.all()
-        print(kwargs)
+        carrito_existe = Carrito.objects.filter(usuario_id = request.user.id).count() > 0
         consulta2 = Libro.objects.get(id = kwargs['pk'])
+        print(consulta2)
         usuario = Usuario.objects.all()
         usuario = Usuario.objects.get(username=self.request.user)
-        consulta = Carrito.objects.get(usuario = usuario)
-        if consulta:
+        
+
+        if carrito_existe:
+            consulta = Carrito.objects.get(usuario = usuario)
+            print(consulta2)
             consulta.libros.add(consulta2)
             consulta.save()
         else:
             carrito = Carrito(usuario = usuario)
-            consulta.libros.add(consulta2)
             carrito.save()
+            carrito.libros.add(consulta2)
+            
 
-        return redirect('usuarios:login')
+        return redirect('carrito:listar-carrito')
 
 class Listar_Carrito(TemplateView):
     template_name = 'carrito/listar-carrito.html'
     def get_context_data(self, **kwargs):
+        carrito_existe = Carrito.objects.filter(usuario_id = self.request.user.id).count() > 0
         context = super().get_context_data(**kwargs)
-        carrito = Carrito.objects.get(usuario_id = self.request.user.id)
-        context['object_list'] = carrito.libros.all()
+        if carrito_existe:
+            carrito = Carrito.objects.get(usuario_id = self.request.user.id)
+            context['object_list'] = carrito.libros.all()
+        
+        else:
+            context['object_list'] = False
         return context
 
 
