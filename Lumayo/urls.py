@@ -17,6 +17,8 @@ urlpatterns = [
     path('gestionar-admin/', views.gestionar_admin, name="gestionar-admin"),
     path('eliminar-admin/', views.eliminar_admin, name="eliminar-Administrador"),
     path('carrito/', include('carrito.urls', namespace='carrito')),
+    path('compras/', include('compra.urls', namespace='compras')),
+
 
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

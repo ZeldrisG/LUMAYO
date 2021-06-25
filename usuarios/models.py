@@ -60,7 +60,7 @@ class Perfil(models.Model):
     apellidos = models.CharField(max_length=50, blank=True)
     direccion = models.CharField(max_length=50, blank=True)
     lugar_nac = models.CharField(max_length=20, blank=True)
-    fecha_nac = models.DateField(null = True)
+    fecha_nac = models.DateField(auto_now=False, auto_now_add=False)
     genero=models.CharField(
         max_length=20,
         choices= GENERO,
