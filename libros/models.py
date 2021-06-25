@@ -19,7 +19,7 @@ LISTA_IDIOMAS = (('Español', 'Español'),
 
 class Libro(models.Model):
     id = models.AutoField(primary_key=True)
-    issn = models.CharField(max_length=8, unique=True)
+    issn = models.CharField(max_length=9, unique=True)
     titulo = models.CharField(max_length=110)
     autor = models.CharField(max_length=50)
     editorial = models.CharField(max_length=50)
