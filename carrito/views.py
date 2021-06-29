@@ -1,78 +1,46 @@
-from django.shortcuts import redirect, render
-from carrito.models import Carrito
-from django.views.generic.edit import UpdateView, DeleteView
-from django.views.generic import TemplateView, ListView, View
-from django.views.generic.detail import DetailView
-from carrito.forms import Agregar_Carrito_Form
-from libros.models import Libro
-from usuarios.models import Usuario
+from django.shortcuts import redirect, render, get_object_or_404
+from django.views.generic import TemplateView, View
 from django.urls import reverse_lazy
 
+from libros.models import Libro
+from usuarios.models import Usuario
+from carrito.models import CarritoCompras, CarritoLibros
+from carrito.utils import get_create_carrito
 
-class Añadir_Carrito(TemplateView):
-    template_name = 'carrito/carrito.html'
-
-    def dispatch(self, request, *args, **kwargs):
-        carrito_existe = Carrito.objects.filter(usuario_id = request.user.id).count() > 0
-        consulta2 = Libro.objects.get(id = kwargs['pk'])
-        print(consulta2)
-        usuario = Usuario.objects.all()
-        usuario = Usuario.objects.get(username=self.request.user)
-        
-
-        if carrito_existe:
-            consulta = Carrito.objects.get(usuario = usuario)
-            print(consulta2)
-            consulta.libros.add(consulta2)
-            consulta.save()
-        else:
-            carrito = Carrito(usuario = usuario)
-            carrito.save()
-            carrito.libros.add(consulta2)
-            
-
-        return redirect('carrito:listar-carrito')
-
-class Listar_Carrito(TemplateView):
-    template_name = 'carrito/listar-carrito.html'
-    def get_context_data(self, **kwargs):
-        carrito_existe = Carrito.objects.filter(usuario_id = self.request.user.id).count() > 0
-        context = super().get_context_data(**kwargs)
-        if carrito_existe:
-            carrito = Carrito.objects.get(usuario_id = self.request.user.id)
-            context['object_list'] = carrito.libros.all()
-        
-        else:
-            context['object_list'] = False
-        return context
-
-
-class Eliminar_Libro_Carrito(TemplateView):
-    template_name = 'carrito/carrito.html'
-    def dispatch(self, request, *args, **kwargs):
-        libro = Libro.objects.all()
-        print(kwargs)
-        consulta2 = Libro.objects.get(id = kwargs['pk'])
-        usuario = Usuario.objects.all()
-        usuario = Usuario.objects.get(username=self.request.user)
-        consulta = Carrito.objects.get(usuario = usuario)
-        if consulta:
-            consulta.libros.remove(consulta2)
-
-        return redirect('carrito:listar-carrito')
-
-
-""" class Listar_Carrito(View):
-    model = Carrito
-    template_name = 'carrito/listar-carrito.html'
-
-    def get(self, request, *args, **kwargs ):
-        
-        consulta = Carrito.objects.get(usuario_id = self.request.user.id)
-        print(consulta)
-        context = {'object_list':consulta}
-        return consulta """
+class CarritoView(TemplateView):
+    template_name = 'carrito/carrito-view.html'
+    model = CarritoCompras
     
+    def get(self, request, *args, **kwargs):
+        carrito = get_create_carrito(request)
+        print(carrito)
+        print('despues de carrito')
+        return render(request, self.template_name, {'object_list': carrito})
 
+class Agregar_Carrito(View):
+    template_name = 'carrito/agregar.html'
+    
+    def post(self, request, *args, **kwargs):
+        carrito = get_create_carrito(request)
+        libro = get_object_or_404(Libro, pk=request.POST.get('libroId'))
+        cantidad = int(request.POST.get('cantidad', 1))
 
-        
+        carritolibros = CarritoLibros.objects.create_or_update_cantidad(
+            carrito=carrito,
+            libro=libro,
+            cantidad=cantidad
+            )
+        context = {
+            'libro': libro,
+            'cantidad': cantidad
+            }
+        return render(request, self.template_name, context)
+
+class EliminarLibro_Carrito(View):
+    template_name = 'carrito/agregar.html'
+    
+    def post(self, request, *args, **kwargs):
+        carrito = get_create_carrito(request)
+        libro = get_object_or_404(Libro, pk=request.POST.get('libroId'))
+        carrito.libros.remove(libro)
+        return redirect('carrito:miCarrito')

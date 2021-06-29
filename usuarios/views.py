@@ -9,9 +9,8 @@ from django.http import HttpResponseRedirect
 import time
 
 from usuarios.models import Preferencia, Usuario, Perfil
-from usuarios.forms import FormularioLogin, FormularioPerfil, FormularioUsuario, FormularioUsuarioAdmin, FormularioUsuarioCliente, FormularioPreferencias
+from usuarios.forms import FormularioLogin, FormularioPerfil, FormularioUsuario, FormularioUsuarioAdmin, FormularioUsuarioCliente, FormularioPreferencias, FormularioEditarPerfil
 from usuarios.mixins import RootLoginMixin, AdminLoginMixin
-from carrito.models import Carrito
 from reserva.models import Reserva
 
 
@@ -83,7 +82,7 @@ class EditarPerfil(AdminLoginMixin, UpdateView):
     model = Usuario
     second_model = Perfil
     form_class = FormularioUsuario
-    second_form_class = FormularioPerfil
+    second_form_class = FormularioEditarPerfil
 
     template_name = 'usuarios/editar-perfil.html'
     success_url = reverse_lazy('usuarios:admin-perfil')
@@ -132,6 +131,8 @@ class Listar_Admin(RootLoginMixin, ListView):
     model = Usuario
     template_name = 'usuarios/listar-admin.html'
     success_url = reverse_lazy('usuarios:listar-admin')
+    queryset = model.objects.filter(is_admin=True)
+    ordering = ["id"]
 
 class Eliminar_Admin(RootLoginMixin, DeleteView):
     model = Usuario
@@ -226,7 +227,7 @@ class EditarPerfilCliente(UpdateView):
     second_model = Perfil
     third_model = Preferencia
     form_class = FormularioUsuario
-    second_form_class = FormularioPerfil
+    second_form_class = FormularioEditarPerfil
     third_form_class = FormularioPreferencias
 
     template_name = 'usuarios/editar-perfil-cliente.html'

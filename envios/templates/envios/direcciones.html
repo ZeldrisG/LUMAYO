@@ -1,0 +1,28 @@
+{% extends 'LumayoApp/base.html' %}
+{% load widget_tweaks %}
+
+{% load static %}
+
+
+{% block breadcrumb %}
+    {% include 'ordenes/snippets/breadcrumb.html' %}
+{% endblock breadcrumb %}
+    
+{% block content %}
+<div class="col">
+    <div class="h3">
+        Mis Direcciones
+    </div>
+    
+    <a href="{% url 'envios:agregar' %}">Agregar nueva direccion</a>
+    <div class="mt 2">
+        
+        {% for direccion in object_list %}
+        <div class="mt-2">
+            {% include 'envios/snippets/direccion-envio.html' with editar=True %}
+        </div>
+        {% endfor %}
+            
+    </div>
+</div>
+{% endblock content %}

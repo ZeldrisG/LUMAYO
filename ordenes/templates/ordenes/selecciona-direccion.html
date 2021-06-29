@@ -1,0 +1,36 @@
+{% extends 'LumayoApp/base.html' %}
+{% load widget_tweaks %}
+
+{% load static %}
+
+
+{% block breadcrumb %}
+    {% include 'ordenes/snippets/breadcrumb.html' %}
+{% endblock breadcrumb %}
+    
+{% block content %}
+<div class="row">
+    <div class="col">
+        <div class="h3">
+            Selecciona una direccion de envio
+        </div>
+        <div class="mt-2">
+            
+            {% for direccion in direcciones %}
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            {{ direccion.direccion }}
+                        </h5>
+                        <p class="card-title">
+                            {{ direccion.codigo_postal }}
+                        </p> 
+                        <a href="{% url 'ordenes:establecer_direccion' direccion.pk %}" class="btn btn-warning">Seleccionar</a>
+                    </div>
+                </div>
+            {% endfor %}
+                
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -52,16 +52,19 @@
                             <i class="bi bi-currency-dollar"></i>
                             {{ object.precio|intcomma }}
                         </h3>
-                        <div class="d-grid gap-4 col-6 mx-auto">
-                            <form method="post">
-                            <input type="number" class="form-control" placeholder="Cantidad" min="1" max="{{ object.existencias }}">
-                            </form>
+                        <div class="col-6 mx-auto">
+                        <form method="post" action="">
+                            {% csrf_token %} 
+                            <input type="number" class="form-control" name="cantidad" placeholder="Cantidad" min="1" max="{{ object.existencias }}">
+                            <input type="hidden" name="idLibro" value="{{ object.id }}">
+                            <input type="submit" name="btnComprar" class="btn btn-primary mb-2" value="Comprar">
 
-                            <a class="btn btn-primary" href="{% url 'usuarios:listar-admin' %}">Comprar</a>
+                        </form>
 
                             <button class="btn btn-orange" id="btnReservar" name="{{ object.id }}">Reservar</button>
+                            {% include 'carrito/snippets/agregar.html' %}
 
-                            <a class="btn btn-warning" href="{% url 'usuarios:listar-admin' %}">Añadir al carrito</a>
+                            <!-- <a class="btn btn-warning" href="{% url 'carrito:añadir' libro.id %}">Añadir al carrito</a> -->
                         </div>
                     </div>
                 </div>

@@ -22,8 +22,14 @@
               <i class="bi bi-currency-dollar"></i>
               {{ libro.precio|intcomma }}</p>
             <div class="d-grid gap-2">
-              <a href="{% url 'libros:post' libro.id %}" class="btn btn-primary inline">Mas detalles</a>
-              <a href="#" class="btn btn-warning">Añadir al Carrito</a>
+              
+              {% if user.is_admin %}
+                <a class="btn btn-primary" href="{% url 'libros:editar-libro' libro.id %}">Editar</a>
+                <a class="btn btn-danger" href="{% url 'libros:eliminar-libro' libro.id %}">Eliminar</a>
+              {% else %}                
+                <a href="{% url 'libros:post' libro.id %}" class="btn btn-primary inline">Mas detalles</a>
+                {% include 'carrito/snippets/agregar-carrito-card.html' %}
+              {% endif %}
             </div>
           </div>
         </div>

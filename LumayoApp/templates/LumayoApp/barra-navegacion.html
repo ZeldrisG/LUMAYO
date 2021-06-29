@@ -7,7 +7,7 @@
             <span class="navbar-toggler-icon"></span>
           </button>
 
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="{% url 'inicio' %}">
                 <img src="{% static 'img/logo.webp' %}" width="50"  alt="Logo Lumayo">
                  LUMAYO
             </a>
@@ -21,7 +21,15 @@
 
             <ul class="navbar-nav"> 
             {% if user.is_authenticated %}
-                <li class="nav-item dropdown">
+                {% if not user.is_admin and not user.is_superuser %}
+                 <li class="nav-item mx-3 my-2">
+                    <a href="{% url 'carrito:miCarrito'  %}"class="">
+                        <i class="bi bi-cart4  icon-size"></i>
+                    </a>
+                </li>  
+                    {% endif %}
+                </li>
+                <li class="nav-item dropdown mx-2">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         {% if request.user.perfil.foto %}
                             <img src="{{ request.user.perfil.foto.url }}" class="avatar" alt="Avatar">
@@ -31,13 +39,6 @@
                         {{ user.get_username|upper }}
                         <b class="caret"></b>
                     </a>
-                    {% if not user.is_admin and not user.is_superuser %}
-                    <a href="{% url 'carrito:listar-carrito'  %}"class="col-md-6 quantity-icon-wrapper">
-                        <img src="{% static 'img/cart4.svg' %}">
-                        
-                      </a>  
-                    {% endif %}            
-
                     
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         {% if user.is_admin or not user.is_superuser %}
@@ -50,6 +51,18 @@
                             <li><a class="dropdown-item" href="{% url 'reserva:mis-reservas' %}">
                                 <i class="bi bi-clock-history me-1 icon-size"></i>
                                 Reservas</a>
+                            </li>
+                            <li><a class="dropdown-item" href="{% url 'envios:direcciones-envio' %}">
+                                <i class="bi bi-geo-alt-fill me-1 icon-size"></i>
+                                Mis direcciones</a>
+                            </li>
+                            <li><a class="dropdown-item" href="{% url 'ordenes:completados' %}">
+                                <i class="bi bi-receipt-cutoff me-1 icon-size"></i>
+                                Mis pedidos</a>
+                            </li>
+                            <li><a class="dropdown-item" href="{% url 'perfiles_facturacion:nuevo' %}">
+                                <i class="bi bi-credit-card-2-back me-1 icon-size"></i>
+                                Mis metodos de pago</a>
                             </li>
                         {% endif %}
                             <li>

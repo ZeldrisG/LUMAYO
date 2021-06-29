@@ -31,9 +31,21 @@
                 <div class="col-md-12 col-lg-6">
                     <div class="row">
                         {{ form.non_field_errors }}
+                        <div class="form-floating mb-3 col-6">
+                            <input type="text" value="{{form.issn.value}}" id="floatingInput" placeholder="{{ form.issn.label }}" class="form-control" required pattern="[0-9]{4}[-][0-9]{3}[0-9|x]">
+                            <label for="floatingInput" class="mb-2 mx-2">{{ form.issn.label }}</label>
+                            {% if form.issn.errors %}
+                            <span class="alert alert-danger d-flex align-items-center mt-2 p-1">
+                                {% for error in form.issn.errors %}
+                                    <i class="bi bi-exclamation-triangle-fill ms-1"></i>
+                                    <div class="ms-2">{{ error }}</div>
+                                {% endfor %}
+                            </span>
+                            {% endif %}
+                        </div>
                         {% for campos in form %}
-                            {% if campos != form.portada and campos != form.id %}
-                                <div class="form-floating position-relative mb-3 col-6">
+                            {% if campos != form.portada and campos != form.id and campos != form.fec_publicacion and campos != form.issn %}
+                                <div class="form-floating mb-3 col-6">
                                     {{ campos|add_class:'form-control'|attr:"id:floatingInput"|attr:"placeholder:campos.label" }}
                                     <label for="floatingInput" class="mb-2 mx-2">{{ campos.label }}</label>
                                     {% if campos.errors %}
@@ -45,8 +57,24 @@
                                     </span>
                                     {% endif %}
                                 </div>
-                            {% endif %}
+                            {% endif %}   
                         {% endfor %}
+
+                        <div class="form-floating mb-3 col-6">
+                            <input type="date" value="{{form.fec_publicacion.value|date:'c'}}" id="datefield" placeholder="{{ form.fec_publicacion.label }}" class="form-control">
+                            <label for="datefield" class="mb-2 mx-2">{{ form.fec_publicacion.label }}</label>
+                            {% if form.fec_publicacion.errors %}
+                            <span class="alert alert-danger d-flex align-items-center mt-2 p-1">
+                                {% for error in form.fec_publicacion.errors %}
+                                    <i class="bi bi-exclamation-triangle-fill ms-1"></i>
+                                    <div class="ms-2">{{ error }}</div>
+                                {% endfor %}
+                            </span>
+                            {% endif %}
+                        </div>
+
+
+                        
                         <div class="col">
                             <input type="submit" name="add-libro-submit" id="add-libro-submit" tabindex="4" class="form-control btn btn-primary mb-2" value="Guardar">
                             <a class="form-control btn btn-secondary" href="{% url 'libros:admin-libro'  %}">Cancelar</a>
@@ -58,3 +86,7 @@
         </form> 
     </div>
 {% endblock content %}
+
+{% block extra_js %}
+    <script type="text/javascript" src="{% static "js/libros/fecha.js" %}"></script>
+{% endblock extra_js %}

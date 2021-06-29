@@ -18,6 +18,11 @@ urlpatterns = [
     path('gestionar-admin/', views.gestionar_admin, name="gestionar-admin"),
     path('eliminar-admin/', views.eliminar_admin, name="eliminar-Administrador"),
     path('carrito/', include('carrito.urls', namespace='carrito')),
+    path('orden/', include('ordenes.urls', namespace='orden')),
+    path('envios/', include('envios.urls', namespace='envios')),
+    path('pagos/', include('perfiles_facturacion.urls', namespace='pagos')),
+    #path('compras/', include('compra.urls', namespace='compras')),
+
 
     path('reset_password/', auth_views.PasswordResetView.as_view(template_name="LumayoApp/password_reset.html"), name="reset_password"),
     path('reset_password_sent/', auth_views.PasswordResetDoneView.as_view(template_name="LumayoApp/password_reset_sent.html"), name="password_reset_done"),

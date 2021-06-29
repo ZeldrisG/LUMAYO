@@ -1,0 +1,40 @@
+{% extends 'LumayoApp/base.html' %}
+{% load widget_tweaks %}
+{% load carrito_extras %}
+{% load static %}
+
+
+{% block content %}
+
+    <div class="col-3">
+        
+        {% if libro.portada %}
+            <img src="{{ libro.portada.url }}" alt="Imagen del libro" class="libros">
+        {% endif %}
+            
+    </div>
+
+    <div class="col">
+        <div class="h3 font-weight-bold text-success">
+            {{ cantidad | cantidad_add_format }} al carrito...
+        </div>
+        <div>
+            <a href="{% url 'libros:post' libro.id %}">
+                {{ libro.titulo }}
+            </a>
+        </div>
+        <div class="font-weight-bod text-danger">
+            ${{ libro.precio}}
+        </div>
+        <div>
+            <a class="btn btn-info"  href="{% url 'carrito:miCarrito' %}">Ver carrito</a>
+        </div>
+        <div>
+            <a class="btn btn-info"  href="{% url 'inicio' %}">Seguir Comprando</a>
+        </div>
+    </div>
+
+{% endblock content %}
+
+
+  

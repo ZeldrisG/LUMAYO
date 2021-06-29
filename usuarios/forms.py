@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth import (authenticate)
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UserChangeForm
+from datetime import date
 
 from usuarios.models import Usuario, Perfil, Preferencia
 
@@ -76,10 +77,16 @@ class FormularioPerfil(forms.ModelForm):
                             }),
         }
     
-    """ def __init__(self, *args, **kwargs):
-        user = kwargs.pop('user')
-        super(FormularioPerfil, self).__init__(*args, **kwargs)
-        self.fields["journalname"].queryset = Perfil.objects.filter(journalusername=user) """
+class FormularioEditarPerfil(forms.ModelForm):
+    
+    class Meta:
+        model = Perfil
+        fields = ('DNI', 'nombres', 'apellidos', 'direccion', 'lugar_nac', 'fecha_nac', 'genero', 'foto')
+        widgets = {
+                    'foto': forms.FileInput(
+                        attrs={'class': 'form-control',
+                            }),
+        }
 
 
 class FormularioUsuario(forms.ModelForm):

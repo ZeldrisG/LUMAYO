@@ -1,0 +1,22 @@
+{% load widget_tweaks %}
+<form action="" method="post">
+    {% csrf_token %}
+    
+    {{ form.non_field_errors}}
+        {% for campo in form %}
+            <div class="form-floating position-relative mb-2 col-md-12 col-lg-6" >
+                {{ campo|add_class:'form-control'|attr:"id:floatingInput"|attr:"placeholder:campo.label" }}
+                <label for="floatingInput" class="mb-2 mx-2">{{ campo.label }}</label>                                
+                {% if campo.errors %}
+                <span class="alert alert-danger d-flex align-items-center mt-2 p-1">
+                    {% for error in campo.errors %}
+                    <i class="bi bi-exclamation-triangle-fill ms-1"></i>
+                        <div class="ms-2">{{ error }}</div>
+                    {% endfor %}
+                </span>
+                {% endif %}
+                
+            </div>
+        {% endfor %}
+        <button class="btn btn-primary" type="submit">{{ message }}</button>
+</form>

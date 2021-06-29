@@ -33,6 +33,7 @@ class Agregar_Libro(CreateView):
 class Listar_Libro(ListView):
     model = Libro
     template_name = 'libros/listar-libro.html'
+    ordering = ["id"]
 
 
 class Editar_Libro(UpdateView):
@@ -77,5 +78,6 @@ class Buscar_Libro(ListView):
 class Post_Libro(DetailView):
     model = Libro
     template_name = 'libros/post-libro.html'
+
 
 

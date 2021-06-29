@@ -1,0 +1,103 @@
+{% extends 'LumayoApp/base.html' %}
+{% load widget_tweaks %}
+
+{% load static %}
+
+
+{% block content %}
+    <div class="row">
+        <div class="col-4 bg-primary" >
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-floating my-3">
+                            <input value="{{ request.user.perfil.nombres }}" type="email" class="form-control" id="floatingInput" placeholder="name@example.com" readonly>
+                            <label for="floatingInput">Nombre Completo</label>
+                        </div>
+
+                        <div class="form-floating my-3">
+                            <input value="{{ request.user.perfil.DNI }}" type="number" class="form-control" id="floatingInput" readonly>
+                            <label for="floatingInput">Telefono</label>
+                        </div>
+
+                        <div class="form-floating my-3">
+                            <input value="{{ request.user.perfil.direccion }}" type="text" class="form-control" id="floatingInput" readonly>
+                            <label for="floatingInput">Direccion</label>
+                        </div>
+
+                        <div class="form-floating my-3">
+                            <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                              <option selected>Selecciona una opcion: </option>
+                              <option value="1">Servientrega</option>
+                              <option value="2">FedEx</option>
+                              <option value="3">Envia</option>
+                            </select>
+                            <label for="floatingSelect">Servicio de envio</label>
+                          </div>
+                    </div>
+                        
+                    <div class="col-6">
+                        <div class="form-floating my-3">
+                            <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                              <option selected>Selecciona una opcion: </option>
+                              <option value="1">Mi tarjeta 1</option>
+                              <option value="2">Mi tarjeta 2</option>
+                            </select>
+                            <label for="floatingSelect">Metodo de pago</label>
+                          </div>
+                          <div class="d-grid gap-2">
+                            <input type="submit" value="Pagar" name="btnPagar" class="btn btn-success my-3">
+                            <a href="#" class="btn btn-danger my-3">Cancelar compra</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="col-8">
+            <div class="table-responsive text-center m-1 p-1">
+                <table class="table table-hover">
+                                        
+                    <thead class="table-light">
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col">TITULO</th>
+                        <th scope="col">CANTIDAD</th>
+                        <th scope="col">PRECIO POR UNIDAD</th>
+                        <th scope="col">TOTAL</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% if object %}
+                        
+                                <tr>
+                                    <th scope="row">
+                                        {% if object.portada %}
+                                            <img src="{{ object.portada.url }}" class="miniLibro" alt="Avatar">
+                                        {% else %}
+                                            <img src="{% static 'img/agregarlibro2.png' %}" class="miniLibro" alt="Avatar">
+                                        {% endif %}
+
+                                    </th>
+                                    <td>{{ object.titulo }}</td>
+                                    <td>{{ cantidad }}</td>
+                                    <td>{{ object.precio }}</td>
+                                    <td>{{ object.precio }}</td>
+                                </tr>
+                        {% else %}
+                                <h1>No hay registro de libros...</h1>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <br>
+    <p>{{ request.POST }}</p>
+{% endblock content %}
+
+
+  

@@ -1,0 +1,15 @@
+{% extends 'LumayoApp/base.html' %}
+{% load widget_tweaks %}
+
+{% load static %}
+    
+{% block content %}
+<div class="col">
+    <div class="h3">
+        Nueva direccion
+    </div>
+    <div class="">
+        {% include 'envios/snippets/form.html' with message='Agregar' %}
+    </div>
+</div>
+{% endblock content %}
