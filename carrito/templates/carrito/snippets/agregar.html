@@ -1,0 +1,15 @@
+{% load static %}
+<form method="post" action="{% url 'carrito:agregar' %}">
+    {% csrf_token %}
+    <input type="hidden" class="form-control" name="libroId" value="{{ libro.id }}">
+    <div class="d-flex mx-3 p-3">
+        <button type="button" id="remove" class="btn btn-primary">-</button>
+        <input type="number" name="cantidad" id="cantidad" value="1" class="form-control col-sm-1" readonly>
+        <button type="button" id="add" class="btn btn-primary">+</button>
+    </div>
+    <button type="submit"class="btn btn-warning">Agregar al carrito</button>
+</form>
+
+{% block extra_js %}
+    <script type="text/javascript" src="{% static "js/carrito/carrito.js" %}"></script>
+{% endblock extra_js %}

@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = ')x7&gvjgrejwcrcwbr8&6+as7=3md_lvgu*lg!)5b1^@)s4(k#'
 
 # SECURITY WARNING: don't run with debug turned on in production!...
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -45,7 +45,11 @@ INSTALLED_APPS = [
     'libros',
     'carrito',
     'reserva',
-    'compra',
+    'ordenes',
+    'envios',
+    'perfiles_facturacion',
+
+    #'compra',
     
 ]
 
@@ -181,3 +185,12 @@ LOGGING = {
         },
     },
 }
+
+# Configuracion SMTP
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = '587'
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'lumayoapp@gmail.com'
+EMAIL_HOST_PASSWORD = 'lumayo2021'

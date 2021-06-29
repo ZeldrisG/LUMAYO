@@ -28,7 +28,7 @@
                 <a class="btn btn-danger" href="{% url 'libros:eliminar-libro' libro.id %}">Eliminar</a>
               {% else %}                
                 <a href="{% url 'libros:post' libro.id %}" class="btn btn-primary inline">Mas detalles</a>
-                <a href="{% url 'carrito:añadir' libro.id %}" class="btn btn-warning">Añadir al Carrito</a>
+                {% include 'carrito/snippets/agregar-carrito-card.html' %}
               {% endif %}
             </div>
           </div>

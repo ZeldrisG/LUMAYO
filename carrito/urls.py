@@ -9,7 +9,7 @@ from carrito import views
 app_name = 'carrito'
 
 urlpatterns = [
-    path('añadir/<slug:pk>/', views.Añadir_Carrito.as_view(), name="añadir"),
-    path('listar/', views.Listar_Carrito.as_view(), name="listar-carrito"),
-    path('eliminar/<slug:pk>/', views.Eliminar_Libro_Carrito.as_view(), name="eliminar-libro-carrito"),
+    path('miCarrito/', views.CarritoView.as_view(), name="miCarrito"),
+    path('agregar/', views.Agregar_Carrito.as_view(), name="agregar"),
+    path('eliminar/', views.EliminarLibro_Carrito.as_view(), name="eliminar"),
 ]

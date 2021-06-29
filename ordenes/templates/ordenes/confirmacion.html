@@ -1,0 +1,74 @@
+{% extends 'LumayoApp/base.html' %}
+{% load widget_tweaks %}
+
+{% load static %}
+
+
+{% block breadcrumb %}
+    {% include 'ordenes/snippets/breadcrumb.html' %}
+{% endblock breadcrumb %}
+    
+{% block content %}
+<div class="row">
+    <div class="col-8">
+        <div class="h3">
+            Confirma tu pedido
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-4">
+                        <div class="font-weight-bold">
+                            Direccion de envio
+                        </div>
+                        <div class="card-text">
+                            {{ direccion.direccion }}
+                        </div>
+                        <div class="card-text">
+                            {{ direccion.direccion1 }}
+                        </div>
+                        <div class="card-text">
+                            {{ direccion.direccion2 }}
+                        </div>
+                        <div class="card-text">
+                            {{ direccion.referencia }}
+                        </div>
+                        <div class="card-text">
+                            {{ direccion.codigo_postal }}
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="font-weight-bold">
+                            Metodo de pago
+                        </div>
+                        <div class="card-text">
+                            Tarjeta terminacion 4242
+                        </div>
+                    </div>
+                </div>
+            </div>      
+        </div>
+
+        <div class="mt-3">
+            <div class="card">
+                <div class="card-body">
+                    
+                    {% for libro in carrito.libros.all %}
+                        {% include 'ordenes/snippets/libro.html' %}
+                    {% endfor %}
+          
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        {% url 'ordenes:completar' as next_url %}
+        {% include 'ordenes/snippets/resumen.html' with next_url=next_url %}
+        <div class="mt-2">
+            <a href="{% url 'ordenes:cancelar' %}" class="btn btn-danger">Cancelar orden de compra</a>
+        </div>
+    </div>
+    
+</div>
+{% endblock content %}
