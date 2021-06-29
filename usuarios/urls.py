@@ -3,6 +3,7 @@ from django.contrib import admin
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.auth import views as auth_views
 
 from usuarios import views
 app_name = 'usuarios'
@@ -25,7 +26,7 @@ urlpatterns = [
     path('editar-perfil-cliente/', views.EditarPerfilCliente.as_view(), name="editar-perfil-cliente"),
 
 
-
+    
 
 
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
