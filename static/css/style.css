@@ -111,12 +111,26 @@ font-size: 1.5rem;
 .card{
 border-radius: 5px;
 }
+.cardCredito{
+  border-radius: 10px;
+  }
 
 .icon-size-card{
   position: relative;
   right: -65%;
   top:10%;
   font-size: 7.5rem;
+  line-height: 0;
+  opacity: .3;
+  color:rgba(255,255,255,1);
+  z-index: 0;
+}
+
+.icon-size-cardCredito{
+  position: relative;
+  right: 0;
+  top:0;
+  font-size: 7rem;
   line-height: 0;
   opacity: .3;
   color:rgba(255,255,255,1);
@@ -142,6 +156,12 @@ color: #fff;
 background: linear-gradient(170deg, #C86DD7 0%, #303F9F 100%);
 color: #fff;
 }
+
+.bg-gold {
+  background: linear-gradient(170deg, #B78628 10%, #FCC201 100%);
+  color: #000;
+  font-weight: bold;
+  }
 
 .bg-orange {
   background: orange;

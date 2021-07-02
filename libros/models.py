@@ -31,5 +31,9 @@ class Libro(models.Model):
     precio = models.IntegerField()
     portada = models.ImageField(upload_to = 'libros/portadas')
 
+    def actualizar_existencias(self, cantidad):
+        self.existencias = self.existencias + cantidad
+        self.save()
+
     
         

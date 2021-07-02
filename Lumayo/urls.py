@@ -19,10 +19,7 @@ urlpatterns = [
     path('carrito/', include('carrito.urls', namespace='carrito')),
     path('orden/', include('ordenes.urls', namespace='orden')),
     path('envios/', include('envios.urls', namespace='envios')),
-    path('pagos/', include('perfiles_facturacion.urls', namespace='pagos')),
-    #path('compras/', include('compra.urls', namespace='compras')),
-
-
+    path('metodos_pago/', include('metodos_pago.urls', namespace='metodos_pago')),
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

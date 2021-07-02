@@ -18,7 +18,7 @@
             </div>
             <div class="">
                 {% include 'envios/snippets/direccion-envio.html' %}
-                <a href="{% url 'ordenes:confirmacion' %}" class="btn btn-warning mt-2">Entregar a esta direccion</a>                
+                <a href="{% url 'ordenes:pago' %}" class="btn btn-warning mt-2">Entregar a esta direccion</a>                
                 {% if puede_elegir_direccion %}
                     <div class="mt-2">
                         <a href="{% url 'ordenes:seleccionar_direccion'%}">Otra direccion</a>
