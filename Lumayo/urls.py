@@ -20,6 +20,7 @@ urlpatterns = [
     path('carrito/', include('carrito.urls', namespace='carrito')),
     path('orden/', include('ordenes.urls', namespace='orden')),
     path('envios/', include('envios.urls', namespace='envios')),
+<<<<<<< HEAD
     path('pagos/', include('perfiles_facturacion.urls', namespace='pagos')),
     #path('compras/', include('compra.urls', namespace='compras')),
 
@@ -31,6 +32,9 @@ urlpatterns = [
     path('password/', auth_views.PasswordChangeView.as_view(template_name="LumayoApp/password.html"), name = "password"),
     path('password_change_done/', auth_views.PasswordChangeDoneView.as_view(template_name="LumayoApp/password_change_done.html"), name = "password_change_done"),
 
+=======
+    path('metodos_pago/', include('metodos_pago.urls', namespace='metodos_pago')),
+>>>>>>> 0b8ab24c2a469635a7e02635880de912669c3cab
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

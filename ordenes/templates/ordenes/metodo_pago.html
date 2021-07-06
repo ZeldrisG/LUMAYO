@@ -1,0 +1,40 @@
+{% extends 'LumayoApp/base.html' %}
+{% load widget_tweaks %}
+
+{% load static %}
+
+
+{% block breadcrumb %}
+    {% include 'ordenes/snippets/breadcrumb.html' %}
+{% endblock breadcrumb %}
+
+{% block content %}
+<div class="row">
+    <div class="col">
+        
+        {% if tarjeta %}
+            <div class="h3">
+                Metodo de pago del pedido
+            </div>
+            <div class="">
+                {% include 'metodos_pago/snippets/tarjeta.html' %}
+                <a href="{% url 'ordenes:confirmacion' %}" class="btn btn-primary mt-2">Pagar con esta tarjeta</a>                
+                {% if puede_elegir_tarjeta %}
+                    <div class="mt-2">
+                        <a href="{% url 'ordenes:seleccionar_metodo_pago' %}">Otro medio de pago</a>
+                    </div>
+                {% endif %}
+            </div>
+        {% else %}
+        <div class="h3">
+            Registra un medio de pago
+        </div>
+        <div class="">
+            {% url 'ordenes:metodo_pago' as next_url %}
+            <a href="{% url 'metodos_pago:nueva-tarjeta' %}?next={{ next_url }}">Nuevo metodo de pago</a>
+        </div>
+        {% endif %}
+            
+    </div>
+</div>
+{% endblock content %}

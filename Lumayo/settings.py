@@ -47,9 +47,7 @@ INSTALLED_APPS = [
     'reserva',
     'ordenes',
     'envios',
-    'perfiles_facturacion',
-
-    #'compra',
+    'metodos_pago',
     
 ]
 
@@ -194,3 +192,6 @@ EMAIL_PORT = '587'
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'lumayoapp@gmail.com'
 EMAIL_HOST_PASSWORD = 'lumayo2021'
+
+STRIPE_PUBLIC_KEY ='pk_test_51J7pTSI8EiHjhXXU7pOz6QKFgJ7coDDnGkwVwu88I7dZPC4VtKKcKmx1SFlX2dlPGQrbeDGtibNeQMVC5AveJtaY007xQ5npE4'
+STRIPE_PRIVATE_KEY = 'sk_test_51J7pTSI8EiHjhXXUV7bEYoIh3VbakfDrEFaNqRuBIYhnPp8CK1a3wq3ZRYip64LMo1fp3rPhi73DTGHCWcjr2GR200nIrtjAB1'
