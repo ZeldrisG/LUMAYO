@@ -1,4 +1,9 @@
+import threading
 from django.db import models
+from django.db.models.signals import post_save
+
+
+from libros.mails import Mail
 
 # Create your models here.
 
@@ -30,6 +35,25 @@ class Libro(models.Model):
     num_pags = models.IntegerField()
     precio = models.IntegerField()
     portada = models.ImageField(upload_to = 'libros/portadas')
+    creado_en = models.DateTimeField(auto_now_add=True)
+
+
+class Noticia(models.Model):
+    libro = models.ForeignKey(Libro,on_delete=models.CASCADE)
+
+def set_noticia(sender, instance, *args, **kwargs):
+    noticia = Noticia.objects.create(libro = instance)
+
+    hilo = threading.Thread(target=Mail.send_noticia, args=[noticia])
+
+    hilo.start()  
+
+    post_save.connect(set_noticia, sender=Libro)
+
+
+
+
+
 
     def actualizar_existencias(self, cantidad):
         self.existencias = self.existencias + cantidad

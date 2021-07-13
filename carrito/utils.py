@@ -4,7 +4,6 @@ def get_create_carrito(request):
     usuario = request.user if request.user.is_authenticated else None
     carrito_id = request.session.get('carritocompras_id')
     carrito = Carrito.objects.filter(carritocompras_id=carrito_id).first()
-    print(carrito)
     if carrito is None:
         carrito = Carrito.objects.create(usuario=usuario)
     

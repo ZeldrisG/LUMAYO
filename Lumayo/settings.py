@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'ordenes',
     'envios',
     'metodos_pago',
+    'foro',
+
     
 ]
 

@@ -1,0 +1,39 @@
+{% extends 'LumayoApp/base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+
+
+{% block content %}
+
+    <div class="col-3">
+        
+        {% if libro.portada %}
+            <img src="{{ libro.portada.url }}" alt="Imagen del libro" class="libros">
+        {% endif %}
+            
+    </div>
+
+    <div class="col">
+        <div class="h3 fw-bold text-success">
+            {{ cantidad }} reservada con exito...
+        </div>
+        <div>
+            <a href="{% url 'libros:post' libro.id %}">
+                {{ libro.titulo }}
+            </a>
+        </div>
+        <div class="fw-bod text-danger">
+            ${{ libro.precio }}
+        </div>
+        <div>
+            <a class="btn btn-info"  href="{% url 'reserva:mis-reservas' %}">Ver reservas</a>
+        </div>
+        <div>
+            <a class="btn btn-info"  href="{% url 'inicio' %}">Seguir Comprando</a>
+        </div>
+    </div>
+
+{% endblock content %}
+
+
+  

@@ -234,10 +234,6 @@ class EditarPerfilCliente(UpdateView):
     template_name = 'usuarios/editar-perfil-cliente.html'
     success_url = reverse_lazy('usuarios:admin-perfil')
     
-    def get_object(self):
-        print (self.request.user)
-        return self.request.user
-
     def get_context_data(self, **kwargs):
         context = super(EditarPerfilCliente, self).get_context_data(**kwargs)
         datos = Perfil.objects.get(usuario_id = self.request.user.id)

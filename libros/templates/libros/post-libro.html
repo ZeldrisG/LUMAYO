@@ -53,21 +53,18 @@
                             {{ object.precio|intcomma }}
                         </h3>
                         <div class="col-6 mx-auto">
-                        <form method="post" action="">
-                            {% csrf_token %} 
-                            <input type="number" class="form-control" name="cantidad" placeholder="Cantidad" min="1" max="{{ object.existencias }}">
-                            <input type="hidden" name="idLibro" value="{{ object.id }}">
-                            <input type="submit" name="btnComprar" class="btn btn-primary mb-2" value="Comprar">
 
-                        </form>
-
-                            <button class="btn btn-orange" id="btnReservar" name="{{ object.id }}">Reservar</button>
                             {% include 'carrito/snippets/agregar.html' %}
+                            {% include 'reserva/snippets/agregar.html' %}
 
 <<<<<<< HEAD
                             
 =======
+<<<<<<< HEAD
+                            
+=======
 >>>>>>> 0b8ab24c2a469635a7e02635880de912669c3cab
+>>>>>>> c75a9fab92ee1addb3f717b1a892ffe9714dea71
                         </div>
                     </div>
                 </div>
@@ -76,10 +73,6 @@
     </div>
   
 {% endblock content %}
-
-{% block extra_js %}
-    <script type="text/javascript" src="{% static "js/libros/post.js" %}"></script>
-{% endblock extra_js %}
 
 
   

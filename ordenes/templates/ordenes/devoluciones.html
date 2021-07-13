@@ -1,0 +1,63 @@
+{% extends 'LumayoApp/base.html' %}
+{% load widget_tweaks %}
+
+{% load static %}
+    
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h3 class="fw-bold">Devoluciones</h3>
+    </div>
+    <div class="col-12 col-md-4 p-2 text-center">
+        <img src="{% static 'img/agregarlibro.png' %}" alt="imagen libro" width="350">
+    </div>
+    <div class="col-12 col-md-8 m-2">
+        <form action="" method="post">
+            <div class="form-floating">
+                <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                    <option selected>Libros disponibles</option>
+                    {% for item in orden %}
+                        {% for libro in item.carrito.libros_relacionados %}                    
+                        <option value="{{ libro.libro.pk }}">{{ libro.libro.titulo}}</option>
+                        {% endfor %}
+                    {% endfor %}
+                </select>
+                <label for="floatingSelect">Selecciona el libro a devolver</label>
+            </div>
+
+            <h4 class="mt-3">Motivo por devolucion:</h4>
+            <div class="col-12 mt-3 ps-4">
+                
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="motivos" id="motivo1" checked>
+                    <label class="form-check-label" for="motivo1">
+                    Producto en mal estado.
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="motivos" id="motivo2">
+                    <label class="form-check-label" for="motivo2">
+                    No cumple las espectativas.
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="motivos" id="motivo3" 
+                    >
+                    <label class="form-check-label" for="motivo3">
+                    Llego en un tiempo superior a lo estipulado.
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-floating mt-3">
+                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                <label for="floatingTextarea2">Comentarios</label>
+              </div>
+              <div class="d-grid gap-2 col-6 mx-auto">
+                <input type="submit" class="btn btn-primary mt-3 text-center" value="Enviar Solicitud">
+              </div>
+            
+        </form>
+    </div>
+</div>
+{% endblock content %}

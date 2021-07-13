@@ -19,9 +19,16 @@
 
         <div  class="collapse navbar-collapse justify-content-end" id="navbarToggleExternalContent">
 
-            <ul class="navbar-nav"> 
+            <ul class="navbar-nav">
+
             {% if user.is_authenticated %}
                 {% if not user.is_admin and not user.is_superuser %}
+                <li class="nav-item mx-3 my-2">
+                    <a href="{% url 'foro:foros'  %}"class="a-footer fw-bold">
+                        <i class="bi bi-chat-dots-fill me-1 pt-1 icon-size"></i>
+                        Foro
+                    </a>
+                </li> 
                  <li class="nav-item mx-3 my-2">
                     <a href="{% url 'carrito:miCarrito'  %}"class="">
                         <i class="bi bi-cart4  icon-size"></i>
@@ -60,9 +67,18 @@
                                 <i class="bi bi-receipt-cutoff me-1 icon-size"></i>
                                 Mis pedidos</a>
                             </li>
+                            <li><a class="dropdown-item" href="{% url 'reserva:mis-reservas' %}">
+                                <i class="bi bi-newspaper me-1 icon-size"></i>
+                                Noticias</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#">
                             <li><a class="dropdown-item" href="{% url 'metodos_pago:tarjetas' %}">
                                 <i class="bi bi-credit-card-2-back me-1 icon-size"></i>
                                 Mis metodos de pago</a>
+                            </li>
+                            <li><a class="dropdown-item" href="{% url 'ordenes:devoluciones' %}">
+                                <i class="bi bi-arrow-return-left me-1 icon-size"></i>
+                                Devoluciones</a>
                             </li>
                         {% endif %}
                             <li>

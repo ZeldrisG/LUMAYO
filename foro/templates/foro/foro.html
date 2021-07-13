@@ -1,0 +1,27 @@
+{% extends 'LumayoApp/base.html' %}
+{% load widget_tweaks %}
+
+{% load static %}
+    
+{% block content %}
+<div class="row">
+    <div class="col-12 bg-light div-title-border py-2">
+        <span class="fs-3">{{ foro.titulo }}</span>
+        <span><i class="bi bi-chat-text ms-5 me-2"></i>Respuestas: </span>
+    </div>
+    
+    {% for comentario in comentarios %}
+           
+        <div class="col-3 mt-3">
+            {% include 'foro/snippets/card-usuario.html' %}
+        </div>
+        <div class="col-9 mt-3">
+            {% include 'foro/snippets/comentario.html' %}
+        </div>
+
+    {% endfor %}
+    <div class="col-12 mt-3">
+        {% include 'foro/snippets/comentario-form.html' %}
+    </div>
+</div>
+{% endblock content %}
