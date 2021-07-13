@@ -1,0 +1,15 @@
+{% load static %}
+<form method="post" action="{% url 'reserva:reservar' %}">
+    {% csrf_token %}
+    <input type="hidden" class="form-control" name="libroIdReserva" value="{{ libro.id }}">
+    <div class="d-flex mx-3 p-3">
+        <button type="button" id="removeReserva" class="btn btn-primary">-</button>
+        <input type="number" name="cantidadReserva" id="cantidadReserva" value="1" class="form-control col-sm-1" readonly>
+        <button type="button" id="addReserva" class="btn btn-primary">+</button>
+    </div>
+    <button type="submit"class="btn btn-orange">Reservar</button>
+</form>
+
+{% block extra_js %}
+    <script type="text/javascript" src="{% static "js/reserva/reserva.js" %}"></script>
+{% endblock extra_js %}

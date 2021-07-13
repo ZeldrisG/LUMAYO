@@ -1,0 +1,15 @@
+{% extends 'LumayoApp/base.html' %}
+{% load widget_tweaks %}
+
+{% load static %}
+    
+{% block content %}
+<div class="col">
+    <div class="h3">
+        Nuevo Foro
+    </div>
+    <div class="">
+        {% include 'foro/snippets/form.html' with message='Crear' %}
+    </div>
+</div>
+{% endblock content %}

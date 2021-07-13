@@ -2,9 +2,12 @@ import threading
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import View
 from django.views.generic.list import ListView
+from django.views.generic.edit import FormView
+
 from django.contrib import messages
 
 from ordenes.models import Orden
+from ordenes.forms import DevolucionesForm
 from ordenes.utils import get_or_create_orden, breadcrumb, destruir_orden
 from ordenes.mails import Mail
 from ordenes.common import OrdenEstado
@@ -213,3 +216,15 @@ class OrdenesListView(ListView):
         queryset = self.model.objects.filter(usuario_id=self.request.user.id).filter(estado=OrdenEstado.COMPLETADO)
         return queryset
     
+
+
+
+class Devoluciones(View):
+    template_name = 'ordenes/devoluciones.html'
+    model = Orden
+    def get(self, request, *args, **kwargs):
+        queryset = self.model.objects.filter(usuario_id=self.request.user.id).filter(estado=OrdenEstado.COMPLETADO)
+        context = {
+            'orden' : queryset
+        }
+        return render(request, self.template_name, context)

@@ -20,5 +20,6 @@ urlpatterns = [
     path('cancelar/', views.Cancelar.as_view(), name="cancelar"),
     path('completar/', views.Completar.as_view(), name="completar"),
     path('completados/', views.OrdenesListView.as_view(), name="completados"),
+    path('devoluciones/', views.Devoluciones.as_view(), name="devoluciones"),
 
 ]

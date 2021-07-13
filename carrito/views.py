@@ -13,8 +13,6 @@ class CarritoView(TemplateView):
     
     def get(self, request, *args, **kwargs):
         carrito = get_create_carrito(request)
-        print(carrito)
-        print('despues de carrito')
         return render(request, self.template_name, {'object_list': carrito})
 
 class Agregar_Carrito(View):

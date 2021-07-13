@@ -1,67 +1,50 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse, HttpResponseNotFound
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.detail import DetailView
 from django.views.generic import ListView, TemplateView, View
+
 import json
 from datetime import datetime
 
 
 from reserva.models import Reserva, ReservaLibros
 from libros.models import Libro
+from reserva.utils import get_or_create_reserva
 
 # Create your views here.
 class Agregar_Reserva(TemplateView):
     model = Reserva
-
+    template_name = 'reserva/agregar.html'
     def post(self, request, *args, **kwargs):
-        reserva_existe = self.model.objects.filter(usuario_id = request.user.id).count() > 0
-        print(reserva_existe)
-        datos = json.loads(request.body.decode("utf-8"))
-        libro = Libro.objects.get(id=datos)
-        miFecha = datetime.now()
-        fechaFormateada = miFecha.strftime("%Y-%m-%d %H:%M:%S")
+        reserva = get_or_create_reserva(request)
+        libro = get_object_or_404(Libro, pk=request.POST.get('libroIdReserva'))
+        cantidad = int(request.POST.get('cantidadReserva', 1))
 
-        if reserva_existe:
-            reserva = self.model.objects.get(usuario_id=request.user.id)
-            reserva.libros.add(
-                libro,
-                through_defaults={
-                'fec_reserva' : fechaFormateada,
-                'cantidad' : 1
-                })
-            return JsonResponse({'reserva':'true'})
-        else:
-            reserva = self.model(usuario_id=request.user.id)
-            reserva.save()
-            reserva.libros.add(
-                libro,
-                through_defaults={
-                'fec_reserva' : fechaFormateada,
-                'cantidad' : 1
-                })
-            print('error usuario no tiene reserva')
-            return JsonResponse({'reserva':'false'})
+        reservalibros = ReservaLibros.objects.create(
+            reserva=reserva,
+            libro=libro,
+            cantidad=cantidad
+            )
+        context = {
+            'libro': libro,
+            'cantidad': cantidad
+            }
+        return render(request, self.template_name, context)
 
 
 class Mis_Reservas(TemplateView):
-    model = ReservaLibros
+    model = Reserva
     template_name = 'reserva/mis-reservas.html'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        reserva = Reserva.objects.get(usuario_id=self.request.user.id)
-        context['object'] = reserva.reservalibros_set.all()
-        return context
+    def get(self, request, *args, **kwargs):
+        reserva = get_or_create_reserva(request)
+        return render(request, self.template_name, {'reserva': reserva})
 
 class Eliminar_Reserva(View):
-
+    
     def post(self, request, *args, **kwargs):
-        reserva = Reserva.objects.get(usuario_id=self.request.user.id)
-        datos = json.loads(request.body.decode("utf-8"))
-        try:
-            libro = Libro.objects.get(id=datos)                                                                                                                                                                            
-            reserva.libros.remove(libro)                                                                                      
-            return JsonResponse({'estado': 'Reserva cancelada con exito!...'})                                                                          
-        except:
-            return JsonResponse({'estado': 'La reserva no ha podido ser cancelada!...'})                                                                          
+        reserva = get_or_create_reserva(request)
+        libro = get_object_or_404(Libro, pk=request.POST.get('libroId'))
+        reserva.libros.remove(libro)
+        return redirect('reserva:mis-reservas')
