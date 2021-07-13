@@ -11,6 +11,7 @@ import time
 from usuarios.models import Preferencia, Usuario, Perfil
 from usuarios.forms import FormularioLogin, FormularioPerfil, FormularioUsuario, FormularioUsuarioAdmin, FormularioUsuarioCliente, FormularioPreferencias, FormularioEditarPerfil
 from usuarios.mixins import RootLoginMixin, AdminLoginMixin
+from usuarios.mixins import ClienteLoginMixin
 from reserva.models import Reserva
 
 
@@ -269,3 +270,9 @@ class EditarPerfilCliente(UpdateView):
             print ("form is invalid")
             print(form.errors)
             return self.render_to_response(self.get_context_data(form=form, form2=form2, form3=form3))
+
+
+class Eliminar_Cuenta(ClienteLoginMixin, DeleteView):
+    model = Usuario
+    template_name = 'usuarios/eliminar-cuenta.html'
+    success_url = reverse_lazy('usuarios:login')
