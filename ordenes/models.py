@@ -7,6 +7,8 @@ from ordenes.common import OrdenEstado, opciones
 from carrito.models import CarritoCompras
 from usuarios.models import Usuario
 from envios.models import DireccionEnvio
+from metodos_pago.models import Tarjeta
+
 # Create your models here.
 
 
@@ -21,6 +23,7 @@ class Orden(models.Model):
     total = models.DecimalField(default=0, max_digits=8, decimal_places=2)
     creado_en = models.DateTimeField(auto_now_add=True)
     direccion_envio = models.ForeignKey(DireccionEnvio, on_delete=models.CASCADE, null=True, blank=True)
+    metodo_pago = models.ForeignKey(Tarjeta, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return self.orden_id
@@ -55,6 +58,23 @@ class Orden(models.Model):
     def completar(self):
         self.estado = OrdenEstado.COMPLETADO
         self.save()
+
+    def get_or_set_metodo_pago(self):
+        if self.metodo_pago:
+            return self.metodo_pago
+        
+        metodo_pago = Tarjeta.objects.filter(usuario=self.usuario).exists()
+        tarjetaPrincipal = None
+        if metodo_pago:
+            tarjetaPrincipal = Tarjeta.objects.filter(usuario=self.usuario).filter(defecto=True).first()
+            self.update_metodo_pago(tarjetaPrincipal)
+        
+        return tarjetaPrincipal
+
+    def update_metodo_pago(self, metodo_pago):
+        self.metodo_pago = metodo_pago
+        self.save()
+
 
 def set_orden_id(sender, instance, *args, **kwargs):
     if not instance.orden_id:

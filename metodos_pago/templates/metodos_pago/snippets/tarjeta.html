@@ -1,0 +1,35 @@
+{% load humanize %}
+
+<div class="card text-start cardCredito {% if tarjeta.defecto %} bg-gold {% else %} bg-cherry {% endif %}" style="width: 25rem;">
+    <div class="card-header p-0">
+        <h3 class="text-bold pt-1 ps-2">{{ tarjeta }}</h3>
+    </div>
+    <div class="card-body text-white">
+        <div class="row">
+            <div class="col-8">
+            <h4>**** **** **** {{ tarjeta.ultimos_cuatro }}</h4>
+            <div class="card-title">
+                Saldo actual:
+            </div>
+            <div class="card-title">
+                ${{ tarjeta.saldo|intcomma }}
+            </div>
+        </div>
+            <div class="col-4 m-0 p-0">
+                <i class="bi bi-credit-card-2-front icon-size-cardCredito"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-footer">
+        {% if editar %}
+            <a href="{% url 'metodos_pago:actualizar' tarjeta.pk %}" class="btn btn-info">Editar</a>
+            {% if tarjeta.defecto %}
+                <span class="text-dark">Tarjeta Principal</span>
+            {% else %}
+                <a href="{% url 'metodos_pago:principal' tarjeta.pk %}" class="btn btn-warning">Principal</a>
+                <a href="{% url 'metodos_pago:eliminar' tarjeta.pk %}" class="btn btn-danger">Eliminar</a>
+            {% endif %}
+        {% endif %}
+    </div>
+</div>

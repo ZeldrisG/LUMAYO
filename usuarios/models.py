@@ -68,7 +68,7 @@ class Perfil(models.Model):
     )
 
 
-    foto = models.ImageField(upload_to = 'usuarios/fotos',blank=True)
+    foto = models.ImageField(upload_to = 'usuarios/fotos')
 
     REQUIRED_FIELDS = ['DNI','nombres']
 

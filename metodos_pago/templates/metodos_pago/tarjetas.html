@@ -1,0 +1,28 @@
+{% extends 'LumayoApp/base.html' %}
+{% load widget_tweaks %}
+
+{% load static %}
+
+
+{% block breadcrumb %}
+    {% include 'ordenes/snippets/breadcrumb.html' %}
+{% endblock breadcrumb %}
+    
+{% block content %}
+<div class="col">
+    <div class="h3">
+        Mis Metodos de pago
+    </div>
+    
+    <a href="{% url 'metodos_pago:nueva-tarjeta' %}">Agregar nuevo metodo de pago</a>
+    <div class="row">
+        
+        {% for tarjeta in object_list %}
+        <div class="col col-md-6 col-lg-4 m-3">
+            {% include 'metodos_pago/snippets/tarjeta.html' with editar=True %}
+        </div>
+        {% endfor %}
+            
+    </div>
+</div>
+{% endblock content %}
