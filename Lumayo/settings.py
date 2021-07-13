@@ -47,9 +47,7 @@ INSTALLED_APPS = [
     'reserva',
     'ordenes',
     'envios',
-    'perfiles_facturacion',
 
-    #'compra',
     
 ]
 
