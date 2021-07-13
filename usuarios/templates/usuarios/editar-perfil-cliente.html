@@ -42,6 +42,7 @@
                                 </div>
                             {% endfor %}
                         {% endif %}
+
                         {% if form2 %}
                             {{ form2.non_field_errors}}
                             {% for campos in form2 %}
@@ -76,11 +77,14 @@
                                 {% endif %}
                             {% endfor %}
                         {% endif %}
+                <!--Aqui estoy -->
+                    <!--Hasta aqui -->
                         {% if form3 %}
                         {{ form3.non_field_errors}}
                         {% for campos in form3 %}
                             <div class="form-floating mb-3 col-12">
                                 {{ campos|add_class:'form-control'|attr:"id:floatingInput"|attr:"placeholder:campos.label" }}
+                                <!--Aqui estoy -->
                                 <label for="floatingInput" class="mb-2 mx-2">{{ campos.label }}</label>
                                 {% if campos.errors %}
                                 <span class="alert alert-danger d-flex align-items-center mt-2 p-1">
