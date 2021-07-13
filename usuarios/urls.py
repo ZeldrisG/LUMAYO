@@ -25,7 +25,7 @@ urlpatterns = [
     path('editar-perfil-cliente/', views.EditarPerfilCliente.as_view(), name="editar-perfil-cliente"),
 
 
-
+    
 
 
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
