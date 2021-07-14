@@ -37,6 +37,10 @@ class Libro(models.Model):
     portada = models.ImageField(upload_to = 'libros/portadas')
     creado_en = models.DateTimeField(auto_now_add=True)
 
+    def actualizar_existencias(self, cantidad):
+        self.existencias = self.existencias + cantidad
+        self.save()
+
 
 class Noticia(models.Model):
     libro = models.ForeignKey(Libro,on_delete=models.CASCADE)
@@ -51,13 +55,9 @@ def set_noticia(sender, instance, *args, **kwargs):
     post_save.connect(set_noticia, sender=Libro)
 
 
-
-
-
-
-    def actualizar_existencias(self, cantidad):
-        self.existencias = self.existencias + cantidad
-        self.save()
+def actualizar_existencias(self, cantidad):
+    self.existencias = self.existencias + cantidad
+    self.save()
 
     
         

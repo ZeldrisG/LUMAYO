@@ -65,7 +65,7 @@ class FormularioPerfil(forms.ModelForm):
     
     class Meta:
         model = Perfil
-        fields = ('DNI', 'nombres', 'apellidos', 'direccion', 'lugar_nac', 'fecha_nac', 'genero', 'foto')
+        fields = ('DNI', 'nombres', 'apellidos', 'direccion','lugar_nac', 'fecha_nac', 'genero', 'foto')
         widgets = {
                     'fecha_nac': forms.DateInput(format=('%Y-%m-%d'),
                         attrs={'class':'form-control',
@@ -81,7 +81,7 @@ class FormularioEditarPerfil(forms.ModelForm):
     
     class Meta:
         model = Perfil
-        fields = ('DNI', 'nombres', 'apellidos', 'direccion', 'lugar_nac', 'fecha_nac', 'genero', 'foto')
+        fields = ('DNI', 'nombres', 'apellidos','direccion', 'lugar_nac', 'fecha_nac', 'genero', 'foto')
         widgets = {
                     'foto': forms.FileInput(
                         attrs={'class': 'form-control',
