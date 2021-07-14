@@ -1,3 +1,6 @@
+import time
+import threading
+
 from django.shortcuts import render, redirect
 from django.contrib.auth.views import  LoginView, LogoutView
 from django.views.generic.edit import UpdateView, CreateView, DeleteView
@@ -6,11 +9,15 @@ from django.views.generic.base import TemplateView
 from django.urls import reverse_lazy
 from django.contrib.auth import update_session_auth_hash
 from django.http import HttpResponseRedirect
-import time
+from django.utils.crypto import get_random_string
+from django.contrib.auth.hashers import make_password
+from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib import messages
 
 from usuarios.models import Preferencia, Usuario, Perfil
 from usuarios.forms import FormularioLogin, FormularioPerfil, FormularioUsuario, FormularioUsuarioAdmin, FormularioUsuarioCliente, FormularioPreferencias, FormularioEditarPerfil
 from usuarios.mixins import RootLoginMixin, AdminLoginMixin
+from usuarios.mails import Mail
 from reserva.models import Reserva
 
 
@@ -114,16 +121,23 @@ class EditarPerfil(AdminLoginMixin, UpdateView):
             return self.render_to_response(self.get_context_data(form=form, form2=form2))
 
 
-class Agregar_Admin(RootLoginMixin, CreateView):
+class Agregar_Admin(RootLoginMixin, SuccessMessageMixin, CreateView):
     model = Usuario
-    form_class = FormularioUsuarioAdmin
+    form_class = FormularioUsuario
     template_name = 'usuarios/agregar-admin.html'
     success_url = reverse_lazy('usuarios:modulo-root')
+    success_message = "El administrador: %(username) ha sido creado exitosamente..."
+
 
     def form_valid(self, form):
         user = form.save(commit = False)
         user.is_admin = True
+        password = get_random_string(length=32)
+        password_encry = make_password(password)
+        user.password = password_encry
         user.save()
+        hilo = threading.Thread(target=Mail.send_admin_creado, args=(user,password))
+        hilo.start()
         return super().form_valid(form)
 
 
@@ -132,12 +146,18 @@ class Listar_Admin(RootLoginMixin, ListView):
     template_name = 'usuarios/listar-admin.html'
     success_url = reverse_lazy('usuarios:listar-admin')
     queryset = model.objects.filter(is_admin=True)
-    ordering = ["id"]
+    ordering = ["-id"]
 
-class Eliminar_Admin(RootLoginMixin, DeleteView):
+class Eliminar_Admin(RootLoginMixin, SuccessMessageMixin, DeleteView):
     model = Usuario
     template_name = 'usuarios/eliminar-admin.html'
     success_url = reverse_lazy('usuarios:listar-admin')
+    success_message = "Administrador eliminado exitosamente!..."
+
+    def delete(self, request, *args, **kwargs):
+            messages.success(self.request, self.success_message, 'danger')
+
+            return super(Eliminar_Admin, self).delete(request, *args, **kwargs)
 
 
 class Loader(TemplateView):
