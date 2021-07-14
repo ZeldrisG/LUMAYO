@@ -1,11 +1,8 @@
-<<<<<<< HEAD
 from django.shortcuts import render, redirect, get_object_or_404
-=======
 import time
 import threading
 
-from django.shortcuts import render, redirect
->>>>>>> 08a040b475fcd4ed1c32a74eafdc3a97f8bd16ec
+
 from django.contrib.auth.views import  LoginView, LogoutView
 from django.views.generic.edit import UpdateView, CreateView, DeleteView
 from django.views.generic import ListView
@@ -13,24 +10,16 @@ from django.views.generic.base import TemplateView, View
 from django.urls import reverse_lazy
 from django.contrib.auth import update_session_auth_hash
 from django.http import HttpResponseRedirect
-<<<<<<< HEAD
-from django.contrib.messages.views import SuccessMessageMixin
-import time
-=======
 from django.utils.crypto import get_random_string
 from django.contrib.auth.hashers import make_password
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
->>>>>>> 08a040b475fcd4ed1c32a74eafdc3a97f8bd16ec
 
 from usuarios.models import Preferencia, Usuario, Perfil
 from usuarios.forms import FormularioLogin, FormularioPerfil, FormularioUsuario, FormularioUsuarioAdmin, FormularioUsuarioCliente, FormularioPreferencias, FormularioEditarPerfil
 from usuarios.mixins import RootLoginMixin, AdminLoginMixin
-<<<<<<< HEAD
 from usuarios.mixins import ClienteLoginMixin
-=======
 from usuarios.mails import Mail
->>>>>>> 08a040b475fcd4ed1c32a74eafdc3a97f8bd16ec
 from reserva.models import Reserva
 
 
