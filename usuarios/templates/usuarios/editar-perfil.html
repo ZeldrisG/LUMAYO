@@ -48,7 +48,8 @@
                                 {% if campos != form2.foto %}
                                     {% if campos == form2.fecha_nac %}
                                         <div class="form-floating mb-3 col-12">
-                                            <input type="date" value="{{campos.value|date:'c'}}" id="datefield2" placeholder="{{ campos.label }}" class="form-control">
+                                            {{ campos | attr:"value:campos.value" }}
+                                            <!-- <input type="date" value="{{campos.value|date:'c'}}" id="datefield2" placeholder="{{ campos.label }}" class="form-control"> -->
                                             <label for="datefield2" class="mb-2 mx-2">{{ campos.label }}</label>
                                             {% if campos.errors %}
                                             <span class="alert alert-danger d-flex align-items-center mt-2 p-1">

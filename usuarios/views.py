@@ -1,11 +1,12 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.views import  LoginView, LogoutView
 from django.views.generic.edit import UpdateView, CreateView, DeleteView
 from django.views.generic import ListView
-from django.views.generic.base import TemplateView
+from django.views.generic.base import TemplateView, View
 from django.urls import reverse_lazy
 from django.contrib.auth import update_session_auth_hash
 from django.http import HttpResponseRedirect
+from django.contrib.messages.views import SuccessMessageMixin
 import time
 
 from usuarios.models import Preferencia, Usuario, Perfil
@@ -233,6 +234,10 @@ class EditarPerfilCliente(UpdateView):
 
     template_name = 'usuarios/editar-perfil-cliente.html'
     success_url = reverse_lazy('usuarios:admin-perfil')
+
+    def get_object(self):
+        print (self.request.user)
+        return self.request.user
     
     def get_context_data(self, **kwargs):
         context = super(EditarPerfilCliente, self).get_context_data(**kwargs)
@@ -268,7 +273,16 @@ class EditarPerfilCliente(UpdateView):
             return self.render_to_response(self.get_context_data(form=form, form2=form2, form3=form3))
 
 
-class Eliminar_Cuenta(ClienteLoginMixin, DeleteView):
+class Eliminar_Cuenta(ClienteLoginMixin,  TemplateView):
     model = Usuario
     template_name = 'usuarios/eliminar-cuenta.html'
     success_url = reverse_lazy('usuarios:login')
+    success_message = 'Cuenta eliminada satisfactoriamente'
+
+    def post(self, request, *args, **kwargs):
+        pk=request.user.pk
+        cliente = get_object_or_404(self.model, pk=pk)
+        cliente.delete()
+    
+        return redirect('usuarios:login')
+

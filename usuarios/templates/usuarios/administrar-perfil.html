@@ -9,7 +9,7 @@
   <h1 class="text-center my-5">Opciones del perfil</h1>
     <div class="row mt-3">  
     {% if request.user.perfil %}
-      <div class="col-md-12 col-lg-4 my-4">
+      <div class="col-md-12 {% if user.is_admin %} col-lg-6 {% else %} col-lg-4 {% endif %} my-4">
         <div class="card text-start bg-green">
           <div class="card-body text-white">
                 <h3 class="display-5">Editar</h3>
@@ -26,7 +26,7 @@
         </div>
       </div>
       {% else %}
-        <div class="col-md-12 col-lg-4 my-4">
+      <div class="col-md-12 {% if user.is_admin %} col-lg-6 {% else %} col-lg-4 {% endif %} my-4">
           <div class="card text-start bg-blue">
             <div class="card-body text-white">
                 <h3 class="display-5">Completar</h3>
@@ -43,7 +43,7 @@
           </div>
         </div>
       {% endif %}
-        <div class="col-md-12 col-lg-4 my-4">
+      <div class="col-md-12 {% if user.is_admin %} col-lg-6 {% else %} col-lg-4 {% endif %} my-4">
           <div class="card text-start bg-cherry">
             <div class="card-body text-white">
                   <h3 class="display-5">Cambiar</h3>
@@ -55,18 +55,20 @@
             </div>
           </div>
         </div>
-        <div class="col-md-12 col-lg-4 my-4">
-          <div class="card text-start bg-blue">
-            <div class="card-body text-white">
-                  <h3 class="display-5">Eliminar</h3>
-                  <h4>Cuenta</h4>
-                  <a href="#" class="stretched-link"></a>
-            </div>
-            <div class="ico-card">
-              <i class="bi bi-trash icon-size-card"></i>
+        {% if not user.is_admin %}
+          <div class="col-md-12 col-lg-4 my-4">
+            <div class="card text-start bg-blue">
+              <div class="card-body text-white">
+                    <h3 class="display-5">Eliminar</h3>
+                    <h4>Cuenta</h4>
+                    <a href="{% url 'usuarios:eliminar-cuenta' %}" class="stretched-link"></a>
+              </div>
+              <div class="ico-card">
+                <i class="bi bi-trash icon-size-card"></i>
+              </div>
             </div>
           </div>
-        </div>
+          {% endif %}
       </div>
       <a class="btn btn-primary" href="{% url 'usuarios:modulo-admin'  %}">Volver</a>
     </div>
