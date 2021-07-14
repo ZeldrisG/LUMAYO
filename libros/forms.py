@@ -7,9 +7,15 @@ class Agregar_Libro_Form(forms.ModelForm):
         model = Libro
         fields = '__all__'
         widgets = {
-
-                    
+ 
                     'portada': forms.FileInput(
                         attrs={'class': 'form-control',
                             }),
+
+                    'fec-publicacion':forms.DateInput(
+                        attrs={'class': 'form-control',
+                        'placeholder': 'fecha de publicacion',
+                        'type':'date',
+                        
+                        }),
 }
