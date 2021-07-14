@@ -55,11 +55,9 @@ def set_noticia(sender, instance, *args, **kwargs):
 post_save.connect(set_noticia, sender=Libro)
 
 
-
-
-
-
-
+def actualizar_existencias(self, cantidad):
+    self.existencias = self.existencias + cantidad
+    self.save()
 
     
         
