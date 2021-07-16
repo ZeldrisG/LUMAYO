@@ -5,6 +5,8 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView, V
 
 from foro.models import Foro, Comentario
 from foro.forms import ForoForm, ComentarioForm
+from usuarios.mixins import RootLoginMixin, AdminLoginMixin, ClienteLoginMixin
+
 # Create your views here.
 
 
@@ -13,7 +15,7 @@ class ForoListView(ListView):
     template_name = "foro/foros.html"
 
 
-class ForoCreateView(SuccessMessageMixin, CreateView):
+class ForoCreateView(ClienteLoginMixin, SuccessMessageMixin, CreateView):
     model = Comentario
     form_class = ComentarioForm
     template_name = "foro/crear.html"
@@ -61,7 +63,7 @@ class ForoView(View):
         return redirect('foro:foro',kwargs['pk'])
 
 
-class ComentarioUpdateView(UpdateView):
+class ComentarioUpdateView(ClienteLoginMixin, UpdateView):
     model = Comentario
     form_class = ComentarioForm
     template_name = "foro/actualizar.html"
@@ -71,7 +73,7 @@ class ComentarioUpdateView(UpdateView):
         return reverse_lazy('foro:foro', kwargs={'pk': self.object.foro.pk})
 
 
-class ComentarioDeleteView(DeleteView):
+class ComentarioDeleteView(ClienteLoginMixin, DeleteView):
     model = Comentario
     template_name = "foro/eliminar.html"
     

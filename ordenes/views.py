@@ -208,7 +208,7 @@ class Completar(ClienteLoginMixin, View):
         return redirect('inicio')
 
 
-class OrdenesListView(ListView):
+class OrdenesListView(ClienteLoginMixin, ListView):
     model = Orden
     template_name = "ordenes/lista-ordenes.html"
 
@@ -219,7 +219,7 @@ class OrdenesListView(ListView):
 
 
 
-class Devoluciones(View):
+class Devoluciones(ClienteLoginMixin, View):
     template_name = 'ordenes/devoluciones.html'
     model = Orden
     def get(self, request, *args, **kwargs):

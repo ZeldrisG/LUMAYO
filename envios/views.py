@@ -7,16 +7,19 @@ from envios.models import  DireccionEnvio
 from envios.forms import DireccionEnvioForm
 from carrito.utils import get_create_carrito
 from ordenes.utils import get_or_create_orden
+
+from usuarios.mixins import RootLoginMixin, AdminLoginMixin, ClienteLoginMixin
+
 # Create your views here.
 
-class DireccionesEnvioListView(ListView):
+class DireccionesEnvioListView(ClienteLoginMixin, ListView):
     model = DireccionEnvio
     template_name = 'envios/direcciones.html'
 
     def get_queryset(self):
         return self.model.objects.filter(usuario=self.request.user).order_by('-defecto')
 
-class AgregarDireccion(SuccessMessageMixin, CreateView):
+class AgregarDireccion( ClienteLoginMixin, SuccessMessageMixin, CreateView):
     model = DireccionEnvio
     form_class = DireccionEnvioForm
     template_name = 'envios/crear-direccion.html'
@@ -43,7 +46,7 @@ class AgregarDireccion(SuccessMessageMixin, CreateView):
 
 
 
-class ActualizarDireccion(SuccessMessageMixin, UpdateView):
+class ActualizarDireccion( ClienteLoginMixin, SuccessMessageMixin, UpdateView):
     model = DireccionEnvio
     template_name = "envios/actualizar.html"
     form_class = DireccionEnvioForm
@@ -58,7 +61,7 @@ class ActualizarDireccion(SuccessMessageMixin, UpdateView):
 
 
 
-class EliminarDireccion(SuccessMessageMixin, DeleteView):
+class EliminarDireccion( ClienteLoginMixin, SuccessMessageMixin, DeleteView):
     model = DireccionEnvio
     template_name = "envios/eliminar.html"
     success_url = reverse_lazy('envios:direcciones-envio')
@@ -76,7 +79,7 @@ class EliminarDireccion(SuccessMessageMixin, DeleteView):
             return redirect('envios:direcciones-envio')
         return super(EliminarDireccion, self).dispatch(request, *args, **kwargs)
     
-class DireccionPrincipal(View):
+class DireccionPrincipal(ClienteLoginMixin, View):
     model = DireccionEnvio
     def dispatch(self, request, *args, **kwargs):
         direccion = get_object_or_404(self.model, pk=kwargs['pk'])
