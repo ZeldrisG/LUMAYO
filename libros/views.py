@@ -8,35 +8,50 @@ from django.urls import reverse_lazy
 from django.contrib.sessions.models import Session
 
 
-from libros.models import Libro
-from libros.forms import Agregar_Libro_Form
+from libros.models import Genero, Libro
+from libros.forms import Agregar_Libro_Form, GeneroForm
+
+from usuarios.mixins import RootLoginMixin, AdminLoginMixin, ClienteLoginMixin
+
 
 # Create your views here.
  
 
-class Admin_Libro(TemplateView):
+class Admin_Libro(AdminLoginMixin, TemplateView):
     template_name = 'libros/administrar-libro.html'
 
 
 
-class Agregar_Libro(CreateView):
+class Agregar_Libro(AdminLoginMixin, CreateView):
     model = Libro
     form_class = Agregar_Libro_Form
     template_name = 'libros/agregar-libro.html'
     success_url = reverse_lazy('libros:admin-libro')
 
+    def get_context_data(self, **kwargs):
+        context = super(Agregar_Libro, self).get_context_data(**kwargs)
+        
+        formulario = GeneroForm()
+        context['form2'] = formulario
+        return context
+
     def form_valid(self, form):
-        form.save()
+        libro = form.save(commit = False)
+        genero = GeneroForm(self.request.POST)
+        aux = genero.save(commit=False)
+        aux.save()
+        libro.genero = aux
+        libro.save()
         return super().form_valid(form)
 
 
-class Listar_Libro(ListView):
+class Listar_Libro(AdminLoginMixin, ListView):
     model = Libro
     template_name = 'libros/listar-libro.html'
     ordering = ["id"]
 
 
-class Editar_Libro(UpdateView):
+class Editar_Libro(AdminLoginMixin, UpdateView):
     model = Libro
     form_class = Agregar_Libro_Form
     template_name = 'libros/actualizar-libro.html'
@@ -47,7 +62,7 @@ class Editar_Libro(UpdateView):
         return super().form_valid(form)
 
 
-class Eliminar_Libro(DeleteView):
+class Eliminar_Libro(AdminLoginMixin, DeleteView):
     model = Libro
     template_name = 'libros/eliminar-libro.html'
     success_url = reverse_lazy('libros:listar-libro')

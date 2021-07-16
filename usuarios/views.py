@@ -17,8 +17,7 @@ from django.contrib import messages
 
 from usuarios.models import Preferencia, Usuario, Perfil
 from usuarios.forms import FormularioLogin, FormularioPerfil, FormularioUsuario, FormularioUsuarioAdmin, FormularioUsuarioCliente, FormularioPreferencias, FormularioEditarPerfil
-from usuarios.mixins import RootLoginMixin, AdminLoginMixin
-from usuarios.mixins import ClienteLoginMixin
+from usuarios.mixins import RootLoginMixin, AdminLoginMixin, ClienteLoginMixin
 from usuarios.mails import Mail
 from reserva.models import Reserva
 
@@ -158,7 +157,6 @@ class Eliminar_Admin(RootLoginMixin, SuccessMessageMixin, DeleteView):
 
     def delete(self, request, *args, **kwargs):
             messages.success(self.request, self.success_message, 'danger')
-
             return super(Eliminar_Admin, self).delete(request, *args, **kwargs)
 
 
@@ -191,7 +189,7 @@ class Registro_Cliente(CreateView):
 
 
 # Completar, editar perfil cliente
-class CompletarPerfil_Vista_Cliente(UpdateView):
+class CompletarPerfil_Vista_Cliente(ClienteLoginMixin, UpdateView):
     model = Usuario
     form_class = FormularioUsuario
 
@@ -205,7 +203,7 @@ class CompletarPerfil_Vista_Cliente(UpdateView):
         form.save()
         return super().form_valid(form)
 
-class Registro_Perfil_Cliente(CreateView):
+class Registro_Perfil_Cliente(ClienteLoginMixin, CreateView):
     model=Perfil
     second_model = Preferencia
     form_class=FormularioPerfil
@@ -244,7 +242,7 @@ class Registro_Perfil_Cliente(CreateView):
             print(form.errors)
             return self.render_to_response(self.get_context_data(form=form, form2=form2))
     
-class EditarPerfilCliente(UpdateView):
+class EditarPerfilCliente(ClienteLoginMixin, UpdateView):
     model = Usuario
     second_model = Perfil
     third_model = Preferencia

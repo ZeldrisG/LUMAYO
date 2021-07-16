@@ -7,6 +7,9 @@ from usuarios.models import Usuario
 from carrito.models import CarritoCompras, CarritoLibros
 from carrito.utils import get_create_carrito
 
+from usuarios.mixins import RootLoginMixin, AdminLoginMixin, ClienteLoginMixin
+
+
 class CarritoView(TemplateView):
     template_name = 'carrito/carrito-view.html'
     model = CarritoCompras

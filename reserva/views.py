@@ -11,9 +11,10 @@ from datetime import datetime
 from reserva.models import Reserva, ReservaLibros
 from libros.models import Libro
 from reserva.utils import get_or_create_reserva
+from usuarios.mixins import ClienteLoginMixin
 
 # Create your views here.
-class Agregar_Reserva(TemplateView):
+class Agregar_Reserva(ClienteLoginMixin, TemplateView):
     model = Reserva
     template_name = 'reserva/agregar.html'
     def post(self, request, *args, **kwargs):
@@ -33,7 +34,7 @@ class Agregar_Reserva(TemplateView):
         return render(request, self.template_name, context)
 
 
-class Mis_Reservas(TemplateView):
+class Mis_Reservas(ClienteLoginMixin, TemplateView):
     model = Reserva
     template_name = 'reserva/mis-reservas.html'
 
@@ -41,7 +42,7 @@ class Mis_Reservas(TemplateView):
         reserva = get_or_create_reserva(request)
         return render(request, self.template_name, {'reserva': reserva})
 
-class Eliminar_Reserva(View):
+class Eliminar_Reserva(ClienteLoginMixin, View):
     
     def post(self, request, *args, **kwargs):
         reserva = get_or_create_reserva(request)

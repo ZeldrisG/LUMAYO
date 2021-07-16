@@ -6,22 +6,23 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-        {% if user.is_authenticated %}
-           {% if not user.is_admin and not user.is_superuser  %}
-            <a class="navbar-brand" href="{% url 'inicio' %}">
-                {% endif %}
-                {% endif %}
+
+            
+            {% if user.is_superuser %}
                 <img src="{% static 'img/logo.webp' %}" width="50"  alt="Logo Lumayo">
-                 LUMAYO
-            </a>
-            {% if user.is_authenticated %}
-            {% if not user.is_admin and not user.is_superuser  %}
-            <form class="d-flex" method="GET" action="{% url 'libros:search' %}">
-                <input id="buscar" name="buscar" class="form-control me-2" type="search" placeholder="Titulo, ISSN, Editorial..." aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Buscar</button>
-            </form>
+                <span class="fw-bold fs-5 me-3">LUMAYO</span>
+            {% else %} 
+                <a class="navbar-brand" href=" {% url 'inicio' %}">
+                    <img src="{% static 'img/logo.webp' %}" width="50"  alt="Logo Lumayo">
+                    LUMAYO
+                </a>
+                      
+                <form class="d-flex" method="GET" action="{% url 'libros:search' %}">
+                    <input id="buscar" name="buscar" class="form-control me-2" type="search" placeholder="Titulo, ISSN, Editorial..." aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Buscar</button>
+                </form>
             {% endif %}
-            {% endif %}
+
         <div  class="collapse navbar-collapse justify-content-end" id="navbarToggleExternalContent">
 
             <ul class="navbar-nav">
