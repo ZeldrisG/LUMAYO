@@ -57,7 +57,11 @@
                         {% if user.is_admin or not user.is_superuser %}
                             <li><a class="dropdown-item" href="{% url 'usuarios:admin-perfil' %}">
                                 <i class="bi bi-person-lines-fill me-1 icon-size"></i>
-                                Perfil</a>
+                                Mi Perfil</a>
+                            </li>
+                            <li><a class="dropdown-item" href="{% url 'libros:admin-libro' %}">
+                                <i class="bi bi-book me-1 icon-size"></i>
+                                Libros</a>
                             </li>
                         {% endif %}
                         {% if not user.is_admin and not user.is_superuser %}
