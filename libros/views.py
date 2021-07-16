@@ -57,8 +57,20 @@ class Editar_Libro(AdminLoginMixin, UpdateView):
     template_name = 'libros/actualizar-libro.html'
     success_url = reverse_lazy('libros:listar-libro')
 
+    def get_context_data(self, **kwargs):
+        context = super(Editar_Libro, self).get_context_data(**kwargs)
+        libro = self.get_object()
+        form2 = GeneroForm(instance= libro.genero)
+        context['form2'] = form2
+        return context
+
     def form_valid(self, form):
-        form.save()
+        libro = form.save(commit = False)
+        genero = GeneroForm(self.request.POST)
+        aux = genero.save(commit=False)
+        aux.save()
+        libro.genero = aux
+        libro.save()
         return super().form_valid(form)
 
 
@@ -93,6 +105,13 @@ class Buscar_Libro(ListView):
 class Post_Libro(DetailView):
     model = Libro
     template_name = 'libros/post-libro.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(Post_Libro, self).get_context_data(**kwargs)
+        libro = self.get_object()
+        form2 = GeneroForm(instance= libro.genero)
+        context['form2'] = form2
+        return context
 
 
 
