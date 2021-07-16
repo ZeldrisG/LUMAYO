@@ -7,6 +7,9 @@ from django.utils import timezone
 from Lumayo import settings
 from libros.models import Libro
 
+from django.core.validators import MinValueValidator, MaxValueValidator
+
+
 # Create your models here.
 def get_fec_reserva():
     return timezone.localtime(timezone.now())
@@ -26,7 +29,7 @@ class ReservaLibros(models.Model):
     fec_reserva = models.DateTimeField(default=django.utils.timezone.now)
     fec_expiracion = models.DateTimeField(default=get_fec_expiracion())
     estado = models.BooleanField(default=True, null=False, blank=False)
-    cantidad = models.IntegerField(default=1 ,null = False, blank=False)
+    cantidad = models.IntegerField(default=1 ,null = False, blank=False, validators= [MinValueValidator(1), MaxValueValidator(5)] )
     
     class Meta:
             ordering = ["-fec_reserva"]
