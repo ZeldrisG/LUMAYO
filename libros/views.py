@@ -8,8 +8,8 @@ from django.urls import reverse_lazy
 from django.contrib.sessions.models import Session
 
 
-from libros.models import Libro
-from libros.forms import Agregar_Libro_Form
+from libros.models import Genero, Libro
+from libros.forms import Agregar_Libro_Form, GeneroForm
 
 # Create your views here.
  
@@ -25,8 +25,20 @@ class Agregar_Libro(CreateView):
     template_name = 'libros/agregar-libro.html'
     success_url = reverse_lazy('libros:admin-libro')
 
+    def get_context_data(self, **kwargs):
+        context = super(Agregar_Libro, self).get_context_data(**kwargs)
+        
+        formulario = GeneroForm()
+        context['form2'] = formulario
+        return context
+
     def form_valid(self, form):
-        form.save()
+        libro = form.save(commit = False)
+        genero = GeneroForm(self.request.POST)
+        aux = genero.save(commit=False)
+        aux.save()
+        libro.genero = aux
+        libro.save()
         return super().form_valid(form)
 
 

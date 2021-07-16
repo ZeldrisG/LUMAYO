@@ -58,10 +58,11 @@
                                     {% endif %}
                                 </div>
                             {% endif %}   
-                        {% endfor %}
+                        {% endfor %} 
+                    
 
                         <div class="form-floating mb-3 col-6">
-                            {{ form.fec_publicacion|add_class:'form-control'|attr:"id:floatingInput"|attr:"placeholder:campos.label"|attr:"type:date" }}
+                            {{ form.fec_publicacion|add_class:'form-control'|attr:"id:datefield"|attr:"placeholder:campos.label"|attr:"type:date" }}
                             <label for="datefield" class="mb-2 mx-2">{{ form.fec_publicacion.label }}</label>
                             {% if form.fec_publicacion.errors %}
                             <span class="alert alert-danger d-flex align-items-center mt-2 p-1">
@@ -72,13 +73,25 @@
                             </span>
                             {% endif %}
                         </div>
+                        {% for campos in form2 %}
+                                <div class="form-check mb-3 col-6">
+                                    {{ campos|add_class:'form-check-input'|attr:"id:campos.label"|attr:"placeholder:campos.label" }}
+                                    <label for="{{campos.label}}" class="form-check-label">{{ campos.label }}</label>
+                                    {% if campos.errors %}
+                                    <span class="alert alert-danger d-flex align-items-center mt-2 p-1">
+                                        {% for error in campos.errors %}
+                                            <i class="bi bi-exclamation-triangle-fill ms-1"></i>
+                                            <div class="ms-2">{{ error }}</div>
+                                        {% endfor %}
+                                    </span>
+                                    {% endif %}
+                                </div>
+                        {% endfor %}
 
-
-                        
-                        <div class="col">
-                            <input type="submit" name="add-libro-submit" id="add-libro-submit" tabindex="4" class="form-control btn btn-primary mb-2" value="Guardar">
-                            <a class="form-control btn btn-secondary" href="{% url 'libros:admin-libro'  %}">Cancelar</a>
-                        </div>
+                    </div>
+                    <div class="col">
+                        <input type="submit" name="add-libro-submit" id="add-libro-submit" tabindex="4" class="form-control btn btn-primary mb-2" value="Guardar">
+                        <a class="form-control btn btn-secondary" href="{% url 'libros:admin-libro'  %}">Cancelar</a>
                     </div>
                 </div>
             </div>
