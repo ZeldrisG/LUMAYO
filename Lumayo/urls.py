@@ -20,6 +20,7 @@ urlpatterns = [
     path('carrito/', include('carrito.urls', namespace='carrito')),
     path('orden/', include('ordenes.urls', namespace='orden')),
     path('envios/', include('envios.urls', namespace='envios')),
+    path('usuarios/eliminar-cuenta/', include('usuarios.urls', namespace='usuarios')),
 
 
     path('reset_password/', auth_views.PasswordResetView.as_view(template_name="LumayoApp/password_reset.html"), name="reset_password"),
@@ -28,6 +29,8 @@ urlpatterns = [
     path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(template_name="LumayoApp/password_reset_done.html"), name = "password_reset_complete"),
     path('password/', auth_views.PasswordChangeView.as_view(template_name="LumayoApp/password.html"), name = "password"),
     path('password_change_done/', auth_views.PasswordChangeDoneView.as_view(template_name="LumayoApp/password_change_done.html"), name = "password_change_done"),
+    
+
 
     path('metodos_pago/', include('metodos_pago.urls', namespace='metodos_pago')),
     path('foro/', include('foro.urls', namespace='foro')),

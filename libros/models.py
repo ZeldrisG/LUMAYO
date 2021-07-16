@@ -21,6 +21,15 @@ LISTA_IDIOMAS = (('Español', 'Español'),
 
 #     def __str__(self):
 #         return self.nombre
+class Genero(models.Model):
+    fantasia = models.BooleanField(default = False)
+    ciencia_ficcion = models.BooleanField(default = False)
+    terror = models.BooleanField(default = False)
+    romance = models.BooleanField(default = False)
+    mitología = models.BooleanField(default = False)
+    policial = models.BooleanField(default = False)
+    drama = models.BooleanField(default = False)
+
 
 class Libro(models.Model):
     id = models.AutoField(primary_key=True)
@@ -36,6 +45,8 @@ class Libro(models.Model):
     precio = models.IntegerField()
     portada = models.ImageField(upload_to = 'libros/portadas')
     creado_en = models.DateTimeField(auto_now_add=True)
+    genero = models.OneToOneField(Genero, on_delete=models.CASCADE)
+    
 
     def actualizar_existencias(self, cantidad):
         self.existencias = self.existencias + cantidad
@@ -52,12 +63,11 @@ def set_noticia(sender, instance, *args, **kwargs):
 
     hilo.start()  
 
-post_save.connect(set_noticia, sender=Libro)
+    post_save.connect(set_noticia, sender=Libro)
 
 
-def actualizar_existencias(self, cantidad):
-    self.existencias = self.existencias + cantidad
-    self.save()
 
     
-        
+
+
+

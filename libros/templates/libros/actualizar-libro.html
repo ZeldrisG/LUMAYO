@@ -35,7 +35,8 @@
                     <div class="row">
                         {{ form.non_field_errors }}
                         <div class="form-floating mb-3 col-6">
-                            <input type="text" value="{{form.issn.value}}" id="floatingInput" placeholder="{{ form.issn.label }}" class="form-control" required pattern="[0-9]{4}[-][0-9]{3}[0-9|x]">
+
+                            {{ form.issn | attr:"value:form.issn.value" | attr:"pattern=[0-9]{4}[-][0-9]{3}[0-9|x]"}}
                             <label for="floatingInput" class="mb-2 mx-2">{{ form.issn.label }}</label>
                             {% if form.issn.errors %}
                             <span class="alert alert-danger d-flex align-items-center mt-2 p-1">
@@ -62,9 +63,9 @@
                                 </div>
                             {% endif %}   
                         {% endfor %}
-
+ 
                         <div class="form-floating mb-3 col-6">
-                            <input type="date" value="{{form.fec_publicacion.value|date:'c'}}" id="datefield" placeholder="{{ form.fec_publicacion.label }}" class="form-control">
+                            {{ form.fec_publicacion | attr:"value:form.fec_publicacion.value" }}
                             <label for="datefield" class="mb-2 mx-2">{{ form.fec_publicacion.label }}</label>
                             {% if form.fec_publicacion.errors %}
                             <span class="alert alert-danger d-flex align-items-center mt-2 p-1">
