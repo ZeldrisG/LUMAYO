@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -201,9 +205,7 @@ STRIPE_PRIVATE_KEY = 'sk_test_51J7pTSI8EiHjhXXUV7bEYoIh3VbakfDrEFaNqRuBIYhnPp8CK
 
 DATE_INPUT_FORMATS = ['%Y-%m-%d']
 
-import cloudinary
-import cloudinary.uploader
-import cloudinary.api
+
 
 cloudinary.config( 
   cloud_name = "lumayo", 
