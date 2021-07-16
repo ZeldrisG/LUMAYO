@@ -156,7 +156,6 @@ class Eliminar_Admin(RootLoginMixin, SuccessMessageMixin, DeleteView):
 
     def delete(self, request, *args, **kwargs):
             messages.success(self.request, self.success_message, 'danger')
-
             return super(Eliminar_Admin, self).delete(request, *args, **kwargs)
 
 
