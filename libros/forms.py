@@ -7,11 +7,24 @@ class Agregar_Libro_Form(forms.ModelForm):
         model = Libro
         fields = ('id', 'issn', 'titulo', 'autor', 'editorial', 'fec_publicacion', 'estado', 'existencias', 'idioma', 'num_pags', 'precio', 'portada')
         widgets = {
-                    
                     'portada': forms.FileInput(
                         attrs={'class': 'form-control',
                             }),
-                    
+
+                    'issn':forms.TextInput(
+                        attrs = {'class': 'form-control',
+                        'placeholder': 'ISSN',
+                        'type':'text',
+                        'id': 'floatingInput',
+
+                        }),
+
+                    'fec_publicacion':forms.DateInput(format=('%Y-%m-%d'),
+                        attrs={'class': 'form-control',
+                        'placeholder': 'fecha de publicacion',
+                        'type':'date',
+                        'id':'datefield',
+                        }),
 }
 
 class GeneroForm(forms.ModelForm):

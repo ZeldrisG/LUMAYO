@@ -34,7 +34,24 @@
                 <div class="col-md-12 col-lg-6">
                     <div class="row">
                         {{ form.non_field_errors }}
+<<<<<<< HEAD
                         
+=======
+                        <div class="form-floating mb-3 col-6">
+
+                            {{ form.issn | attr:"value:form.issn.value" | attr:"pattern=[0-9]{4}[-][0-9]{3}[0-9|x]"}}
+                            <!-- <input type="text" value="{{form.issn.value}}" id="floatingInput" placeholder="{{ form.issn.label }}" class="form-control" required pattern="[0-9]{4}[-][0-9]{3}[0-9|x]"> -->
+                            <label for="floatingInput" class="mb-2 mx-2">{{ form.issn.label }}</label>
+                            {% if form.issn.errors %}
+                            <span class="alert alert-danger d-flex align-items-center mt-2 p-1">
+                                {% for error in form.issn.errors %}
+                                    <i class="bi bi-exclamation-triangle-fill ms-1"></i>
+                                    <div class="ms-2">{{ error }}</div>
+                                {% endfor %}
+                            </span>
+                            {% endif %}
+                        </div>
+>>>>>>> 532dadcc319158df5ee266533ebc2312f36f9669
                         {% for campos in form %}
                             {% if campos != form.portada and campos != form.id and campos != form.fec_publicacion %}
                                 <div class="form-floating mb-3 col-6">
@@ -51,9 +68,14 @@
                                 </div>
                             {% endif %}   
                         {% endfor %}
-
+ 
                         <div class="form-floating mb-3 col-6">
+<<<<<<< HEAD
                             {{ form.fec_publicacion|add_class:'form-control'|attr:"id:datefield"|attr:"placeholder:campos.label"|attr:"type:date" }}
+=======
+                            {{ form.fec_publicacion | attr:"value:form.fec_publicacion.value" }}
+                            <!-- <input type="date" value="{{form.fec_publicacion.value|date:'c'}}" id="datefield" placeholder="{{ form.fec_publicacion.label }}" class="form-control"> -->
+>>>>>>> 532dadcc319158df5ee266533ebc2312f36f9669
                             <label for="datefield" class="mb-2 mx-2">{{ form.fec_publicacion.label }}</label>
                             {% if form.fec_publicacion.errors %}
                             <span class="alert alert-danger d-flex align-items-center mt-2 p-1">
