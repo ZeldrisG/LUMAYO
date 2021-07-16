@@ -45,9 +45,23 @@
                             <dt class="col-6 text-end">Paginas:</dt>
                             <dd class="col-6 text-start ps-0">{{ object.num_pags }}</dd>
 
+                            <dt class="col-6 text-end">Generos:</dt>
+                            <dd class="col-6 text-start ps-0">
+                                
+                                {% for campo in form2 %}
+                                    
+                                    {% if campo.value %}
+                                        {{ campo.label }}
+                                    {% endif %}
+                                        
+                                {% endfor %}
+                                    
+                            </dd>
+
                         </dl>
                     </div>
                     <div class="col-sm-12 col-md-12 col-lg-4 p-3">
+                        <h3 class="text-center">Precio: </h3>
                         <h3 class="fw-bold my-4 text-center">
                             <i class="bi bi-currency-dollar"></i>
                             {{ object.precio|intcomma }}
@@ -55,6 +69,8 @@
                         <div class="col-6 mx-auto">
 
                             {% include 'carrito/snippets/agregar.html' %}
+                            <br>
+                            <br>
                             {% include 'reserva/snippets/agregar.html' %}
 
                         </div>
