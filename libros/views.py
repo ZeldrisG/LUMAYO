@@ -11,15 +11,18 @@ from django.contrib.sessions.models import Session
 from libros.models import Genero, Libro
 from libros.forms import Agregar_Libro_Form, GeneroForm
 
+from usuarios.mixins import RootLoginMixin, AdminLoginMixin, ClienteLoginMixin
+
+
 # Create your views here.
  
 
-class Admin_Libro(TemplateView):
+class Admin_Libro(AdminLoginMixin, TemplateView):
     template_name = 'libros/administrar-libro.html'
 
 
 
-class Agregar_Libro(CreateView):
+class Agregar_Libro(AdminLoginMixin, CreateView):
     model = Libro
     form_class = Agregar_Libro_Form
     template_name = 'libros/agregar-libro.html'
@@ -42,13 +45,13 @@ class Agregar_Libro(CreateView):
         return super().form_valid(form)
 
 
-class Listar_Libro(ListView):
+class Listar_Libro(AdminLoginMixin, ListView):
     model = Libro
     template_name = 'libros/listar-libro.html'
     ordering = ["id"]
 
 
-class Editar_Libro(UpdateView):
+class Editar_Libro(AdminLoginMixin, UpdateView):
     model = Libro
     form_class = Agregar_Libro_Form
     template_name = 'libros/actualizar-libro.html'
@@ -59,7 +62,7 @@ class Editar_Libro(UpdateView):
         return super().form_valid(form)
 
 
-class Eliminar_Libro(DeleteView):
+class Eliminar_Libro(AdminLoginMixin, DeleteView):
     model = Libro
     template_name = 'libros/eliminar-libro.html'
     success_url = reverse_lazy('libros:listar-libro')

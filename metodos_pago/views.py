@@ -5,9 +5,11 @@ from django.urls import reverse_lazy
 
 from metodos_pago.models import Tarjeta
 from metodos_pago.forms import TarjetaForm
+from usuarios.mixins import RootLoginMixin, AdminLoginMixin, ClienteLoginMixin
+
 # Create your views here.
 
-class TarjetaListView(ListView):
+class TarjetaListView(ClienteLoginMixin, ListView):
     model = Tarjeta
     template_name = 'metodos_pago/tarjetas.html'
 
@@ -15,7 +17,7 @@ class TarjetaListView(ListView):
         return self.model.objects.filter(usuario=self.request.user).order_by('-defecto')
     
 
-class TarjetaCreateView(SuccessMessageMixin, CreateView):
+class TarjetaCreateView(ClienteLoginMixin, SuccessMessageMixin, CreateView):
     model = Tarjeta
     form_class = TarjetaForm
     template_name = 'metodos_pago/nueva-tarjeta.html'
@@ -46,7 +48,7 @@ class TarjetaCreateView(SuccessMessageMixin, CreateView):
         return super().form_valid(form)
         
 
-class TarjetaUpdateView(SuccessMessageMixin, UpdateView):
+class TarjetaUpdateView(ClienteLoginMixin, SuccessMessageMixin, UpdateView):
     model = Tarjeta
     template_name = "metodos_pago/actualizar.html"
     form_class = TarjetaForm
@@ -60,7 +62,7 @@ class TarjetaUpdateView(SuccessMessageMixin, UpdateView):
 
 
 
-class TarjetaDeleteView(DeleteView):
+class TarjetaDeleteView(ClienteLoginMixin, DeleteView):
     model = Tarjeta
     template_name = "metodos_pago/eliminar.html"
     success_url = reverse_lazy('metodos_pago:tarjetas')
@@ -76,7 +78,7 @@ class TarjetaDeleteView(DeleteView):
         return super(TarjetaDeleteView, self).dispatch(request, *args, **kwargs)
 
 
-class TarjetaPrincipal(View):
+class TarjetaPrincipal(ClienteLoginMixin, View):
     model = Tarjeta
     def dispatch(self, request, *args, **kwargs):
         tarjeta = get_object_or_404(self.model, pk=kwargs['pk'])

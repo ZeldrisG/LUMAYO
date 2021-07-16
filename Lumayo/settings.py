@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -23,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = ')x7&gvjgrejwcrcwbr8&6+as7=3md_lvgu*lg!)5b1^@)s4(k#'
 
 # SECURITY WARNING: don't run with debug turned on in production!...
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -40,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'whitenoise.runserver_nostatic',
     'widget_tweaks',
+    'cloudinary',
     'LumayoApp',
     'usuarios',
     'libros',
@@ -199,3 +204,12 @@ STRIPE_PUBLIC_KEY ='pk_test_51J7pTSI8EiHjhXXU7pOz6QKFgJ7coDDnGkwVwu88I7dZPC4VtKK
 STRIPE_PRIVATE_KEY = 'sk_test_51J7pTSI8EiHjhXXUV7bEYoIh3VbakfDrEFaNqRuBIYhnPp8CK1a3wq3ZRYip64LMo1fp3rPhi73DTGHCWcjr2GR200nIrtjAB1'
 
 DATE_INPUT_FORMATS = ['%Y-%m-%d']
+
+
+
+cloudinary.config( 
+  cloud_name = "lumayo", 
+  api_key = "574857271767331", 
+  api_secret = "gLXtkIShpaTjGCDBgtfeqZYjWM4",
+  secure = True
+)

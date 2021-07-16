@@ -1,6 +1,7 @@
 import threading
 from django.db import models
 from django.db.models.signals import post_save
+from cloudinary.models import CloudinaryField
 
 
 from libros.mails import Mail
@@ -43,7 +44,7 @@ class Libro(models.Model):
     idioma = models.CharField(max_length=50, choices=LISTA_IDIOMAS, default='Español')
     num_pags = models.IntegerField()
     precio = models.IntegerField()
-    portada = models.ImageField(upload_to = 'libros/portadas')
+    portada = CloudinaryField()
     creado_en = models.DateTimeField(auto_now_add=True)
     genero = models.OneToOneField(Genero, on_delete=models.CASCADE)
     
