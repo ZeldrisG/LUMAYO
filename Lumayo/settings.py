@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'whitenoise.runserver_nostatic',
     'widget_tweaks',
+    'cloudinary',
     'LumayoApp',
     'usuarios',
     'libros',
@@ -199,3 +200,14 @@ STRIPE_PUBLIC_KEY ='pk_test_51J7pTSI8EiHjhXXU7pOz6QKFgJ7coDDnGkwVwu88I7dZPC4VtKK
 STRIPE_PRIVATE_KEY = 'sk_test_51J7pTSI8EiHjhXXUV7bEYoIh3VbakfDrEFaNqRuBIYhnPp8CK1a3wq3ZRYip64LMo1fp3rPhi73DTGHCWcjr2GR200nIrtjAB1'
 
 DATE_INPUT_FORMATS = ['%Y-%m-%d']
+
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
+cloudinary.config( 
+  cloud_name = "lumayo", 
+  api_key = "574857271767331", 
+  api_secret = "gLXtkIShpaTjGCDBgtfeqZYjWM4",
+  secure = True
+)

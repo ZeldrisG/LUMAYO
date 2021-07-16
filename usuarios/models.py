@@ -1,4 +1,6 @@
 from django.db import models
+from cloudinary.models import CloudinaryField
+
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from Lumayo import settings
 
@@ -68,7 +70,7 @@ class Perfil(models.Model):
     )
 
 
-    foto = models.ImageField(upload_to = 'usuarios/fotos')
+    foto = CloudinaryField('usuarios/fotos')
 
     REQUIRED_FIELDS = ['DNI','nombres']
 
