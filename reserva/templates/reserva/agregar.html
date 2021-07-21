@@ -1,38 +1,48 @@
 {% extends 'LumayoApp/base.html' %}
 {% load widget_tweaks %}
+{% load carrito_extras %}
 {% load static %}
-
+{% load humanize %}
 
 {% block content %}
+<div class="row">
 
-    <div class="col-3">
+    <div class="col-4">
         
         {% if libro.portada %}
             <img src="{{ libro.portada.url }}" alt="Imagen del libro" class="libros">
         {% endif %}
             
+            
     </div>
 
-    <div class="col">
-        <div class="h3 fw-bold text-success">
-            {{ cantidad }} reservada con exito...
-        </div>
-        <div>
-            <a href="{% url 'libros:post' libro.id %}">
-                {{ libro.titulo }}
-            </a>
-        </div>
-        <div class="fw-bod text-danger">
-            ${{ libro.precio }}
-        </div>
-        <div>
-            <a class="btn btn-info"  href="{% url 'reserva:mis-reservas' %}">Ver reservas</a>
-        </div>
-        <div>
-            <a class="btn btn-info"  href="{% url 'inicio' %}">Seguir Comprando</a>
+    <div class="col-8">
+
+        <div class="col">
+            <div class="h3 fw-bold text-success">
+                Reservacion Exitosa...
+            </div>
+            <div class="fw-bold">
+                <a href="{% url 'libros:post' libro.id %}">
+                    Libro: {{ libro.titulo }} 
+                </a>
+            </div>
+            <div class="fw-bold">
+                    Cantidad: {{ cantidad }} 
+            </div>
+            <div class="fw-bod text-danger">
+                ${{ libro.precio|intcomma }}
+            </div>
+            <div class="my-3">
+                <a class="btn btn-warning"  href="{% url 'reserva:mis-reservas' %}">Ver reservas</a>
+            </div>
+            <div>
+                <a class="btn btn-info"  href="{% url 'inicio' %}">Seguir Comprando</a>
+            </div>
+
         </div>
     </div>
-
+</div>
 {% endblock content %}
 
 

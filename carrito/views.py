@@ -10,7 +10,7 @@ from carrito.utils import get_create_carrito
 from usuarios.mixins import RootLoginMixin, AdminLoginMixin, ClienteLoginMixin
 
 
-class CarritoView(TemplateView):
+class CarritoView(ClienteLoginMixin, TemplateView):
     template_name = 'carrito/carrito-view.html'
     model = CarritoCompras
     
@@ -18,7 +18,7 @@ class CarritoView(TemplateView):
         carrito = get_create_carrito(request)
         return render(request, self.template_name, {'object_list': carrito})
 
-class Agregar_Carrito(View):
+class Agregar_Carrito(ClienteLoginMixin, View):
     template_name = 'carrito/agregar.html'
     
     def post(self, request, *args, **kwargs):
@@ -37,7 +37,7 @@ class Agregar_Carrito(View):
             }
         return render(request, self.template_name, context)
 
-class EliminarLibro_Carrito(View):
+class EliminarLibro_Carrito(ClienteLoginMixin, View):
     template_name = 'carrito/agregar.html'
     
     def post(self, request, *args, **kwargs):

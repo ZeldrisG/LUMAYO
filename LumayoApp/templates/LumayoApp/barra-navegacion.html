@@ -57,8 +57,14 @@
                         {% if user.is_admin or not user.is_superuser %}
                             <li><a class="dropdown-item" href="{% url 'usuarios:admin-perfil' %}">
                                 <i class="bi bi-person-lines-fill me-1 icon-size"></i>
-                                Perfil</a>
+                                Mi Perfil</a>
                             </li>
+                            {% if user.is_admin %}
+                            <li><a class="dropdown-item" href="{% url 'usuarios:modulo-admin' %}">
+                                <i class="bi bi-card-checklist me-1 icon-size"></i>
+                                Opciones de administracion</a>
+                            </li>
+                            {% endif %}
                         {% endif %}
                         {% if not user.is_admin and not user.is_superuser %}
                             <li><a class="dropdown-item" href="{% url 'reserva:mis-reservas' %}">
