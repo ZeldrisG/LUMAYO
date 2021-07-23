@@ -10,7 +10,7 @@
   <div class="card-deck"></div>
     {% if object_list %}
       {% for libro in object_list %}
-        <div class="card" style="width: 13rem;">
+        <div class="card card-seleccion" style="width: 13rem;">
           {% if libro.portada %}
             <img src="{{ libro.portada.url }}" class="card-img-top imgCard-size" alt=" {{ libro.titulo }}"/>
           {% else %}

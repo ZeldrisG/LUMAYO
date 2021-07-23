@@ -7,6 +7,10 @@ from usuarios.models import Usuario
 class TipoTarjeta(Enum):
     DEBITO = 'DEBITO'
     CREDITO = 'CREDITO'
+    
+    @classmethod
+    def choices(cls):
+        return [(key.value, key.name) for key in cls]
 
 opciones = [ (tag, tag.value) for tag in TipoTarjeta ]
 

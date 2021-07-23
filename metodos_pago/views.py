@@ -3,7 +3,7 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView, V
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 
-from metodos_pago.models import Tarjeta
+from metodos_pago.models import Tarjeta, TipoTarjeta
 from metodos_pago.forms import TarjetaForm
 from usuarios.mixins import RootLoginMixin, AdminLoginMixin, ClienteLoginMixin
 
@@ -22,15 +22,14 @@ class TarjetaCreateView(ClienteLoginMixin, SuccessMessageMixin, CreateView):
     form_class = TarjetaForm
     template_name = 'metodos_pago/nueva-tarjeta.html'
     success_url = reverse_lazy('metodos_pago:tarjetas')
-    success_message = "%(tipo) ha sido creada exitosamente..."
+    success_message = "Tarjeta creada exitosamente..."
 
     def post(self, request, *args, **kwargs):
         self.object = None
+        print(request.POST)
+        print(request.POST['tipo'])
         form = self.get_form()
-        print('fecha')
-        #cp = form.save(commit=False)
-        print(form['fec_expiracion'].data)
-        #print(cp)
+        print(form)
         if form.is_valid():
             return self.form_valid(form)
         else:
@@ -42,6 +41,10 @@ class TarjetaCreateView(ClienteLoginMixin, SuccessMessageMixin, CreateView):
         self.object = form.save(commit=False)
         self.object.usuario = self.request.user
         self.object.defecto = not self.model.objects.filter(usuario=self.request.user).exists()
+        if self.request.POST['tipo'] == '1':
+            self.object.tipo = TipoTarjeta.CREDITO
+        else:
+            self.object.tipo = TipoTarjeta.DEBITO
         self.object.save()
         if self.request.GET.get('next'):
             self.next()
@@ -59,6 +62,11 @@ class TarjetaUpdateView(ClienteLoginMixin, SuccessMessageMixin, UpdateView):
         if request.user.id != self.get_object().usuario_id:
             return redirect('inicio')
         return super(TarjetaUpdateView, self).dispatch(request, *args, **kwargs)
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        print(self.object.tipo)
+        return super().get(request, *args, **kwargs)
 
 
 
