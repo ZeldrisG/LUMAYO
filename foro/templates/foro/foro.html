@@ -7,7 +7,7 @@
 <div class="row">
     <div class="col-12 bg-light div-title-border py-2">
         <span class="fs-3">{{ foro.titulo }}</span>
-        <span><i class="bi bi-chat-text ms-5 me-2"></i>Respuestas: </span>
+        <span><i class="bi bi-chat-text ms-5 me-2"></i>Respuestas: {{ comentarios.count }}</span>
     </div>
     
     {% for comentario in comentarios %}
