@@ -1,8 +1,9 @@
 from django import forms
 from libros.models import Libro, Genero
 
+
 class Agregar_Libro_Form(forms.ModelForm):
-    
+
     class Meta:
         model = Libro
         fields = ('id', 'issn', 'titulo', 'autor', 'editorial', 'fec_publicacion', 'estado', 'existencias', 'idioma', 'num_pags', 'precio', 'portada')
@@ -13,7 +14,7 @@ class Agregar_Libro_Form(forms.ModelForm):
 
                     'issn':forms.TextInput(
                         attrs = {'class': 'form-control',
-                        'placeholder': 'ISSN',
+                        'placeholder': '1234-1234',
                         'type':'text',
                         'id': 'floatingInput',
 

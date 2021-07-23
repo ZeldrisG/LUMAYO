@@ -1,6 +1,7 @@
 import threading
 from django.db import models
 from django.db.models.signals import post_save
+from django.core.validators import RegexValidator
 from cloudinary.models import CloudinaryField
 
 
@@ -33,8 +34,12 @@ class Genero(models.Model):
 
 
 class Libro(models.Model):
+    issn_validator = RegexValidator(r'^[0-9]{4}-[0-9]{3}(?:X|[0-9])', 
+                                        "Campo invalido!, "
+                                        "El ISSN debe tener el siguiente formato ####-####")
+
     id = models.AutoField(primary_key=True)
-    issn = models.CharField(max_length=9, unique=True)
+    issn = models.CharField(max_length=9, unique=True, validators=[issn_validator])
     titulo = models.CharField(max_length=110)
     autor = models.CharField(max_length=50)
     editorial = models.CharField(max_length=50)

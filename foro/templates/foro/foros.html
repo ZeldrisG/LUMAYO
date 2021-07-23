@@ -31,8 +31,9 @@
                             <p>{{ foro.creado_en }}</p>
                         </div>
                     </div>
+                    <a href="{% url 'foro:foro' foro.pk %}" class="stretched-link"></a> 
                   </div>
-                  <a href="{% url 'foro:foro' foro.pk %}" class="stretched-link"></a>             
+                              
             </div>
             {% endfor %}
         

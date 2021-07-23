@@ -31,6 +31,7 @@
                 <div class="col-md-12 col-lg-6">
                     <div class="row">
                         {{ form.non_field_errors }}
+                        
                         <div class="form-floating mb-3 col-6">
                             {{ form.issn|add_class:'form-control'|attr:"id:floatingInput"|attr:"placeholder:campos.label"}}
                             <label for="floatingInput" class="mb-2 mx-2">{{ form.issn.label }}</label>
@@ -72,6 +73,8 @@
                             </span>
                             {% endif %}
                         </div>
+
+                        <h5>Generos: </h5>
                         {% for campos in form2 %}
                                 <div class="form-check mb-3 col-6">
                                     {{ campos|add_class:'form-check-input'|attr:"id:campos.label"|attr:"placeholder:campos.label" }}
