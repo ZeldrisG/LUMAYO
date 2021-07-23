@@ -33,7 +33,7 @@
                         {{ form.non_field_errors }}
                         
                         <div class="form-floating mb-3 col-6">
-                            {{ form.issn|add_class:'form-control'|attr:"id:floatingInput"|attr:"placeholder:campos.label"}}
+                            {{ form.issn | attr:"pattern=[0-9]{4}[-][0-9]{3}[0-9|x]"}}
                             <label for="floatingInput" class="mb-2 mx-2">{{ form.issn.label }}</label>
                             {% if form.issn.errors %}
                             <span class="alert alert-danger d-flex align-items-center mt-2 p-1">
