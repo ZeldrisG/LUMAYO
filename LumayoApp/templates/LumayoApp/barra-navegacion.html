@@ -11,12 +11,12 @@
             {% if user.is_superuser %}
                 <img src="{% static 'img/logo.webp' %}" width="50"  alt="Logo Lumayo">
                 <span class="fw-bold fs-5 me-3">LUMAYO</span>
-            {% else %} 
-                <a class="navbar-brand" href=" {% url 'inicio' %}">
+            {% else %}
+                <a class="navbar-brand" {% if not user.is_admin %} href=" {% url 'inicio' %}" {% endif %}>
                     <img src="{% static 'img/logo.webp' %}" width="50"  alt="Logo Lumayo">
                     LUMAYO
                 </a>
-                      
+                
                 <form class="d-flex" method="GET" action="{% url 'libros:search' %}">
                     <input id="buscar" name="buscar" class="form-control me-2" type="search" placeholder="Titulo, ISSN, Editorial..." aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Buscar</button>
