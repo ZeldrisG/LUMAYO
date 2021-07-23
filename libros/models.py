@@ -64,7 +64,7 @@ def set_noticia(sender, instance, *args, **kwargs):
 
     hilo.start()  
 
-    post_save.connect(set_noticia, sender=Libro)
+post_save.connect(set_noticia, sender=Libro)
 
 
 
