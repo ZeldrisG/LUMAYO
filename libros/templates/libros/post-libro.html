@@ -1,0 +1,86 @@
+{% extends 'LumayoApp/base.html' %}
+{% load widget_tweaks %}
+{% load humanize %}
+
+{% load static %}
+
+
+{% block content %}
+    <div class="container m-1">
+        
+       
+        {% csrf_token %}
+                <div class="row">
+                    <div class="col-sm-12 col-md-6 col-lg-4 text-center mb-2">
+                        {% if object.portada %}
+                            <img src="{{ object.portada.url }}" class="libros" alt=" {{ object.titulo }}"/>
+                        {% else %}
+                            <img src="{% static 'img/agregarlibro2.png' %}" class="libros" alt=" {{ object.titulo }}"/>
+                        {% endif %}
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-lg-4 align-items-center bg-primary text-light py-4">
+                        <dl class="row">
+                            <h2 class="h2 text-center">{{ object.titulo }}</h2>
+                            <dt class="col-6 text-end">ISSN:</dt>
+                            <dd class="col-6 text-start ps-0">{{ object.issn }}</dd>
+
+                            <dt class="col-6 text-end">Titulo:</dt>
+                            <dd class="col-6 text-start ps-0">{{ object.titulo }}</dd>
+
+                            <dt class="col-6 text-end">Autor:</dt>
+                            <dd class="col-6 text-start ps-0">{{ object.autor }}</dd>
+
+                            <dt class="col-6 text-end">Editorial:</dt>
+                            <dd class="col-6 text-start ps-0">{{ object.editorial }}</dd>
+
+                            <dt class="col-6 text-end">Publicacion:</dt>
+                            <dd class="col-6 text-start ps-0">{{ object.fec_publicacion }}</dd>
+
+                            <dt class="col-6 text-end">Estado:</dt>
+                            <dd class="col-6 text-start ps-0">{{ object.estado }}</dd>
+
+                            <dt class="col-6 text-end">Idioma:</dt>
+                            <dd class="col-6 text-start ps-0">{{ object.idioma }}</dd>
+
+                            <dt class="col-6 text-end">Paginas:</dt>
+                            <dd class="col-6 text-start ps-0">{{ object.num_pags }}</dd>
+
+                            <dt class="col-6 text-end">Generos:</dt>
+                            <dd class="col-6 text-start ps-0">
+                                
+                                {% for campo in form2 %}
+                                    
+                                    {% if campo.value %}
+                                        {{ campo.label }}
+                                    {% endif %}
+                                        
+                                {% endfor %}
+                                    
+                            </dd>
+
+                        </dl>
+                    </div>
+                    <div class="col-sm-12 col-md-12 col-lg-4 p-3">
+                        <h3 class="text-center">Precio: </h3>
+                        <h3 class="fw-bold my-4 text-center">
+                            <i class="bi bi-currency-dollar"></i>
+                            {{ object.precio|intcomma }}
+                        </h3>
+                        <div class="col-6 mx-auto">
+
+                            {% include 'carrito/snippets/agregar.html' %}
+                            <br>
+                            <br>
+                            {% include 'reserva/snippets/agregar.html' %}
+
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-secondary mt-3" onclick="back();">Volver</button>
+        
+    </div>
+  
+{% endblock content %}
+
+
+  

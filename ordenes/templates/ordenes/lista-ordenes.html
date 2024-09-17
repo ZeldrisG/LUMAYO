@@ -1,0 +1,21 @@
+{% extends 'LumayoApp/base.html' %}
+{% load widget_tweaks %}
+
+{% load static %}
+    
+{% block content %}
+<div class="row">
+    <div class="col">
+        <div class="h3">
+            Mis pedidos
+        </div>
+        <div class="">
+            
+            {% for orden in object_list %}
+                {% include 'ordenes/snippets/orden.html' %}
+            {% endfor %}
+                
+        </div>
+    </div>
+</div>
+{% endblock content %}

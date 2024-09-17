@@ -1,0 +1,53 @@
+{% extends 'LumayoApp/base.html' %}
+
+{% load static %}
+
+
+{% block content %}
+
+      <div class="container h-200 m-1">
+        <h1 class="text-center my-5">Bienvenido</h1>
+          <div class="row mt-3">
+            <div class="col-md-6 col-lg-4 my-4">
+              <div class="card text-start card-seleccion bg-blue">
+                <div class="card-body text-white">
+                      <h3 class="display-5">Agregar</h3>
+                      <h4>Administrador</h4>
+                      <a href="{% url 'usuarios:agregar-admin' %}" class="stretched-link"></a>
+                </div>
+                <div class="ico-card">
+                  <i class="bi bi-person-lines-fill icon-size-card"></i>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-4 my-4">
+              <div class="card text-start card-seleccion bg-green">
+                <div class="card-body text-white">
+                      <h3 class="display-5">Listar</h3>
+                      <h4>Administradores</h4>
+                      <a href="{% url 'usuarios:listar-admin' %}" class="stretched-link"></a>
+                </div>
+                <div class="ico-card">
+                  <i class="bi bi-person-check icon-size-card"></i>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-4 my-4">
+              <div class="card text-start card-seleccion bg-cherry">
+                <div class="card-body text-white">
+                      <h3 class="display-5">Cambiar</h3>
+                      <h4>Contraseña</h4>
+                      <a href="{% url 'password' %}" class="stretched-link"></a>
+                </div>
+                <div class="ico-card">
+                  <i class="bi bi-key icon-size-card"></i>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+  
+{% endblock content %}
+
+
+  

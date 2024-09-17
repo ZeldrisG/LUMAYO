@@ -1,0 +1,30 @@
+{% extends 'LumayoApp/base.html' %}
+
+{% load static %}
+
+
+{% block content %}
+
+    <h2 class="m-1 m-md-4 text-center" >Gestionar Administrador</h2>
+    <div class="container col-md-12 justify-content-center p-5 mt-5 mb-5">
+        <div class="row" >
+            <div class="col">
+                <div class="card h-100" style="width: 18rem;">
+                    <img src="{% static 'img/crear-admin2.svg' %}" class="card-img-top p-2" alt="...">
+                    <div class="card-body d-grid">
+                      <a href="#" class="btn btn-primary">Crear Administrador</a>
+                    </div>
+                  </div>
+            </div>
+            <div class="col abs-center">
+              <div class="card h-100 text-center" style="width: 18rem;">
+                <img src="{% static 'img/eliminar-admin.svg' %}" class="card-img-top mt-4 p-3" alt="...">
+                <div class="card-body d-grid ">
+                  <a href="#" class="btn btn-primary">Eliminar Administrador</a>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+  
+{% endblock content %}

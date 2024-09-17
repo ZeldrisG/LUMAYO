@@ -1,0 +1,15 @@
+{% extends 'LumayoApp/base.html' %}
+{% load widget_tweaks %}
+
+{% load static %}
+    
+{% block content %}
+<div class="col">
+    <div class="h3">
+        Editar direccion
+    </div>
+    <div class="mt-2">
+        {% include 'envios/snippets/form.html' with message='Actualizar' %}
+    </div>
+</div>
+{% endblock content %}

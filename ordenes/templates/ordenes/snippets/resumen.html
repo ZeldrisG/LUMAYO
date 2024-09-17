@@ -1,0 +1,41 @@
+{% load humanize %}
+
+<div class="card">
+    <div class="card-body">
+       <div class="fw-bolg">
+           Resumen del pedido
+       </div> 
+       <div>
+           <table class="table table-borderless table-sm">
+            <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Libros:</td>
+                    <td class="text-danger">{{ carrito.total | intcomma }}</td>
+                </tr>
+                <tr>
+                    <td>Envio:</td>
+                    <td class="text-danger">{{ orden.total_envio | intcomma }}</td>
+                </tr>
+            </tbody>
+           </table>
+       </div>
+       <div class="">
+           <hr>
+           <div class="fw-bold text-danger">
+               Total (Impuestos incluidos)
+               <div class="d-inline-block">
+                   {{ orden.total | intcomma }}
+               </div>
+           </div>
+       </div>
+       <div class="mt-2">
+           <a href="{{ next_url }}" class="btn btn-warning">Confirmar pedido</a>
+       </div>
+    </div>
+</div>

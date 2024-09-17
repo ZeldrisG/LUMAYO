@@ -1,0 +1,69 @@
+{% extends 'LumayoApp/base.html' %}
+{% load widget_tweaks %}
+{% load humanize %}
+
+{% load static %}
+
+
+{% block content %}
+
+<h2>Mis Reservas</h2>
+<div class="row">
+    <div class="col">
+        <div class="table-responsive text-center m-1 p-1">
+            {% if reserva.libros %}
+              <table class="table table-hover">                     
+                  <thead class="table-light">
+                  <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">TITULO</th>
+                      <th scope="col">PRECIO</th>
+                      <th scope="col">CANTIDAD</th>
+                      <th scope="col">RESERVADO EN</th>
+                      <th scope="col">RESERVADO HASTA</th>
+                      <th scope="col">OPCIONES</th>         
+                  </tr>
+                  </thead>
+                  <tbody>            
+                          {% for item in reserva.libros_relacionados %}
+                              
+                              {% with libro=item.libro %}
+                              <tr>
+                                  <th scope="col">{{ forloop.counter }}</th>
+                                  <th scope="row">
+                                    <div class="col-12">
+                                        <a class="a-footer" href="{% url 'libros:post' libro.id %}">
+                                            <strong>{{ libro.titulo }}</strong>
+                                        </a>
+                                    </div>
+                                    <div class="col-12">
+                                        {% if libro.portada %}
+                                        <img src="{{ libro.portada.url }}" alt="imagen libro" width="50" >
+                                        {% endif %}
+                                    </div>
+                                    </th>
+                                  <td>${{ libro.precio|intcomma }}</td>
+                                  <td>{{ item.cantidad }}</td>
+                                  <td>{{ item.fec_reserva }}</td>
+                                  <td>{{ item.fec_expiracion }}</td>
+                                  <td>                          
+                                      {% if item.estado %}
+                                        <button class="btn btn-primary" type="submit">Comprar</button> 
+                                      {% endif %}
+                                      {% include 'reserva/snippets/eliminar.html' %}
+                                  </td>
+                              </tr>
+                              {% endwith %}
+                          {% endfor %}
+            {% else %}
+                  <h1>No tienes reservas...</h1>
+            {% endif %}
+                  </tbody>
+              </table>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+
+  

@@ -1,0 +1,29 @@
+{% extends 'LumayoApp/base.html' %}
+
+{% load static %}
+
+
+{% block content %}
+<div class="container m-1">
+    <h2 class="m-md-4 text-center">Eliminar Administrador</h2>
+    <div class="row">
+        <div class=" col-md-2">
+          <img src="{% static 'img/eliminar-admin.svg' %}" class="card-img-top p-2" alt="...">
+          <div class="card-body d-grid">
+          </div>
+          <div class="d-grid gap-2 col-8 mx-auto">
+            <button type="submit" class="btn btn-primary">Eliminar</button>
+          </div>
+        </div>
+        <div class=" col-md-2">
+          <img src="{% static 'img/eliminar-admin.svg' %}" class="card-img-top p-2" alt="...">
+          <div class="card-body d-grid">
+          </div>
+          <div class="d-grid gap-2 col-8 mx-auto">
+            <button type="submit" class="btn btn-primary">Eliminar</button>
+          </div>
+      </div>
+    </div>
+</div>
+
+{% endblock content %}

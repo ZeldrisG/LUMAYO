@@ -1,0 +1,42 @@
+{% extends 'LumayoApp/base.html' %}
+
+{% load static %}
+
+
+{% block content %}
+
+      <div class="container m-1 p-3 no-desbordar">
+        <h1 class="text-center my-md-5">Opciones de libro</h1>
+          <div class="row mt-3">
+            <div class="col-sm-12 col-lg-6 my-4">
+              <div class="card text-start card-seleccion bg-blue">
+                <div class="card-body text-white">
+                  <h3 class="display-5">Agregar</h3>
+                  <h4>Libro</h4>
+                  <a href="{% url 'libros:agregar-libro' %}" class="stretched-link"></a>
+                </div>
+                <div class="ico-card">
+                  <i class="bi bi-journal-plus icon-size-card"></i>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-12 col-lg-6 my-4">
+              <div class="card text-start card-seleccion bg-cherry">
+                <div class="card-body text-white">
+                      <h3 class="display-5">Listar</h3>
+                      <h4>Libro</h4>
+                      <a href="{% url 'libros:listar-libro' %}" class="stretched-link"></a>
+                </div>
+                <div class="ico-card">
+                  <i class="bi bi-list-task icon-size-card"></i>
+                </div>
+              </div>
+            </div>
+        </div>
+        <a class="btn btn-primary mb-md-4 " href="{% url 'usuarios:modulo-admin'  %}">Volver</a>
+      </div>
+  
+{% endblock content %}
+
+
+  

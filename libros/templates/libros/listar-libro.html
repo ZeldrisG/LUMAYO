@@ -1,0 +1,48 @@
+{% extends 'LumayoApp/base.html' %}
+{% load widget_tweaks %}
+
+{% load static %}
+
+
+{% block content %}
+<h1>Lista de Libros</h1>
+    <div class="table-responsive text-center m-1 p-1">
+        <table class="table table-hover">
+                                
+            <thead class="table-light">
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">TITULO</th>
+                <th scope="col">AUTOR</th>
+                <th scope="col">EXISTENCIAS</th>
+                <th scope="col">OPCIONES</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% if object_list %}
+                
+                    {% for libro in object_list %}
+                        <tr>
+                            <th scope="row">{{ libro.id }}</th>
+                            <td>{{ libro.titulo }}</td>
+                            <td>{{ libro.autor }}</td>
+                            <td>{{ libro.existencias }}</td>
+                            <td>
+                                <a class="btn btn-primary" href="{% url 'libros:editar-libro' libro.id %}">Editar</a>
+                                <a class="btn btn-danger" href="{% url 'libros:eliminar-libro' libro.id %}">Eliminar</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                        <h1>No hay registro de libros...</h1>
+                {% endif %}
+            </tbody>
+          </table>
+    </div>
+    <a class="btn btn-secondary mb-3" href="{% url 'libros:admin-libro'  %}">Volver</a>
+
+  
+{% endblock content %}
+
+
+  

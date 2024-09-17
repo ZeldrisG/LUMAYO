@@ -1,0 +1,45 @@
+{% extends 'LumayoApp/base.html' %}
+{% load widget_tweaks %}
+
+{% load static %}
+
+
+{% block content %}
+<h1>Lista de Administradores</h1>
+    <div class="table-responsive mb-3 table-responsive">
+        <table class="table table-hover">
+                                
+            <thead class="table-light">
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Nombre de Usuario</th>
+                <th scope="col">Email</th>
+                <th scope="col">OPCIONES</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% if object_list %}
+                
+                    {% for admin in object_list %}
+                        <tr>
+                            <th scope="row">{{ admin.id }}</th>
+                            <td>{{ admin.username }}</td>
+                            <td>{{ admin.email }}</td>
+                            <td>
+                                <a class="btn btn-danger" href="{% url 'usuarios:eliminar-admin' admin.id %}">Eliminar</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                        <h1>No hay registro de Administradores...</h1>
+                {% endif %}
+            </tbody>
+          </table>
+    </div>
+    <a class="btn btn-primary mb-3" href="{% url 'usuarios:modulo-root'  %}">Volver</a>
+
+  
+{% endblock content %}
+
+
+  

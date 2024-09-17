@@ -1,0 +1,57 @@
+{% extends 'LumayoApp/base.html' %}
+{% load widget_tweaks %}
+
+{% load static %}
+
+
+{% block content %}
+<h1 class="text-center m-1">Registro de clientes</h1>
+    <div class="container ">
+        <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% if form %}
+            <div class="row">
+                <div class="col-md-12 col-lg-6 p-0  text-center div-img">
+                    <img src="{% static 'img/addAdmin.svg' %}" class="img-div"  alt="addAdmin">
+                </div>
+                <div class="col-md-12 col-lg-6 pt-5">
+                    <div class="row">
+
+                        {{ form.non_field_errors}}
+                        {% for campos in form %}
+                            <div class="form-floating position-relative mb-2 col-md-12 col-lg-6" >
+                                {{ campos|add_class:'form-control'|attr:"id:floatingInput"|attr:"placeholder:campos.label" }}
+                                <label for="floatingInput" class="mb-2 mx-2">{{ campos.label }}</label>                                
+                                {% if campos.errors %}
+                                <span class="alert alert-danger d-flex align-items-center mt-2 p-1">
+                                    {% for error in campos.errors %}
+                                    <i class="bi bi-exclamation-triangle-fill ms-1"></i>
+                                        <div class="ms-2">{{ error }}</div>
+                                    {% endfor %}
+                                </span>
+                                {% endif %}
+                                
+                            </div>
+                            
+                            
+                        {% endfor %}
+                   
+                            
+                        <div class="col">
+                            <input type="submit" name="add-admin-submit" id="add-admin-submit" tabindex="4" class="form-control btn btn-primary my-2" value="Guardar">
+                            <a class="form-control btn btn-secondary" href="{% url 'inicio'  %}">Cancelar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </form>
+    </div>
+  
+    
+
+        
+{% endblock content %}
+
+
+  

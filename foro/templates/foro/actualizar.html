@@ -1,0 +1,32 @@
+{% extends 'LumayoApp/base.html' %}
+{% load widget_tweaks %}
+
+{% load static %}
+    
+{% block content %}
+<div class="col">
+    <div class="h3">
+        Editar comentario
+    </div>
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="form-floating">
+            {% for campos in form %}
+                    <div class="form-floating mb-3 col-6">
+                        {{ campos|add_class:'form-control'|attr:"id:floatingInput"|attr:"placeholder:campos.label" }}
+                        <label for="floatingInput" class="mb-2 mx-2">{{ campos.label }}</label>
+                        {% if campos.errors %}
+                        <span class="alert alert-danger d-flex align-items-center mt-2 p-1">
+                            {% for error in campos.errors %}
+                                <i class="bi bi-exclamation-triangle-fill ms-1"></i>
+                                <div class="ms-2">{{ error }}</div>
+                            {% endfor %}
+                        </span>
+                        {% endif %}
+                    </div>
+            {% endfor %}
+        </div>
+        <button class="btn btn-primary mt-2" type="submit">Comentar</button>
+    </form>
+</div>
+{% endblock content %}

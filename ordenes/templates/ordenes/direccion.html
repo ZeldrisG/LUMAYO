@@ -1,0 +1,40 @@
+{% extends 'LumayoApp/base.html' %}
+{% load widget_tweaks %}
+
+{% load static %}
+
+
+{% block breadcrumb %}
+    {% include 'ordenes/snippets/breadcrumb.html' %}
+{% endblock breadcrumb %}
+
+{% block content %}
+<div class="row">
+    <div class="col">
+        
+        {% if direccion %}
+            <div class="h3">
+                Recoge el pedido en el punto de entrega
+            </div>
+            <div class="">
+                {% include 'envios/snippets/direccion-envio.html' %}
+                <a href="{% url 'ordenes:pago' %}" class="btn btn-warning mt-2">Entregar a esta direccion</a>                
+                {% if puede_elegir_direccion %}
+                    <div class="mt-2">
+                        <a href="{% url 'ordenes:seleccionar_direccion'%}">Otra direccion</a>
+                    </div>
+                {% endif %}
+            </div>
+        {% else %}
+        <div class="h3">
+            Registra tu direccion de envio
+        </div>
+        <div class="">
+            {% url 'ordenes:direccion' as next_url %}
+            <a href="{% url 'envios:agregar' %}?next={{ next_url }}">Nueva direccion de envio</a>
+        </div>
+        {% endif %}
+            
+    </div>
+</div>
+{% endblock content %}

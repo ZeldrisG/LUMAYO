@@ -1,0 +1,41 @@
+{% extends 'LumayoApp/base.html' %}
+{% load widget_tweaks %}
+
+{% load static %}
+{% load humanize %}
+{% load cloudinary %}
+
+
+{% block content %}
+<div class="row row-cols-1 row-cols-md-3 row-cols-lg-5 g-4">
+    {% if object_list %}
+      {% for libro in object_list %}
+      <div class="col">
+        <div class="card h-100 card-seleccion">
+          {% if libro.portada %}
+            <img src="{{ libro.portada.url }}" class="card-img-top imgCard-size" alt=" {{ libro.titulo }}"/>
+          {% else %}
+            <img src="{% static 'img/agregarlibro2.png' %}" class="card-img-top imgCard-size" alt=" {{ libro.titulo }}"/>
+          {% endif %}
+          <div class="card-body">
+            <h5 class="card-title">{{ libro.titulo }}</h5>
+            <p class="card-text text-end fw-bold">
+              <i class="bi bi-currency-dollar"></i>
+              {{ libro.precio|intcomma }}</p>
+            <div class="d-grid gap-2">
+              <a href="{% url 'libros:post' libro.id %}" class="btn btn-primary inline">Mas detalles</a>
+              {% include 'carrito/snippets/agregar-carrito-card.html' %}
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    {% else %}
+      <h1>No se encontraron resultados de la busqueda...</h1>
+    {% endif %}
+  </div>
+                
+{% endblock content %}
+
+
+  

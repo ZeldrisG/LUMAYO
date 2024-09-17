@@ -1,0 +1,31 @@
+{% extends 'LumayoApp/base.html' %}
+{% load widget_tweaks %}
+
+{% load static %}
+
+
+{% block content %}
+    <div class="container m-1">
+        <form method="post">
+        {% csrf_token %}
+        <div class="row">
+                <div class="col-md-12 col-lg-6 pt-2 text-center">
+                    {% if object.perfil.foto %}
+                        <img src="{{ object.perfil.foto.url }}" class="avatar2" alt=" {{ object.username }}"/>
+                    {% else %}
+                        <img src="{% static 'img/Avatar.png' %}" class="avatar2" alt=" {{ object.username }}"/>
+                    {% endif %}
+                </div>
+                <div class="col-md-12 col-lg-6">
+                    <h3 class="mt-2">Desea eliminar el administrador con nombre de usuario: {{ object.username }}?...</h3>
+                    <input class="btn btn-danger" type="submit" value="Si, eliminar">
+                    <a class="btn btn-secondary" href="{% url 'usuarios:listar-admin' %}">Cancelar</a>
+                </div>
+            </div>
+        </form>
+    </div>
+  
+{% endblock content %}
+
+
+  

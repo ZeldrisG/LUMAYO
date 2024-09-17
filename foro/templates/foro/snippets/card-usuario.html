@@ -1,0 +1,13 @@
+<!--Profile Card 3-->
+{% load static %}
+<div class="card profile-card-3">
+    <div class="background-block">
+        <img src="{% static 'img/fondo-libro-foro.jpg' %}" alt="profile-sample1" class="background"/>
+    </div>
+    <div class="profile-thumb-block">
+        <img src="{{ comentario.usuario.perfil.foto.url }}" alt="profile-image" class="profile"/>
+    </div>
+    <div class="card-content">
+        <h2>{{ comentario.usuario.username }}<small>Designer</small></h2>
+    </div>
+</div>

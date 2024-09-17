@@ -1,0 +1,45 @@
+{% extends 'LumayoApp/base.html' %}
+{% load widget_tweaks %}
+
+{% load static %}
+{% load humanize %}
+
+
+{% block content %}
+<h1>Resultados de la busqueda...</h1>
+  <div class="card-deck"></div>
+    {% if object_list %}
+      {% for libro in object_list %}
+        <div class="card card-seleccion" style="width: 13rem;">
+          {% if libro.portada %}
+            <img src="{{ libro.portada.url }}" class="card-img-top imgCard-size" alt=" {{ libro.titulo }}"/>
+          {% else %}
+            <img src="{% static 'img/agregarlibro2.png' %}" class="card-img-top imgCard-size" alt=" {{ libro.titulo }}"/>
+          {% endif %}
+          <div class="card-body">
+            <h5 class="card-title">{{ libro.titulo }}</h5>
+            <p class="card-text text-end fw-bold">
+              <i class="bi bi-currency-dollar"></i>
+              {{ libro.precio|intcomma }}</p>
+            <div class="d-grid gap-2">
+              
+              {% if user.is_admin %}
+                <a class="btn btn-primary" href="{% url 'libros:editar-libro' libro.id %}">Editar</a>
+                <a class="btn btn-danger" href="{% url 'libros:eliminar-libro' libro.id %}">Eliminar</a>
+              {% else %}                
+                <a href="{% url 'libros:post' libro.id %}" class="btn btn-primary inline">Mas detalles</a>
+                {% include 'carrito/snippets/agregar-carrito-card.html' %}
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+      <a class="btn btn-secondary mt-3" href="{% url 'libros:admin-libro'  %}">Volver</a>
+    {% else %}
+      <h1>No se encontraron resultados de la busqueda...</h1>
+    {% endif %}
+                
+{% endblock content %}
+
+
+  

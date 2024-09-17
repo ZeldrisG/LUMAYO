@@ -1,0 +1,87 @@
+{% load humanize %}
+<div class="card mt-3">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-3">
+                <div class="text-uppercase">
+                    Pedido realizado
+                </div>
+                <div class="">
+                    {{ orden.creado_en }}
+                </div>
+            </div>
+            
+            <div class="col-3">
+                <div class="text-uppercase">
+                    Total
+                </div>
+                <div class="">
+                    ${{ orden.total | intcomma }}
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="text-uppercase">
+                    Enviado a
+                </div>
+                <div class="">
+                    {{ orden.direccion_envio }}
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="text-uppercase">
+                    Metodo de pago: 
+                </div>
+                <div class="">
+                    Tarjeta: **** **** **** {{ orden.metodo_pago.ultimos_cuatro }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <ul class="list-group list-group-flush">
+        
+        {% for cp in orden.carrito.libros_relacionados %}
+            
+        <li class="list-group-item">
+            {% with cp.libro as libro %}
+            
+                <div class="row">
+                    <div class="col-3">
+                        
+                        {% if libro.portada %}
+                            <img src="{{ libro.portada.url }}" alt="imagen libro" width="60" >
+                        {% endif %}
+                            
+                    </div>
+                    <div class="col-3">
+                        <div class="">
+                            {{ libro.titulo }}
+                        </div>
+                        <div class="text-danger">
+                            ${{ libro.precio | intcomma }}
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="">
+                            Estado
+                        </div>
+                        <div class="">
+                            {{ libro.estado }}
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="">
+                            Cantidad
+                        </div>
+                        <div class="">
+                            {{ cp.cantidad }}
+                        </div>
+                    </div>
+                    
+                </div>
+            {% endwith %}
+                    
+            </li>
+        {% endfor %}
+            
+    </ul>
+</div>
